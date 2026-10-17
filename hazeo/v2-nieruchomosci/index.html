@@ -3,306 +3,389 @@
 <meta name="description" content="Hazeo Engine: AI deal agent for real estate agencies and developers selling to foreign buyers and investors.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
 <style>
-/* Layout: one pinned cinematic deal-story (video + live agent console), then a quiet editorial column of evidence, a pinned sideways "agent day", offer and contact. Single deliberate night look: harbour city at blue hour, brass for money and routes. */
+/* Layout: full-bleed film hero pinned as a 5-scene deal story (giant grotesk headline bottom-left, live agent console bottom-right), then a manifesto that lights up word by word, a bento of evidence, a calculator, the niche, a sideways "agent day", a light offer section for rhythm, and a closing CTA with a giant wordmark. One night look (harbour city at blue hour), brass for money and routes, mist for the offer. */
 :root{
-  --ink:#06111A;        /* night harbour */
-  --ink-2:#0B1C29;      /* raised surface */
-  --ink-3:#112738;
-  --fg:#E8EEF0;
-  --muted:#9DB0BA;
-  --line:rgba(232,238,240,.13);
-  --brass:#C9A15A;      /* money, routes, calls to action */
-  --brass-hi:#E6C98F;
-  --sage:#6FB39B;       /* confirmed, done */
-  --amber:#E0A44A;      /* pending */
-  --f-display:"Instrument Serif", "Iowan Old Style", Georgia, serif;
-  --f-body:"Instrument Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --f-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --ink:#05101A;        /* night harbour */
+  --ink-2:#0A1A27;      /* raised surface */
+  --ink-3:#10263A;      /* chips, inputs */
+  --fg:#EEF2F4;         /* primary text on ink */
+  --soft:#C5D1D8;       /* body text on ink */
+  --muted:#8FA3AE;      /* captions on ink */
+  --line:rgba(238,242,244,.12);
+  --brass:#CBA35C;      /* money, routes, calls to action */
+  --brass-hi:#E8CC93;
+  --sage:#74B8A0;       /* confirmed */
+  --amber:#E5A851;      /* pending */
+  --mist:#E7EDF0;       /* light offer section */
+  --mist-2:#F5F8F9;
+  --ink-on-mist:#0B1A26;
+  --muted-on-mist:#4C6170;
+  --line-on-mist:rgba(11,26,38,.14);
+  --brass-on-mist:#8A6526;
+  --f-sans:"Geist", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --f-serif:"Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --f-mono:"Geist Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --fs-hero:clamp(42px, 7vw, 116px);
+  --fs-h2:clamp(36px, 5vw, 80px);
+  --fs-h3:clamp(22px, 2vw, 30px);
+  --fs-body:clamp(16.5px, 1.15vw, 18.5px);
+  --fs-label:12.5px;
   --gut-l:max(16px, env(safe-area-inset-left, 0px));
   --gut-r:max(16px, env(safe-area-inset-right, 0px));
-  --maxw:1240px;
+  --maxw:1320px;
+  --ease:cubic-bezier(.2,.7,.1,1);
   color-scheme:dark;
 }
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:auto}
-body{margin:0;background:var(--ink);color:var(--fg);font:400 17px/1.6 var(--f-body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--ink)}
+[hidden]{display:none!important}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{margin:0;background:var(--ink);color:var(--fg);font:400 var(--fs-body)/1.6 var(--f-sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:clip}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:70;background:var(--ink)}
 a{color:inherit}
 img,video,svg{max-width:100%}
-h1,h2,h3{margin:0;font-weight:400;text-wrap:balance}
-p{margin:0}
-.wrap{max-width:calc(var(--maxw) + 64px);margin:0 auto;padding-left:var(--gut-l);padding-right:var(--gut-r)}
-@media (min-width:900px){.wrap{padding-left:max(32px, env(safe-area-inset-left,0px));padding-right:max(32px, env(safe-area-inset-right,0px))}}
+h1,h2,h3,h4{margin:0;font-weight:500;text-wrap:balance}
+p{margin:0;text-wrap:pretty}
+.wrap{max-width:calc(var(--maxw) + 96px);margin:0 auto;padding-left:var(--gut-l);padding-right:var(--gut-r)}
+@media (min-width:900px){.wrap{padding-left:max(48px, env(safe-area-inset-left,0px));padding-right:max(48px, env(safe-area-inset-right,0px))}}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.eyebrow{font:500 12px/1.2 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--brass)}
-:focus-visible{outline:2px solid var(--brass-hi);outline-offset:3px;border-radius:4px}
+.label{font:500 var(--fs-label)/1.2 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--brass)}
+.it{font-family:var(--f-serif);font-style:italic;font-weight:400;letter-spacing:-.005em;color:var(--brass-hi)}
+:focus-visible{outline:2px solid var(--brass-hi);outline-offset:3px;border-radius:6px}
+.grain{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
 /* ---------- buttons ---------- */
-.btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 22px;border-radius:999px;font:600 15px/1 var(--f-body);text-decoration:none;cursor:pointer;border:1px solid transparent;transition:background .25s,color .25s,border-color .25s,transform .25s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;font:500 15.5px/1 var(--f-sans);letter-spacing:-.005em;text-decoration:none;cursor:pointer;border:1px solid transparent;transition:background .3s var(--ease),color .3s,border-color .3s;white-space:nowrap}
 .btn-brass{background:var(--brass);color:var(--ink)}
 .btn-brass:hover{background:var(--brass-hi)}
-.btn-line{border-color:rgba(232,238,240,.35);color:var(--fg);background:rgba(6,17,26,.35);backdrop-filter:blur(6px)}
-.btn-line:hover{border-color:var(--brass);color:var(--brass-hi)}
-.btn .arr{transition:transform .25s}
+.btn-line{border-color:rgba(238,242,244,.32);color:var(--fg);background:rgba(5,16,26,.3);backdrop-filter:blur(8px)}
+.btn-line:hover{border-color:var(--brass-hi);color:var(--brass-hi)}
+.btn .arr{display:inline-block;transition:transform .3s var(--ease)}
 .btn:hover .arr{transform:translateX(4px)}
 
 /* ---------- header ---------- */
-.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;transition:background .35s,border-color .35s;border-bottom:1px solid transparent}
-.top.is-solid{background:rgba(6,17,26,.86);backdrop-filter:blur(12px);border-color:var(--line)}
-.nav{display:flex;align-items:center;gap:24px;height:68px}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:700 17px/1 var(--f-body);letter-spacing:.16em}
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:60;transition:transform .5s var(--ease),background .4s,border-color .4s;border-bottom:1px solid transparent}
+.top.is-solid{background:rgba(5,16,26,.82);backdrop-filter:blur(14px) saturate(1.2);border-color:var(--line)}
+.top.is-hidden{transform:translateY(-110%)}
+.nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;height:72px}
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none;font:600 16px/1 var(--f-sans);letter-spacing:.2em;justify-self:start}
 .logo svg{width:30px;height:30px;color:var(--fg)}
-.logo small{font:500 11px/1 var(--f-mono);letter-spacing:.08em;color:var(--muted);text-transform:none;border-left:1px solid var(--line);padding-left:10px}
-.nav ul{display:flex;gap:26px;list-style:none;margin:0 0 0 auto;padding:0}
-.nav ul a{text-decoration:none;font-size:15px;color:var(--muted);transition:color .2s}
-.nav ul a:hover{color:var(--fg)}
-.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px}
-.lang button{font:500 12px/1 var(--f-mono);letter-spacing:.06em;background:none;border:0;color:var(--muted);padding:8px 10px;border-radius:999px;cursor:pointer;min-width:40px}
+.nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:4px;border:1px solid var(--line);border-radius:999px;background:rgba(5,16,26,.35);backdrop-filter:blur(10px)}
+.nav ul a{display:block;text-decoration:none;font-size:14.5px;color:var(--soft);padding:9px 14px;border-radius:999px;transition:background .25s,color .25s}
+.nav ul a:hover{background:rgba(238,242,244,.08);color:var(--fg)}
+.nav-end{display:flex;align-items:center;gap:10px;justify-self:end}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:rgba(5,16,26,.35)}
+.lang button{font:500 12px/1 var(--f-mono);letter-spacing:.06em;background:none;border:0;color:var(--muted);padding:9px 11px;border-radius:999px;cursor:pointer;min-width:42px;min-height:34px}
 .lang button[aria-pressed="true"]{background:var(--fg);color:var(--ink)}
-.nav .btn{min-height:40px;padding:0 16px;font-size:14px}
-@media (max-width:900px){.nav ul{display:none}.nav .lang{margin-left:auto}.logo small{display:none}}
-@media (max-width:420px){.nav{gap:10px}.nav .btn{padding:0 12px}}
+.nav .btn{min-height:42px;padding:0 18px;font-size:14.5px}
+@media (max-width:1060px){.nav{grid-template-columns:1fr auto}.nav nav{display:none}}
+@media (max-width:440px){.nav .btn{display:none}}
 
-/* ---------- curtain transition ---------- */
+/* ---------- curtain ---------- */
 .curtain{position:fixed;inset:0;z-index:80;pointer-events:none;display:grid;place-items:center;background:var(--brass);transform:scaleY(0);transform-origin:bottom}
-.curtain svg{width:64px;height:64px;color:var(--ink);opacity:0}
+.curtain svg{width:72px;height:72px;color:var(--ink);opacity:0}
 
 /* ---------- hero ---------- */
-.hero{position:relative;min-height:100svh;overflow:hidden;isolation:isolate}
-.hero-media{position:absolute;inset:0;z-index:-1}
-.hero-media video,.hero-media .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hero-media .poster{background:radial-gradient(120% 80% at 70% 30%,#1b3a52 0%,var(--ink) 70%)}
+.hero{position:relative;height:100svh;min-height:600px;overflow:hidden;isolation:isolate}
+.hero-media{position:absolute;inset:0;z-index:-1;background:radial-gradient(120% 80% at 70% 30%,#1b3a52 0%,var(--ink) 70%)}
+.hero-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform-origin:60% 55%}
 .routes{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.routes path{fill:none;stroke:var(--brass-hi);stroke-width:1.4;stroke-linecap:round;opacity:.55;filter:drop-shadow(0 0 6px rgba(230,201,143,.7))}
-.routes circle{fill:var(--brass-hi)}
+.routes path{fill:none;stroke:var(--brass-hi);stroke-width:1.3;stroke-linecap:round;opacity:.5}
 .scrim{position:absolute;inset:0;background:
-  linear-gradient(90deg,rgba(6,17,26,.92) 0%,rgba(6,17,26,.72) 38%,rgba(6,17,26,.15) 70%,rgba(6,17,26,.35) 100%),
-  linear-gradient(180deg,rgba(6,17,26,.55) 0%,rgba(6,17,26,0) 22%,rgba(6,17,26,0) 70%,var(--ink) 100%)}
-@media (max-width:900px){.scrim{background:linear-gradient(180deg,rgba(6,17,26,.75) 0%,rgba(6,17,26,.55) 45%,rgba(6,17,26,.88) 75%,var(--ink) 100%)}}
+  linear-gradient(180deg,rgba(5,16,26,.55) 0%,rgba(5,16,26,0) 20%,rgba(5,16,26,0) 42%,rgba(5,16,26,.78) 78%,var(--ink) 100%),
+  linear-gradient(90deg,rgba(5,16,26,.7) 0%,rgba(5,16,26,.25) 45%,rgba(5,16,26,0) 70%)}
 
-.hero-inner{min-height:100svh;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(24px,5vw,72px);align-items:center;padding-top:96px;padding-bottom:84px}
-@media (max-width:900px){.hero-inner{grid-template-columns:minmax(0,1fr);align-content:start;gap:18px;padding-top:84px;padding-bottom:64px}}
-
-.scenes{display:grid;gap:56px}
-.scene{display:grid;gap:18px;align-content:start;min-width:0}
+.hero-inner{position:relative;height:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px);grid-template-rows:auto 1fr;column-gap:clamp(24px,4vw,64px);padding-top:104px;padding-bottom:108px}
+.hero-count{grid-column:2;grid-row:1;justify-self:end;font:400 13px/1 var(--f-mono);letter-spacing:.1em;color:var(--soft);display:flex;gap:10px;align-items:center}
+.hero-count b{font-weight:500;color:var(--fg);font-size:15px;font-variant-numeric:tabular-nums}
+.hero-count i{display:block;width:44px;height:1px;background:var(--line)}
+.scenes{grid-column:1;grid-row:2;align-self:end;display:grid;gap:64px}
+.scene{display:grid;gap:22px;align-content:end;min-width:0}
 .js-motion .scenes{gap:0}
 .js-motion .scene{grid-area:1/1}
-.scene h1,.scene h2{font:400 clamp(38px,5.6vw,80px)/1 var(--f-display);letter-spacing:-.01em}
-.scene h2{font-size:clamp(34px,4.6vw,64px)}
-.scene h1 em,.scene h2 em{font-style:italic;color:var(--brass-hi)}
-.scene h1 .ln{display:block}
-.scene p{max-width:52ch;color:#C9D5DB;font-size:clamp(16px,1.4vw,19px)}
-.scene .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
-.scene .meta{display:flex;flex-wrap:wrap;gap:8px 18px;font:500 12px/1.4 var(--f-mono);color:var(--muted);margin-top:4px}
-.scene .meta b{color:var(--fg);font-weight:500}
-@media (max-width:900px){.scene{gap:12px}.scene p{font-size:15.5px}.scene .meta{display:none}}
-
-/* console */
-.console{min-width:0;background:rgba(8,22,33,.78);border:1px solid rgba(201,161,90,.35);border-radius:14px;backdrop-filter:blur(14px);box-shadow:0 30px 80px rgba(0,0,0,.45);font:400 13px/1.55 var(--f-mono);overflow:hidden}
-.console-bar{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);color:var(--muted);font-size:12px}
-.console-bar .dot{width:8px;height:8px;border-radius:50%;background:var(--sage);box-shadow:0 0 0 0 rgba(111,179,155,.6);animation:ping 2s infinite}
+.scene h1,.scene h2{font:500 var(--fs-hero)/.94 var(--f-sans);letter-spacing:-.045em}
+.scene h2{font-size:clamp(40px,6vw,100px)}
+.scene .it{font-size:1.06em;line-height:.9}
+.mask{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+.mask > span{display:inline-block}
+.scene p{max-width:46ch;color:var(--soft);font-size:clamp(16.5px,1.25vw,19px);line-height:1.55}
+.scene .actions{display:flex;flex-wrap:wrap;gap:12px}
+.console{grid-column:2;grid-row:2;align-self:end;min-width:0;background:rgba(7,20,31,.72);border:1px solid rgba(203,163,92,.32);border-radius:18px;backdrop-filter:blur(18px) saturate(1.2);box-shadow:0 40px 100px rgba(0,0,0,.5);font:400 13.5px/1.55 var(--f-mono);overflow:hidden}
+.console-bar{display:flex;align-items:center;gap:10px;padding:13px 18px;border-bottom:1px solid var(--line);color:var(--soft);font-size:12.5px}
+.console-bar .dot{width:8px;height:8px;border-radius:50%;background:var(--sage);animation:ping 2s infinite}
 .console-bar .clock{margin-left:auto;color:var(--fg);font-variant-numeric:tabular-nums}
-@keyframes ping{70%{box-shadow:0 0 0 8px rgba(111,179,155,0)}100%{box-shadow:0 0 0 0 rgba(111,179,155,0)}}
-.panes{display:grid;gap:0}
-.pane{padding:16px;display:grid;gap:10px;align-content:start;min-width:0}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(116,184,160,.6)}70%{box-shadow:0 0 0 8px rgba(116,184,160,0)}100%{box-shadow:0 0 0 0 rgba(116,184,160,0)}}
+.panes{display:grid}
+.pane{padding:18px;display:grid;gap:11px;align-content:start;min-width:0}
 .panes .pane + .pane{border-top:1px dashed var(--line)}
 .js-motion .panes .pane{grid-area:1/1;border-top:0}
-.pane .tag{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass)}
-.msg{max-width:92%;padding:10px 12px;border-radius:10px;background:var(--ink-3);color:var(--fg)}
-.msg.me{justify-self:end;background:rgba(201,161,90,.16);border:1px solid rgba(201,161,90,.3)}
+.pane .tag{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass)}
+.msg{max-width:92%;padding:10px 13px;border-radius:12px;background:var(--ink-3);color:var(--fg)}
+.msg.me{justify-self:end;background:rgba(203,163,92,.15);border:1px solid rgba(203,163,92,.3)}
 .msg small{display:block;color:var(--muted);font-size:11px;margin-bottom:2px}
-.kv{display:grid;grid-template-columns:auto 1fr auto;gap:6px 14px;align-items:baseline}
+.kv{display:grid;grid-template-columns:auto 1fr auto;gap:7px 14px;align-items:baseline;margin:0}
 .kv dt{color:var(--muted)}
 .kv dd{margin:0;color:var(--fg)}
 .ok{color:var(--sage)}
 .wait{color:var(--amber)}
-.score{display:flex;align-items:center;gap:12px;margin-top:4px}
+.score{display:flex;align-items:center;gap:12px;color:var(--soft)}
 .score .bar{flex:1;height:6px;border-radius:6px;background:var(--ink-3);overflow:hidden}
 .score .bar i{display:block;height:100%;width:82%;background:linear-gradient(90deg,var(--brass),var(--sage))}
-.unit{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:10px 12px;border:1px solid var(--line);border-radius:10px}
+.unit{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:10px 13px;border:1px solid var(--line);border-radius:12px}
 .unit b{font-weight:500;color:var(--fg)}
 .unit span{color:var(--muted);font-size:12px}
 .unit em{font-style:normal;color:var(--brass-hi);text-align:right}
-.unit.best{border-color:rgba(201,161,90,.6);background:rgba(201,161,90,.07)}
-@media (max-width:900px){.console{font-size:11.5px}.pane{padding:12px;gap:8px}.unit:nth-child(n+4){display:none}}
-@media (max-width:900px) and (max-height:700px){.console{display:none}}
+.unit.best{border-color:rgba(203,163,92,.6);background:rgba(203,163,92,.08)}
+.demo-note{color:var(--muted);font-size:11.5px}
 
-/* rail */
-.rail{position:absolute;left:0;right:0;bottom:22px;z-index:2}
-.rail ol{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;list-style:none;margin:0;padding:0}
-.rail button{all:unset;cursor:pointer;display:grid;gap:8px;font:500 11px/1.2 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-top:2px}
+.rail{position:absolute;left:0;right:0;bottom:30px;z-index:2}
+.rail ol{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;list-style:none;margin:0;padding:0}
+.rail button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;gap:10px;width:100%;min-height:36px;align-content:start;font:500 12px/1.2 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .rail button i{display:block;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
 .rail button i b{display:block;height:100%;width:0;background:var(--brass)}
 .rail button[aria-current="step"]{color:var(--fg)}
 .rail button:focus-visible{outline:2px solid var(--brass-hi);outline-offset:4px}
-@media (max-width:600px){.rail button span{display:none}.rail{bottom:16px}}
-.no-motion .rail{display:none}
+.no-motion .rail,.no-motion .hero-count{display:none}
+.no-motion .hero{height:auto}
+.no-motion .hero-inner{grid-template-rows:auto;padding-bottom:64px}
+.no-motion .scenes{grid-row:1}
+.no-motion .console{grid-row:1}
+
+@media (max-width:900px){
+  .hero-inner{grid-template-columns:minmax(0,1fr);grid-template-rows:1fr auto;row-gap:18px;padding-top:88px;padding-bottom:84px}
+  .hero-count{display:none}
+  .scenes{grid-column:1;grid-row:1}
+  .console{grid-column:1;grid-row:2;font-size:11.5px;border-radius:14px}
+  .console-bar{display:none}
+  .pane{padding:12px 14px;gap:7px}
+  .kv{gap:4px 12px}
+  .msg{padding:8px 11px}
+  .msg:nth-child(4),.demo-note,.score{display:none}
+  .scene{gap:12px}
+  .scene h1{font-size:clamp(36px,10.4vw,46px)}
+  .scene h2{font-size:clamp(34px,9.6vw,44px)}
+  .scene p{font-size:15px;line-height:1.5}
+  .scene .actions .btn-line{display:none}
+  .scene .btn{min-height:48px}
+  .unit:nth-child(n+4){display:none}
+  .rail button span{display:none}
+  .rail{bottom:22px}
+  .no-motion .scenes{grid-row:1}.no-motion .console{grid-row:2}
+}
+@media (max-width:900px) and (max-height:760px){.console{display:none}.hero-inner{grid-template-rows:1fr}}
 
 /* ---------- marquee ---------- */
-.marquee{border-block:1px solid var(--line);overflow:hidden;padding-block:18px;background:var(--ink)}
-.marquee-track{display:flex;gap:48px;width:max-content;animation:slide 48s linear infinite;font:400 clamp(24px,3vw,38px)/1 var(--f-display);color:#B9C6CD;white-space:nowrap}
-.marquee-track span{display:flex;align-items:center;gap:48px}
-.marquee-track span::after{content:"";width:7px;height:7px;border-radius:50%;background:var(--brass)}
+.marquee{border-bottom:1px solid var(--line);overflow:hidden;padding-block:22px}
+.marquee-track{display:flex;width:max-content;animation:slide 60s linear infinite;font:400 clamp(26px,3.2vw,44px)/1 var(--f-serif);font-style:italic;color:#AFC0C8;white-space:nowrap}
+.marquee-track span{display:flex;align-items:center;gap:40px;padding-right:40px}
+.marquee-track span::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--brass)}
 .marquee:hover .marquee-track{animation-play-state:paused}
 @keyframes slide{to{transform:translateX(-50%)}}
 
 /* ---------- sections ---------- */
-.section{padding-block:clamp(80px,11vw,150px)}
-.head{display:grid;gap:18px;max-width:780px;margin-bottom:clamp(40px,6vw,72px)}
-.head h2{font:400 clamp(36px,5vw,68px)/1.02 var(--f-display);letter-spacing:-.01em}
-.head h2 em{font-style:italic;color:var(--brass-hi)}
-.head p{color:var(--muted);font-size:clamp(17px,1.5vw,19px);max-width:62ch}
+.section{padding-block:clamp(96px,12vw,180px)}
+.head{display:grid;gap:22px;max-width:920px;margin-bottom:clamp(48px,6vw,88px)}
+.head h2{font:500 var(--fs-h2)/.98 var(--f-sans);letter-spacing:-.04em}
+.head h2 .it{font-size:1.06em}
+.head p{color:var(--soft);font-size:clamp(17px,1.35vw,20px);max-width:58ch}
 
-/* demand */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden}
-.stat{background:var(--ink);padding:28px 26px 24px;display:grid;gap:12px;align-content:start;min-width:0}
-.stat .num{font:400 clamp(48px,6vw,76px)/.95 var(--f-display);color:var(--fg);font-variant-numeric:tabular-nums}
-.stat .num sub{font:500 14px/1 var(--f-mono);color:var(--brass);vertical-align:baseline;margin-left:4px}
-.stat p{color:#C3D0D6;font-size:15.5px}
-.stat a{font:400 12px/1.4 var(--f-mono);color:var(--muted);text-decoration-color:rgba(157,176,186,.4);text-underline-offset:3px;margin-top:auto}
-.stat a:hover{color:var(--brass-hi)}
-.gap-note{margin-top:clamp(40px,6vw,64px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:start}
-.gap-note blockquote{margin:0;font:400 clamp(28px,3.4vw,44px)/1.12 var(--f-display)}
-.gap-note blockquote em{color:var(--brass-hi)}
-.gap-note p{color:var(--muted)}
-.gap-note p + p{margin-top:14px}
-@media (max-width:800px){.gap-note{grid-template-columns:minmax(0,1fr)}}
+/* manifesto */
+.manifesto{padding-block:clamp(110px,14vw,200px)}
+.manifesto p{font:500 clamp(30px,4.2vw,64px)/1.08 var(--f-sans);letter-spacing:-.035em;max-width:22ch;color:var(--fg)}
+.manifesto .w{opacity:1}
+.js-motion .manifesto .w{opacity:.16}
+.manifesto .src{margin-top:32px;font:400 13px/1.5 var(--f-mono);color:var(--muted);max-width:60ch}
+
+/* bento */
+.bento{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.tile{position:relative;border:1px solid var(--line);border-radius:22px;padding:clamp(24px,2.6vw,36px);background:linear-gradient(180deg,var(--ink-2),var(--ink));display:grid;gap:16px;align-content:start;min-width:0;overflow:hidden}
+.tile.big{grid-column:span 2;grid-row:span 2;align-content:space-between;background:radial-gradient(90% 70% at 85% 0%,rgba(203,163,92,.18),transparent 60%),linear-gradient(180deg,var(--ink-2),var(--ink))}
+.tile .num{font:500 clamp(54px,6.4vw,104px)/.9 var(--f-sans);letter-spacing:-.05em;color:var(--fg);font-variant-numeric:tabular-nums}
+.tile.big .num{font-size:clamp(84px,13vw,220px)}
+.tile p{color:var(--soft);font-size:16px;max-width:48ch}
+.tile.big p{font-size:clamp(17px,1.4vw,20px)}
+.tile a{font:400 12.5px/1.4 var(--f-mono);color:var(--muted);text-decoration:none;border-bottom:1px solid rgba(143,163,174,.35);justify-self:start;padding-bottom:2px}
+.tile a:hover{color:var(--brass-hi);border-color:var(--brass-hi)}
+@media (max-width:960px){.bento{grid-template-columns:repeat(2,minmax(0,1fr))}.tile.big{grid-column:1/-1;grid-row:auto}}
+@media (max-width:600px){.bento{grid-template-columns:minmax(0,1fr)}}
+
+/* calculator */
+.calc-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,3vw,40px);align-items:stretch}
+@media (max-width:900px){.calc-grid{grid-template-columns:minmax(0,1fr)}}
+.controls{display:grid;gap:26px;padding:clamp(24px,3vw,40px);border:1px solid var(--line);border-radius:22px;background:var(--ink-2)}
+.ctrl{display:grid;gap:12px}
+.ctrl-top{display:flex;justify-content:space-between;gap:16px;align-items:baseline}
+.ctrl label{font-size:15.5px;color:var(--soft)}
+.ctrl output{font:500 18px/1 var(--f-mono);color:var(--fg);font-variant-numeric:tabular-nums}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:transparent;cursor:pointer;--p:50%}
+input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:4px;background:linear-gradient(90deg,var(--brass) var(--p),var(--ink-3) var(--p))}
+input[type=range]::-moz-range-track{height:4px;border-radius:4px;background:var(--ink-3)}
+input[type=range]::-moz-range-progress{height:4px;border-radius:4px;background:var(--brass)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--fg);border:4px solid var(--brass);margin-top:-9px}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--fg);border:4px solid var(--brass)}
+.result{display:grid;align-content:space-between;gap:28px;padding:clamp(24px,3vw,40px);border-radius:22px;background:var(--brass);color:var(--ink)}
+.result .label{color:rgba(5,16,26,.7)}
+.result .big{font:500 clamp(56px,7vw,112px)/.9 var(--f-sans);letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.result .big small{font:500 18px/1 var(--f-sans);letter-spacing:0;margin-left:6px}
+.result dl{display:grid;grid-template-columns:1fr auto;gap:12px 20px;margin:0;padding-top:20px;border-top:1px solid rgba(5,16,26,.2);font-size:15.5px}
+.result dt{color:rgba(5,16,26,.75)}
+.result dd{margin:0;font:500 16px/1.3 var(--f-mono);text-align:right;font-variant-numeric:tabular-nums}
+.result .fine{font-size:13.5px;color:rgba(5,16,26,.72)}
 
 /* niche */
-.niche{background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%)}
-.tabs{display:inline-flex;gap:4px;padding:4px;border:1px solid var(--line);border-radius:999px;margin-bottom:28px;flex-wrap:wrap}
-.tabs button{font:600 15px/1 var(--f-body);color:var(--muted);background:none;border:0;padding:12px 18px;border-radius:999px;cursor:pointer}
-.tabs button[aria-selected="true"]{background:var(--brass);color:var(--ink)}
-.tabpanel{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(24px,4vw,56px)}
-@media (max-width:860px){.tabpanel{grid-template-columns:minmax(0,1fr)}}
-.tabpanel h3{font:400 clamp(30px,3.4vw,44px)/1.05 var(--f-display);margin-bottom:16px}
-.tabpanel .lead{color:#C3D0D6;margin-bottom:22px}
-.checks{list-style:none;margin:0;padding:0;display:grid;gap:12px}
-.checks li{display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:baseline}
-.checks li::before{content:"";width:12px;height:12px;border:2px solid var(--sage);border-radius:50%;transform:translateY(1px)}
-.checks.no li::before{border-color:#C46A5A;border-radius:2px}
-.fitcard{border:1px solid var(--line);border-radius:16px;padding:clamp(22px,3vw,32px);background:rgba(6,17,26,.5);display:grid;gap:22px;align-content:start}
-.fitcard h4{margin:0 0 12px;font:500 12px/1.2 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--brass)}
-.fitcard .checks{font-size:15.5px;color:#C3D0D6}
+.tabs{display:inline-flex;gap:4px;padding:5px;border:1px solid var(--line);border-radius:999px;margin-bottom:36px;flex-wrap:wrap;max-width:100%}
+.tabs button{font:500 15px/1.2 var(--f-sans);color:var(--soft);background:none;border:0;padding:13px 20px;border-radius:999px;cursor:pointer;min-height:46px}
+.tabs button[aria-selected="true"]{background:var(--fg);color:var(--ink)}
+.tabpanel{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(24px,4vw,64px)}
+@media (max-width:900px){.tabpanel{grid-template-columns:minmax(0,1fr)}}
+.tabpanel h3{font:500 clamp(28px,3vw,44px)/1.04 var(--f-sans);letter-spacing:-.03em;margin-bottom:16px}
+.tabpanel .lead{color:var(--soft);margin-bottom:28px;max-width:56ch}
+.feat{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+@media (max-width:600px){.feat{grid-template-columns:minmax(0,1fr)}}
+.feat li{background:var(--ink);padding:22px;display:grid;gap:8px;font-size:15.5px;color:var(--soft)}
+.feat li b{font:500 12px/1.2 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--brass)}
+.fitcard{border:1px solid var(--line);border-radius:18px;padding:clamp(24px,3vw,34px);background:var(--ink-2);display:grid;gap:26px;align-content:start}
+.fitcard h4{margin:0 0 14px;font:500 12px/1.2 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--brass)}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:12px;font-size:15.5px;color:var(--soft)}
+.checks li{display:grid;grid-template-columns:20px 1fr;gap:12px;align-items:baseline}
+.checks li::before{content:"";width:11px;height:11px;border:2px solid var(--sage);border-radius:50%;transform:translateY(1px)}
+.checks.no li::before{border-color:#D07A68;border-radius:2px}
 
-/* agent day - horizontal */
-.flow{position:relative}
-.flow-pin{min-height:100svh;display:grid;align-content:center;gap:clamp(28px,4vw,48px);padding-block:clamp(80px,8vw,110px)}
-.flow-track{display:flex;gap:20px;padding-left:var(--gut-l);padding-right:var(--gut-r);will-change:transform}
-@media (min-width:900px){.flow-track{padding-left:max(32px, calc((100vw - var(--maxw)) / 2))}}
-.card{flex:0 0 min(84vw,380px);min-height:340px;border:1px solid var(--line);border-radius:18px;padding:28px;background:var(--ink-2);display:grid;grid-template-rows:auto auto 1fr auto;gap:14px;position:relative;overflow:hidden}
-.card .step{font:500 12px/1 var(--f-mono);color:var(--brass);letter-spacing:.12em}
-.card h3{font:400 34px/1.05 var(--f-display)}
-.card p{color:#C3D0D6;font-size:15.5px}
-.card .out{font:400 12.5px/1.5 var(--f-mono);color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+/* agent day */
+.flow{position:relative;overflow:hidden}
+.flow-pin{min-height:100svh;display:grid;align-content:center;gap:clamp(32px,4vw,56px);padding-block:clamp(96px,9vw,120px)}
+.flow-pin{grid-template-columns:minmax(0,1fr)}
+.flow-pin > *{min-width:0}
+.flow-pin > .wrap{width:100%}
+.flow .head{margin-bottom:0}
+.channels{display:flex;flex-wrap:wrap;gap:8px}
+.channels span{font:400 13px/1 var(--f-mono);padding:10px 14px;border:1px solid var(--line);border-radius:999px;color:var(--soft)}
+.flow-track{display:flex;gap:18px;width:max-content;padding-left:var(--gut-l);padding-right:var(--gut-r)}
+@media (min-width:900px){.flow-track{padding-left:max(48px, calc((100vw - var(--maxw)) / 2))}}
+.card{flex:0 0 min(82vw,400px);min-height:360px;border:1px solid var(--line);border-radius:22px;padding:30px;background:var(--ink-2);display:grid;grid-template-rows:auto auto 1fr auto;gap:14px}
+.card .step{font:500 12.5px/1 var(--f-mono);color:var(--brass);letter-spacing:.12em}
+.card h3{font:500 34px/1.02 var(--f-sans);letter-spacing:-.035em}
+.card p{color:var(--soft);font-size:16px}
+.card .out{font:400 13px/1.5 var(--f-mono);color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
 .card .out b{color:var(--sage);font-weight:500}
 .card.control{background:var(--brass);color:var(--ink);border-color:var(--brass)}
-.card.control .step,.card.control p,.card.control .out{color:rgba(6,17,26,.8)}
-.card.control .out{border-color:rgba(6,17,26,.2)}
+.card.control .step,.card.control p,.card.control .out{color:rgba(5,16,26,.8)}
+.card.control .out{border-color:rgba(5,16,26,.2)}
 .card.control .out b{color:var(--ink)}
-.no-hscroll .flow-track{overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px}
+.no-hscroll .flow-track{width:auto;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:14px;scrollbar-width:thin}
 .no-hscroll .card{scroll-snap-align:start}
-.flow-hint{font:500 12px/1 var(--f-mono);color:var(--muted);letter-spacing:.08em}
+.flow-hint{font:500 12.5px/1 var(--f-mono);color:var(--muted);letter-spacing:.08em}
 
-/* channels */
-.channels{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
-.channels span{font:400 13px/1 var(--f-mono);padding:10px 14px;border:1px solid var(--line);border-radius:999px;color:#C3D0D6}
-
-/* offer */
-.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:stretch}
-@media (max-width:980px){.plans{grid-template-columns:minmax(0,1fr)}}
-.plan{border:1px solid var(--line);border-radius:18px;padding:30px;display:grid;grid-template-rows:auto auto auto auto 1fr auto;gap:12px;background:var(--ink);position:relative;transition:transform .35s,border-color .35s}
-.plan:hover{transform:translateY(-6px);border-color:rgba(201,161,90,.6)}
-.plan .kind{font:500 12px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.plan h3{font:400 32px/1.05 var(--f-display)}
-.plan .price{font:400 46px/1 var(--f-display);color:var(--brass-hi);font-variant-numeric:tabular-nums}
-.plan .price small{font:500 14px/1 var(--f-body);color:var(--muted)}
-.plan .terms{font-size:14px;color:var(--muted)}
-.plan ul{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:10px;font-size:15.5px;color:#C3D0D6;align-content:start}
-.plan ul li{padding-left:20px;position:relative}
-.plan ul li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:2px;background:var(--brass)}
-.plan .btn{justify-content:center;margin-top:12px}
-.plan.main{background:var(--ink-2);border-color:rgba(201,161,90,.55)}
-.plan .badge{position:absolute;top:-12px;left:30px;background:var(--brass);color:var(--ink);font:600 12px/1 var(--f-mono);padding:7px 10px;border-radius:999px}
-.note{margin-top:18px;font-size:14px;color:var(--muted)}
-
-/* compare */
-.cmp-wrap{margin-top:clamp(48px,6vw,72px);overflow-x:auto;border:1px solid var(--line);border-radius:16px}
-.cmp{width:100%;min-width:720px;border-collapse:collapse;font-size:15px}
-.cmp caption{text-align:left;padding:20px 22px 0;font:400 26px/1.1 var(--f-display)}
-.cmp th,.cmp td{padding:16px 22px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
-.cmp thead th{font:500 12px/1.3 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.cmp tbody th{font-weight:500;color:var(--fg)}
-.cmp td{color:#C3D0D6}
-.cmp .us{color:var(--fg);background:rgba(201,161,90,.08)}
-.cmp thead .us{color:var(--brass)}
+/* offer (light) */
+.light{background:var(--mist);color:var(--ink-on-mist)}
+.light .label{color:var(--brass-on-mist)}
+.light .it{color:var(--brass-on-mist)}
+.light .head p{color:var(--muted-on-mist)}
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch}
+@media (max-width:1000px){.plans{grid-template-columns:minmax(0,1fr)}}
+.plan{border:1px solid var(--line-on-mist);border-radius:22px;padding:32px;display:grid;grid-template-rows:auto auto auto auto 1fr auto;gap:12px;background:var(--mist-2);position:relative}
+.plan .kind{font:500 12px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted-on-mist)}
+.plan h3{font:500 28px/1.08 var(--f-sans);letter-spacing:-.03em}
+.plan .price{font:500 52px/1 var(--f-sans);letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+.plan .price small{font:500 15px/1 var(--f-sans);letter-spacing:0;color:var(--muted-on-mist)}
+.plan .terms{font-size:14.5px;color:var(--muted-on-mist)}
+.plan ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:11px;font-size:15.5px;align-content:start}
+.plan ul li{padding-left:22px;position:relative}
+.plan ul li::before{content:"";position:absolute;left:0;top:.62em;width:10px;height:2px;background:var(--brass-on-mist)}
+.plan .btn{margin-top:14px}
+.light .btn-line{border-color:var(--line-on-mist);color:var(--ink-on-mist);background:transparent;backdrop-filter:none}
+.light .btn-line:hover{border-color:var(--ink-on-mist);color:var(--ink-on-mist)}
+.plan.main{background:var(--ink);color:var(--fg);border-color:var(--ink)}
+.plan.main .kind,.plan.main .terms,.plan.main .price small{color:var(--muted)}
+.plan.main ul li::before{background:var(--brass)}
+.plan .badge{position:absolute;top:24px;right:24px;background:var(--brass);color:var(--ink);font:500 11.5px/1 var(--f-mono);letter-spacing:.06em;padding:8px 11px;border-radius:999px}
+.note{margin-top:20px;font-size:14.5px;color:var(--muted-on-mist)}
+.cmp-wrap{margin-top:clamp(56px,7vw,96px);overflow-x:auto;border:1px solid var(--line-on-mist);border-radius:22px;background:var(--mist-2)}
+.cmp{width:100%;min-width:640px;border-collapse:collapse;font-size:15.5px;color:var(--ink-on-mist)}
+.cmp caption{text-align:left;padding:24px 24px 4px;font:500 26px/1.15 var(--f-sans);letter-spacing:-.02em}
+.cmp th,.cmp td{padding:17px 24px;text-align:left;border-bottom:1px solid var(--line-on-mist);vertical-align:top}
+.cmp thead th{font:500 12px/1.3 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted-on-mist)}
+.cmp tbody th{font-weight:500}
+.cmp td{color:var(--muted-on-mist)}
+.cmp .us{color:var(--ink-on-mist);background:rgba(203,163,92,.16);font-weight:500}
+.cmp thead .us{color:var(--brass-on-mist)}
 .cmp tr:last-child th,.cmp tr:last-child td{border-bottom:0}
+.cmp th:first-child{position:sticky;left:0;background:var(--mist-2)}
 
-/* guardrails */
-.guard{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:28px 36px}
-.guard div{display:grid;gap:10px;padding-top:20px;border-top:1px solid var(--line)}
-.guard h3{font:600 18px/1.3 var(--f-body)}
-.guard p{color:var(--muted);font-size:15.5px}
-
-/* founder */
-.founder{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:clamp(28px,5vw,72px);align-items:end}
-@media (max-width:860px){.founder{grid-template-columns:minmax(0,1fr)}}
-.founder blockquote{margin:0;font:400 clamp(28px,3.2vw,42px)/1.15 var(--f-display)}
-.founder .sign{margin-top:24px;font-weight:600}
+/* guardrails + founder */
+.guard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px}
+@media (max-width:1000px){.guard{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.guard{grid-template-columns:minmax(0,1fr)}}
+.guard div{display:grid;gap:10px;align-content:start;padding-top:22px;border-top:1px solid var(--line)}
+.guard h3{font:500 19px/1.3 var(--f-sans);letter-spacing:-.01em}
+.guard p{color:var(--soft);font-size:15.5px}
+.founder{margin-top:clamp(96px,11vw,160px);display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:clamp(32px,5vw,80px);align-items:end}
+@media (max-width:900px){.founder{grid-template-columns:minmax(0,1fr)}}
+.founder blockquote{margin:18px 0 0;font:400 clamp(30px,3.6vw,54px)/1.08 var(--f-serif);letter-spacing:-.01em}
+.founder .sign{margin-top:26px;font-weight:500}
 .founder .sign span{display:block;font-weight:400;color:var(--muted);font-size:15px}
-.founder ul{list-style:none;padding:0;margin:0;display:grid;gap:0;border-top:1px solid var(--line)}
-.founder li{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);font-size:15.5px;color:#C3D0D6}
-.founder li b{font:400 28px/1 var(--f-display);color:var(--brass-hi);font-variant-numeric:tabular-nums}
+.founder ul{list-style:none;padding:0;margin:0;border-top:1px solid var(--line)}
+.founder li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);font-size:15.5px;color:var(--soft)}
+.founder li b{font:500 34px/1 var(--f-sans);letter-spacing:-.04em;color:var(--fg);font-variant-numeric:tabular-nums}
 
 /* faq */
-.faq{display:grid;gap:0;border-top:1px solid var(--line);max-width:900px}
+.faq-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,5vw,80px)}
+@media (max-width:900px){.faq-grid{grid-template-columns:minmax(0,1fr)}}
+.faq{border-top:1px solid var(--line)}
 .faq details{border-bottom:1px solid var(--line)}
-.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;padding:22px 0;font:500 18px/1.35 var(--f-body)}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:24px 0;font:500 19px/1.35 var(--f-sans);letter-spacing:-.01em}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";font:400 26px/1 var(--f-display);color:var(--brass);transition:transform .3s}
+.faq summary::after{content:"";flex:0 0 14px;height:14px;background:linear-gradient(var(--brass),var(--brass)) center/14px 2px no-repeat,linear-gradient(var(--brass),var(--brass)) center/2px 14px no-repeat;transition:transform .35s var(--ease)}
 .faq details[open] summary::after{transform:rotate(45deg)}
-.faq details p{padding:0 0 22px;color:var(--muted);max-width:70ch}
+.faq details p{padding:0 0 24px;color:var(--soft);max-width:64ch}
 
 /* contact */
 .contact{background:var(--ink-2);border-top:1px solid var(--line)}
-.contact-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,5vw,72px)}
+.contact-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,96px)}
 @media (max-width:900px){.contact-grid{grid-template-columns:minmax(0,1fr)}}
-.contact h2{font:400 clamp(38px,5vw,64px)/1.02 var(--f-display);margin:14px 0 18px}
-.contact h2 em{font-style:italic;color:var(--brass-hi)}
-.contact .lead{color:#C3D0D6}
-.mail{margin-top:24px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;font:400 15px/1.4 var(--f-mono)}
-.mail code{user-select:all;padding:10px 12px;border:1px solid var(--line);border-radius:10px;color:var(--fg)}
-.mail button{font:500 13px/1 var(--f-body);background:none;border:1px solid var(--line);color:var(--muted);padding:11px 14px;border-radius:10px;cursor:pointer}
+.contact h2{font:500 clamp(40px,5.4vw,88px)/.96 var(--f-sans);letter-spacing:-.045em;margin:18px 0 22px}
+.contact .lead{color:var(--soft);max-width:46ch}
+.mail{margin-top:28px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;font:400 15px/1.4 var(--f-mono)}
+.mail code{user-select:all;padding:12px 14px;border:1px solid var(--line);border-radius:12px;color:var(--fg)}
+.mail button{font:500 14px/1 var(--f-sans);background:none;border:1px solid var(--line);color:var(--soft);padding:13px 16px;border-radius:12px;cursor:pointer;min-height:46px}
 .mail button:hover{color:var(--fg);border-color:var(--brass)}
-.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
 @media (max-width:560px){.form{grid-template-columns:minmax(0,1fr)}}
-.field{display:grid;gap:6px;min-width:0}
+.field{display:grid;gap:8px;min-width:0}
 .field.full{grid-column:1/-1}
-.field label{font-size:14px;color:var(--muted)}
-.field input,.field select,.field textarea{width:100%;font:400 16px/1.4 var(--f-body);color:var(--fg);background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:13px 14px}
-.field textarea{min-height:120px;resize:vertical}
-.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--brass)}
+.field label{font-size:14.5px;color:var(--soft)}
+.field input,.field select,.field textarea{width:100%;font:400 16px/1.4 var(--f-sans);color:var(--fg);background:var(--ink);border:1px solid var(--line);border-radius:12px;padding:14px 15px;min-height:52px}
+.field textarea{min-height:130px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--brass);box-shadow:0 0 0 3px rgba(203,163,92,.18)}
 .field [aria-invalid="true"]{border-color:#D27A68}
-.err{font-size:13px;color:#E0917F;min-height:0}
+.err{font-size:13.5px;color:#E59886}
+.err:empty{display:none}
 .form-actions{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:16px}
-.status{font-size:14.5px;color:var(--sage)}
+.status{font-size:15px;color:var(--sage);max-width:52ch}
 
 /* footer */
-.foot{padding-block:40px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
-.foot .wrap{display:flex;flex-wrap:wrap;gap:16px 32px;justify-content:space-between;align-items:center}
-.foot a{color:var(--muted);text-underline-offset:3px}
+.foot{padding-top:clamp(64px,8vw,110px);overflow:hidden;border-top:1px solid var(--line)}
+.foot-row{display:flex;flex-wrap:wrap;gap:16px 36px;justify-content:space-between;align-items:center;font-size:14.5px;color:var(--muted)}
+.foot a{color:var(--soft);text-underline-offset:4px}
 .foot a:hover{color:var(--brass-hi)}
+.wordmark{font:600 clamp(80px,23vw,380px)/.8 var(--f-sans);letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1px rgba(238,242,244,.22);text-align:center;margin-top:clamp(40px,6vw,80px);user-select:none;white-space:nowrap;transform:translateY(12%)}
+
+/* mobile dock */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:55;padding:12px var(--gut-r) calc(12px + env(safe-area-inset-bottom,0px)) var(--gut-l);background:linear-gradient(180deg,rgba(5,16,26,0),rgba(5,16,26,.92) 40%);display:none;transform:translateY(110%);transition:transform .45s var(--ease)}
+.dock .btn{width:100%}
+.dock.is-on{transform:none}
+@media (max-width:760px){.dock{display:block}}
 
 @media (prefers-reduced-motion:reduce){
   .marquee-track{animation:none}
   .console-bar .dot{animation:none}
-  .btn,.plan{transition:none}
+  .btn,.top,.dock{transition:none}
 }
 </style>
 
-<!-- ============ CURTAIN ============ -->
+<div class="grain" aria-hidden="true"></div>
 <div class="curtain" id="curtain" aria-hidden="true">
   <svg viewBox="0 0 64 64"><rect x="12" y="12" width="8" height="40" fill="currentColor"/><rect x="44" y="22" width="8" height="30" fill="currentColor"/><rect x="44" y="12" width="8" height="10" fill="currentColor"/><path d="M20 34 L44 22 L44 30 L20 42 Z" fill="currentColor"/></svg>
 </div>
@@ -310,83 +393,98 @@ p{margin:0}
 <!-- ============ HEADER ============ -->
 <header class="top" id="top">
   <div class="wrap nav">
-    <a class="logo" href="#hero" aria-label="Hazeo Engine, top of page">
-      <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="12" y="12" width="8" height="40" fill="currentColor"/><rect x="44" y="22" width="8" height="30" fill="currentColor"/><rect x="44" y="12" width="8" height="10" fill="#6FB39B"/><path d="M20 34 L44 22 L44 30 L20 42 Z" fill="#C9A15A"/></svg>
-      HAZEO <small>Engine · Real Estate</small>
+    <a class="logo" href="#hero" aria-label="Hazeo Engine, back to top">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="12" y="12" width="8" height="40" fill="currentColor"/><rect x="44" y="22" width="8" height="30" fill="currentColor"/><rect x="44" y="12" width="8" height="10" fill="#74B8A0"/><path d="M20 34 L44 22 L44 30 L20 42 Z" fill="#CBA35C"/></svg>
+      HAZEO
     </a>
     <nav aria-label="Main">
       <ul>
         <li><a href="#demand" data-pl="Popyt">Why now</a></li>
+        <li><a href="#calc" data-pl="Kalkulator">Calculator</a></li>
         <li><a href="#niche" data-pl="Nisza">The niche</a></li>
         <li><a href="#agent" data-pl="Agent AI">The agent</a></li>
         <li><a href="#offer" data-pl="Oferta">Offer</a></li>
-        <li><a href="#faq">FAQ</a></li>
       </ul>
     </nav>
-    <div class="lang" role="group" aria-label="Language">
-      <button type="button" data-lang="en" aria-pressed="true">EN</button>
-      <button type="button" data-lang="pl" aria-pressed="false">PL</button>
+    <div class="nav-end">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="pl" aria-pressed="false">PL</button>
+      </div>
+      <a class="btn btn-brass" href="#contact" data-pl="Umów demo">Book a demo</a>
     </div>
-    <a class="btn btn-brass" href="#contact" data-pl="Umów demo">Book a demo</a>
   </div>
 </header>
 
 <main>
-<!-- ============ HERO: pinned deal story ============ -->
+<!-- ============ HERO ============ -->
 <section class="hero" id="hero" aria-label="How Hazeo Engine handles a foreign buyer">
   <div class="hero-media" aria-hidden="true">
-    <div class="poster"></div>
     <video id="heroVideo" muted loop playsinline autoplay preload="auto" poster="assets/hero.jpg">
       <source src="assets/hero.mp4" type="video/mp4">
     </video>
     <svg class="routes" id="routes" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
-      <path d="M1520 140 C1320 220 1180 260 1020 380"/>
-      <path d="M1580 520 C1400 470 1220 450 1020 380"/>
-      <path d="M1020 380 C 980 520 940 610 900 720"/>
-      <path d="M1020 380 C 1120 300 1260 230 1400 80"/>
-      <path d="M900 720 C 1080 760 1240 780 1420 840"/>
-      <circle cx="1020" cy="380" r="5"/>
-      <circle cx="900" cy="720" r="4"/>
+      <path d="M1580 120 C1380 200 1240 250 1080 360"/>
+      <path d="M1600 520 C1420 470 1260 430 1080 360"/>
+      <path d="M1080 360 C 1180 280 1300 200 1460 60"/>
+      <path d="M1080 360 C 1040 470 1010 540 980 610"/>
     </svg>
     <div class="scrim"></div>
   </div>
 
   <div class="wrap hero-inner">
+    <div class="hero-count" aria-hidden="true"><b id="countNow">01</b><i></i><span>05</span></div>
+
     <div class="scenes" id="scenes">
       <article class="scene" data-i="0">
-        <div class="eyebrow" data-pl="Hazeo Engine dla nieruchomości">Hazeo Engine for real estate</div>
-        <h1><span class="ln" data-pl="Twój następny kupiec jest 4000 km stąd.">Your next buyer is 4,000 km away.</span> <span class="ln" data-pl="<em>Agent AI już z nim rozmawia.</em>"><em>The AI agent is already talking to them.</em></span></h1>
+        <div class="label" data-pl="Hazeo Engine dla nieruchomości">Hazeo Engine for real estate</div>
+        <h1>
+          <span class="mask"><span data-pl="Twój następny kupiec">Your next buyer</span></span>
+          <span class="mask"><span data-pl="jest 4000 km stąd.">is 4,000 km away.</span></span>
+          <span class="mask"><span class="it" data-pl="Agent AI już z nim rozmawia.">The agent is already talking.</span></span>
+        </h1>
         <p data-pl="Agent transakcyjny AI dla biur nieruchomości i deweloperów, którzy sprzedają kupcom i inwestorom z zagranicy. Odpowiada w ich języku, sprawdza budżet i termin, a rozmowę wpisuje do kalendarza Twojego agenta.">An AI deal agent for agencies and developers who sell to foreign buyers and investors. It answers in their language, checks budget and timing, and books the call in your broker's calendar.</p>
         <div class="actions">
-          <a class="btn btn-brass" href="#contact"><span data-pl="Umów 20-minutowe demo">Book a 20-minute demo</span> <span class="arr" aria-hidden="true">→</span></a>
-          <a class="btn btn-line" href="#agent" data-pl="Zobacz agenta w akcji">See the agent work</a>
+          <a class="btn btn-brass mag" href="#contact"><span data-pl="Umów 20-minutowe demo">Book a 20-minute demo</span> <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn-line" href="#calc" data-pl="Policz utracone leady">Count your lost leads</a>
         </div>
-        <div class="meta"><span><b>24/7</b> <span data-pl="w każdej strefie czasowej">in every time zone</span></span><span><b>6</b> <span data-pl="języków na start">languages at launch</span></span><span><b>&lt; 1 min</b> <span data-pl="pierwsza odpowiedź">first reply</span></span></div>
       </article>
 
       <article class="scene" data-i="1">
-        <div class="eyebrow" data-pl="Krok 1 · Sygnał">Step 1 · Signal</div>
-        <h2 data-pl="Zapytanie przychodzi o 2:14. <em>Odpowiedź też o 2:14.</em>">A lead lands at 02:14. <em>So does the answer.</em></h2>
-        <p data-pl="Portal, WhatsApp, formularz na stronie albo polecenie od biura partnerskiego. Agent odpisuje w niecałą minutę, w języku kupca, zanim ten wyśle to samo pytanie do trzech konkurentów.">Portal enquiry, WhatsApp, web form or a referral from a partner agency. The agent replies in under a minute, in the buyer's language, before the same question goes to three of your competitors.</p>
+        <div class="label" data-pl="Krok 1 · Sygnał">Step 1 · Signal</div>
+        <h2>
+          <span class="mask"><span data-pl="Zapytanie o 2:14.">A lead lands at 02:14.</span></span>
+          <span class="mask"><span class="it" data-pl="Odpowiedź też o 2:14.">So does the answer.</span></span>
+        </h2>
+        <p data-pl="Portal, WhatsApp, formularz albo polecenie od biura partnerskiego. Agent odpisuje w niecałą minutę, w języku kupca, zanim to samo pytanie trafi do trzech konkurentów.">Portal enquiry, WhatsApp, web form or a partner referral. The agent replies in under a minute, in the buyer's language, before the same question reaches three competitors.</p>
       </article>
 
       <article class="scene" data-i="2">
-        <div class="eyebrow" data-pl="Krok 2 · Kwalifikacja">Step 2 · Qualify</div>
-        <h2 data-pl="Budżet, termin, finansowanie, <em>cel zakupu.</em>">Budget, timeline, financing, <em>purpose.</em></h2>
-        <p data-pl="Agent zadaje pytania, które zadałby dobry pośrednik. Odpowiedzi zapisuje w CRM, a o potwierdzenie środków prosi, zanim ktokolwiek kupi bilet na oględziny.">It asks what a good broker would ask, writes every answer to your CRM and requests proof of funds before anyone books a flight for a viewing.</p>
+        <div class="label" data-pl="Krok 2 · Kwalifikacja">Step 2 · Qualify</div>
+        <h2>
+          <span class="mask"><span data-pl="Budżet, termin,">Budget, timeline,</span></span>
+          <span class="mask"><span class="it" data-pl="finansowanie, cel.">financing, purpose.</span></span>
+        </h2>
+        <p data-pl="Agent zadaje pytania, które zadałby dobry pośrednik. Odpowiedzi zapisuje w CRM i prosi o potwierdzenie środków, zanim ktokolwiek kupi bilet na oględziny.">It asks what a good broker would ask, writes every answer to your CRM and requests proof of funds before anyone books a flight for a viewing.</p>
       </article>
 
       <article class="scene" data-i="3">
-        <div class="eyebrow" data-pl="Krok 3 · Dopasowanie">Step 3 · Match</div>
-        <h2 data-pl="Oferty i projekty, <em>które pasują.</em>">Listings and projects <em>that fit.</em></h2>
+        <div class="label" data-pl="Krok 3 · Dopasowanie">Step 3 · Match</div>
+        <h2>
+          <span class="mask"><span data-pl="Trzy oferty,">Three listings</span></span>
+          <span class="mask"><span class="it" data-pl="które naprawdę pasują.">that actually fit.</span></span>
+        </h2>
         <p data-pl="Rynek pierwotny, wtórny, lokale pod wynajem. Krótka lista z Twojej bazy: cena, harmonogram płatności, termin oddania i szacowana rentowność.">Off-plan, resale, income assets. A shortlist from your own inventory with price, payment plan, handover date and estimated yield.</p>
       </article>
 
       <article class="scene" data-i="4">
-        <div class="eyebrow" data-pl="Krok 4 · Spotkanie i finalizacja">Step 4 · Book &amp; close</div>
-        <h2 data-pl="Twój agent wchodzi na rozmowę <em>przygotowany.</em>">Your broker walks in <em>prepared.</em></h2>
-        <p data-pl="Wideo-oględziny albo spotkanie w kalendarzu, z notatką o kupcu. Pokój transakcji pilnuje dokumentów, opłaty rezerwacyjnej i terminów aż do aktu.">Video viewing or meeting in the calendar, with a briefing note on the buyer. The deal room tracks documents, reservation fee and deadlines through to completion.</p>
-        <div class="actions"><a class="btn btn-brass" href="#offer"><span data-pl="Zobacz pakiety">See the packages</span> <span class="arr" aria-hidden="true">→</span></a></div>
+        <div class="label" data-pl="Krok 4 · Spotkanie i finalizacja">Step 4 · Book &amp; close</div>
+        <h2>
+          <span class="mask"><span data-pl="Twój agent wchodzi">Your broker walks in</span></span>
+          <span class="mask"><span class="it" data-pl="przygotowany.">prepared.</span></span>
+        </h2>
+        <p data-pl="Wideo-oględziny w kalendarzu, z notatką o kupcu. Pokój transakcji pilnuje dokumentów, opłaty rezerwacyjnej i terminów aż do aktu.">A video viewing in the calendar with a briefing note. The deal room tracks documents, reservation fee and deadlines through to completion.</p>
+        <div class="actions"><a class="btn btn-brass mag" href="#offer"><span data-pl="Zobacz pakiety">See the packages</span> <span class="arr" aria-hidden="true">→</span></a></div>
       </article>
     </div>
 
@@ -399,16 +497,16 @@ p{margin:0}
             <dt data-pl="Nowe zapytania">New enquiries</dt><dd>14</dd><dd class="ok">+5</dd>
             <dt data-pl="Odpowiedź (mediana)">Reply time (median)</dt><dd>38 s</dd><dd class="ok">✓</dd>
             <dt data-pl="Zakwalifikowani">Qualified</dt><dd>6</dd><dd class="ok">✓</dd>
-            <dt data-pl="Spotkania w kalendarzu">Calls booked</dt><dd>3</dd><dd class="ok">✓</dd>
-            <dt data-pl="Do decyzji agenta">Waiting for broker</dt><dd>2</dd><dd class="wait">!</dd>
+            <dt data-pl="Spotkania">Calls booked</dt><dd>3</dd><dd class="ok">✓</dd>
+            <dt data-pl="Czeka na agenta">Waiting for broker</dt><dd>2</dd><dd class="wait">!</dd>
           </dl>
-          <div style="color:var(--muted);font-size:11.5px" data-pl="Przykładowe dane demonstracyjne">Example demo data</div>
+          <div class="demo-note" data-pl="Przykładowe dane demonstracyjne">Example demo data</div>
         </div>
         <div class="pane" data-i="1">
           <div class="tag">Property portal · 02:14 · DE</div>
           <div class="msg"><small>Jonas W.</small>Hallo, wir suchen eine 2-Zimmer-Wohnung am Meer. Budget ca. 450.000 €.</div>
-          <div class="msg me"><small>Hazeo · 38 s</small>Guten Abend, Herr W. Gern helfe ich. Kaufen Sie zur Eigennutzung oder als Kapitalanlage?</div>
-          <div class="msg"><small>Jonas W.</small>Beides. Ein paar Wochen im Jahr selbst, sonst vermieten.</div>
+          <div class="msg me"><small>Hazeo · 38 s</small>Guten Abend, Herr W. Kaufen Sie zur Eigennutzung oder als Kapitalanlage?</div>
+          <div class="msg"><small>Jonas W.</small>Beides. Ein paar Wochen selbst, sonst vermieten.</div>
         </div>
         <div class="pane" data-i="2">
           <div class="tag" data-pl="Karta kupca · zapis do CRM">Buyer card · synced to CRM</div>
@@ -417,24 +515,23 @@ p{margin:0}
             <dt data-pl="Termin">Timeline</dt><dd>Q1 2027</dd><dd class="ok">✓</dd>
             <dt data-pl="Finansowanie">Financing</dt><dd>60% cash</dd><dd class="ok">✓</dd>
             <dt data-pl="Cel">Purpose</dt><dd>own use + rental</dd><dd class="ok">✓</dd>
-            <dt data-pl="Potwierdzenie środków">Proof of funds</dt><dd>requested</dd><dd class="wait">…</dd>
+            <dt data-pl="Środki">Proof of funds</dt><dd>requested</dd><dd class="wait">…</dd>
           </dl>
-          <div class="score"><span data-pl="Ocena leada">Lead score</span><span class="bar"><i></i></span><b>82</b></div>
+          <div class="score"><span data-pl="Ocena">Lead score</span><span class="bar"><i></i></span><b>82</b></div>
         </div>
         <div class="pane" data-i="3">
           <div class="tag" data-pl="Krótka lista · 3 z 214 ofert">Shortlist · 3 of 214 listings</div>
-          <div class="unit best"><b>Marina Residences · 2BR</b><em>€455k</em><span>off-plan · handover Q4 2027 · 50/50 plan</span><span>yield est. 6.8%</span></div>
-          <div class="unit"><b>Sea View Tower · 2BR</b><em>€468k</em><span>ready · furnished</span><span>yield est. 6.1%</span></div>
-          <div class="unit"><b>Palm Court · 1BR + study</b><em>€410k</em><span>resale · vacant</span><span>yield est. 7.2%</span></div>
+          <div class="unit best"><b>Marina Residences · 2BR</b><em>€455k</em><span>off-plan · Q4 2027 · 50/50</span><span>yield 6.8%</span></div>
+          <div class="unit"><b>Sea View Tower · 2BR</b><em>€468k</em><span>ready · furnished</span><span>yield 6.1%</span></div>
+          <div class="unit"><b>Palm Court · 1BR + study</b><em>€410k</em><span>resale · vacant</span><span>yield 7.2%</span></div>
         </div>
         <div class="pane" data-i="4">
           <div class="tag" data-pl="Kalendarz i pokój transakcji">Calendar &amp; deal room</div>
-          <div class="unit best"><b>Thu 14:00 CET · video viewing</b><em class="ok">✓</em><span>Broker: Anna K. · briefing note attached</span><span></span></div>
+          <div class="unit best"><b>Thu 14:00 CET · video viewing</b><em class="ok">✓</em><span>Anna K. · briefing attached</span><span></span></div>
           <dl class="kv">
-            <dt data-pl="Formularz rezerwacji">Reservation form</dt><dd>signed</dd><dd class="ok">✓</dd>
+            <dt data-pl="Rezerwacja">Reservation form</dt><dd>signed</dd><dd class="ok">✓</dd>
             <dt data-pl="Dokumenty KYC">KYC documents</dt><dd>2 / 3</dd><dd class="wait">…</dd>
-            <dt data-pl="Opłata rezerwacyjna">Reservation fee</dt><dd>due 30 Oct</dd><dd class="wait">…</dd>
-            <dt data-pl="Prowizja partnera">Partner referral</dt><dd>logged</dd><dd class="ok">✓</dd>
+            <dt data-pl="Opłata">Reservation fee</dt><dd>due 30 Oct</dd><dd class="wait">…</dd>
           </dl>
         </div>
       </div>
@@ -443,7 +540,7 @@ p{margin:0}
 
   <nav class="rail wrap" aria-label="Story steps">
     <ol>
-      <li><button type="button" data-go="0" aria-current="step"><i><b></b></i><span data-pl="Start">Start</span></button></li>
+      <li><button type="button" data-go="0" aria-current="step"><i><b></b></i><span>Start</span></button></li>
       <li><button type="button" data-go="1"><i><b></b></i><span data-pl="Sygnał">Signal</span></button></li>
       <li><button type="button" data-go="2"><i><b></b></i><span data-pl="Kwalifikacja">Qualify</span></button></li>
       <li><button type="button" data-go="3"><i><b></b></i><span data-pl="Dopasowanie">Match</span></button></li>
@@ -452,206 +549,196 @@ p{margin:0}
   </nav>
 </section>
 
-<!-- ============ MARKETS MARQUEE ============ -->
+<!-- ============ MARQUEE ============ -->
 <div class="marquee" aria-label="Example cross-border corridors">
   <div class="marquee-track" aria-hidden="true">
-    <span>Dubai</span><span>Marbella</span><span>Lisbon</span><span>Algarve</span><span>Warsaw</span><span>Limassol</span><span>Miami</span><span>Athens</span><span>Tbilisi</span><span>Bali</span><span>Riyadh</span><span>Kraków</span>
-    <span>Dubai</span><span>Marbella</span><span>Lisbon</span><span>Algarve</span><span>Warsaw</span><span>Limassol</span><span>Miami</span><span>Athens</span><span>Tbilisi</span><span>Bali</span><span>Riyadh</span><span>Kraków</span>
+    <span>Dubai</span><span>Marbella</span><span>Lisbon</span><span>Algarve</span><span>Warsaw</span><span>Limassol</span><span>Miami</span><span>Athens</span><span>Tbilisi</span><span>Riyadh</span><span>Kraków</span>
+    <span>Dubai</span><span>Marbella</span><span>Lisbon</span><span>Algarve</span><span>Warsaw</span><span>Limassol</span><span>Miami</span><span>Athens</span><span>Tbilisi</span><span>Riyadh</span><span>Kraków</span>
   </div>
 </div>
 
-<!-- ============ DEMAND ============ -->
-<section class="section" id="demand">
+<!-- ============ MANIFESTO ============ -->
+<section class="manifesto" aria-label="The problem">
   <div class="wrap">
-    <div class="head rv">
-      <div class="eyebrow" data-pl="Dlaczego teraz">Why now</div>
-      <h2 data-pl="Kupcy są coraz częściej z zagranicy. <em>Leady wciąż czekają do rana.</em>">More buyers live abroad. <em>Their enquiries still wait until morning.</em></h2>
-      <p data-pl="Pieniądze płyną przez granice szybciej niż kiedykolwiek, a biura nieruchomości już używają AI. Tyle że głównie do pisania postów, a nie do prowadzenia kupca od zapytania do rezerwacji.">Capital crosses borders faster than ever, and agencies already use AI. Mostly to write posts, though, rather than to carry a buyer from first enquiry to reservation.</p>
+    <p id="manifesto" data-pl="Kupcy piszą o 2 w nocy z Monachium, Rijadu i Toronto. Większość biur odpowiada o 10 rano. Do tego czasu odpisało już trzech konkurentów.">Buyers write at 2 a.m. from Munich, Riyadh and Toronto. Most agencies answer at 10 the next morning. By then, three competitors have replied.</p>
+    <div class="src" data-pl="Firmy, które odpowiadają w ciągu godziny, mają ok. 7 razy większą szansę na kwalifikację leada (Harvard Business Review, 1,25 mln zapytań).">Companies that respond within an hour are about 7× more likely to qualify a lead (Harvard Business Review, 1.25 million enquiries).</div>
+  </div>
+</section>
+
+<!-- ============ DEMAND ============ -->
+<section class="section" id="demand" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div class="label" data-pl="Dlaczego teraz">Why now</div>
+      <h2 class="rv-h"><span data-pl="Kapitał przekracza granice.">Capital crosses borders.</span> <span class="it" data-pl="Obsługa leadów nie.">Lead handling doesn't.</span></h2>
+      <p data-pl="Biura nieruchomości już używają AI, ale głównie do pisania postów, a nie do prowadzenia kupca od zapytania do rezerwacji.">Agencies already use AI, mostly to write posts rather than to carry a buyer from first enquiry to reservation.</p>
     </div>
 
-    <div class="stats">
-      <div class="stat rv">
-        <div class="num" data-to="56" data-prefix="$" data-suffix="B">$56B</div>
-        <p data-pl="wydali zagraniczni kupcy na domy z rynku wtórnego w USA (IV 2024 – III 2025), o 33,2% więcej rok do roku. 47% zapłaciło gotówką.">spent by foreign buyers on existing US homes, Apr 2024 – Mar 2025, up 33.2% year on year. 47% paid cash.</p>
+    <div class="bento">
+      <div class="tile big rv">
+        <div class="label" data-pl="Zagraniczni kupcy · USA">Foreign buyers · USA</div>
+        <div>
+          <div class="num" data-to="56" data-prefix="$" data-suffix="B">$56B</div>
+          <p style="margin-top:18px" data-pl="wydali zagraniczni kupcy na domy z rynku wtórnego w USA (IV 2024 – III 2025), o 33,2% więcej rok do roku. 47% zapłaciło gotówką.">spent by foreign buyers on existing US homes, Apr 2024 – Mar 2025, up 33.2% year on year. 47% paid cash.</p>
+        </div>
         <a href="https://www.nar.realtor/newsroom/international-buyers-purchased-56-billion-worth-of-u-s-homes-from-april-24-to-march-25" target="_blank" rel="noopener">NAR, International Transactions 2025 ↗</a>
       </div>
-      <div class="stat rv">
+      <div class="tile rv">
         <div class="num" data-to="22.5" data-dec="1" data-suffix="%">22.5%</div>
-        <p data-pl="udział kapitału transgranicznego w globalnych inwestycjach w nieruchomości komercyjne w I połowie 2026 r. Najwyżej od 2020 roku.">of global commercial real estate investment came from cross-border capital in H1 2026, the highest share since 2020.</p>
+        <p data-pl="globalnych inwestycji w nieruchomości komercyjne pochodzi z kapitału zagranicznego (I poł. 2026). Najwięcej od 2020 r.">of global commercial real estate investment came from cross-border capital in H1 2026, the most since 2020.</p>
         <a href="https://www.savills.co.uk/insight-and-opinion/savills-news/383090/offices-return-to-cross-border-investors--favour-and-capital-flows-become-more-geographically-diverse" target="_blank" rel="noopener">Savills, H1 2026 ↗</a>
       </div>
-      <div class="stat rv">
+      <div class="tile rv">
         <div class="num" data-to="76" data-suffix="%">76%</div>
-        <p data-pl="transakcji mieszkaniowych w Dubaju w III kwartale 2025 r. dotyczyło rynku pierwotnego (off-plan). To rynek, na którym kupuje świat.">of Dubai residential activity in Q3 2025 was off-plan, a market sold largely to international buyers.</p>
-        <a href="https://www.khaleejtimes.com/business/property/off-plan-sales-dominate-dubais-residential-market-in-q3-amid-record-transaction-volumes" target="_blank" rel="noopener">Khaleej Times / Cavendish Maxwell ↗</a>
+        <p data-pl="transakcji mieszkaniowych w Dubaju w III kw. 2025 dotyczyło rynku pierwotnego, sprzedawanego w dużej mierze cudzoziemcom.">of Dubai residential activity in Q3 2025 was off-plan, a market sold largely to international buyers.</p>
+        <a href="https://www.khaleejtimes.com/business/property/off-plan-sales-dominate-dubais-residential-market-in-q3-amid-record-transaction-volumes" target="_blank" rel="noopener">Khaleej Times ↗</a>
       </div>
-      <div class="stat rv">
+      <div class="tile rv">
         <div class="num" data-to="97" data-suffix="%">97%</div>
-        <p data-pl="liderów biur pośrednictwa mówi, że ich agenci używają AI. Połowa planuje wdrożyć narzędzia agentowe, które wykonują zadania za użytkownika.">of brokerage leaders say their agents use AI. Half plan to adopt or expand agentic tools that act on the user's behalf.</p>
-        <a href="https://www.housingwire.com/articles/real-estate-brokerage-ai-adoption-hits-a-tipping-point-as-holdouts-disappear" target="_blank" rel="noopener">Delta Media survey 2026, via HousingWire ↗</a>
+        <p data-pl="liderów biur pośrednictwa mówi, że ich agenci używają AI. Połowa planuje narzędzia agentowe.">of brokerage leaders say their agents use AI. Half plan agentic tools that act on the user's behalf.</p>
+        <a href="https://www.housingwire.com/articles/real-estate-brokerage-ai-adoption-hits-a-tipping-point-as-holdouts-disappear" target="_blank" rel="noopener">HousingWire, 2026 ↗</a>
       </div>
-      <div class="stat rv">
+      <div class="tile rv">
         <div class="num" data-to="7" data-suffix="×">7×</div>
-        <p data-pl="większa szansa na kwalifikację leada, jeśli firma odezwie się w ciągu godziny, a nie później. Badanie 1,25 mln zapytań online.">more likely to qualify a lead when a company responds within an hour rather than later. Study of 1.25 million online leads.</p>
+        <p data-pl="większa szansa na kwalifikację leada przy odpowiedzi w ciągu godziny.">more likely to qualify a lead when you respond within the hour.</p>
         <a href="https://hbr.org/2011/03/the-short-life-of-online-sales-leads" target="_blank" rel="noopener">Harvard Business Review ↗</a>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="gap-note">
-      <blockquote class="rv" data-pl="Luka jest prosta: <em>kupiec z innej strefy czasowej</em> pisze, gdy Twoje biuro śpi.">The gap is simple: <em>a buyer in another time zone</em> writes while your office sleeps.</blockquote>
-      <div class="rv">
-        <p data-pl="Biura i deweloperzy płacą za portale, kampanie i targi za granicą. Najdroższa chwila, czyli pierwsza odpowiedź, wciąż zależy od tego, czy ktoś akurat nie śpi i zna język.">Agencies and developers pay for portals, campaigns and overseas fairs. The most expensive moment, the first reply, still depends on whether someone happens to be awake and speaks the language.</p>
-        <p data-pl="Hazeo Engine domyka tę lukę i dokłada drugą połowę: aktywne docieranie do biur partnerskich i inwestorów w krajach, z których pochodzą Twoi kupcy.">Hazeo Engine closes that gap and adds the other half: active outreach to partner agencies and investors in the countries your buyers come from.</p>
+<!-- ============ CALCULATOR ============ -->
+<section class="section" id="calc" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div class="label" data-pl="Kalkulator">Calculator</div>
+      <h2 class="rv-h"><span data-pl="Ile kosztuje Cię">What overnight silence</span> <span class="it" data-pl="nocna cisza?">costs you.</span></h2>
+      <p data-pl="Wpisz własne liczby. To prosta arytmetyka, nie prognoza: zapytania × udział poza godzinami × skuteczność × prowizja.">Use your own numbers. This is plain arithmetic, not a forecast: enquiries × after-hours share × close rate × commission.</p>
+    </div>
+    <div class="calc-grid">
+      <form class="controls rv" id="calcForm" onsubmit="return false">
+        <div class="ctrl"><div class="ctrl-top"><label for="c-leads" data-pl="Zapytania miesięcznie">Enquiries per month</label><output for="c-leads" id="o-leads">300</output></div><input type="range" id="c-leads" min="20" max="2000" step="10" value="300"></div>
+        <div class="ctrl"><div class="ctrl-top"><label for="c-night" data-pl="Udział poza godzinami pracy">Share outside office hours</label><output for="c-night" id="o-night">45%</output></div><input type="range" id="c-night" min="5" max="90" step="1" value="45"></div>
+        <div class="ctrl"><div class="ctrl-top"><label for="c-close" data-pl="Skuteczność: zapytanie → transakcja">Close rate, enquiry to deal</label><output for="c-close" id="o-close">1.5%</output></div><input type="range" id="c-close" min="0.2" max="6" step="0.1" value="1.5"></div>
+        <div class="ctrl"><div class="ctrl-top"><label for="c-fee" data-pl="Średnia prowizja na transakcji">Average commission per deal</label><output for="c-fee" id="o-fee">€9,000</output></div><input type="range" id="c-fee" min="1000" max="60000" step="500" value="9000"></div>
+        <div class="ctrl"><div class="ctrl-top"><label for="c-rec" data-pl="Ile z tego odzyska szybka odpowiedź">Share a fast reply wins back</label><output for="c-rec" id="o-rec">20%</output></div><input type="range" id="c-rec" min="5" max="60" step="1" value="20"></div>
+      </form>
+      <div class="result rv" aria-live="polite">
+        <div>
+          <div class="label" data-pl="Prowizja z zapytań po godzinach">Commission riding on after-hours enquiries</div>
+          <div class="big" id="r-risk">€18,225<small data-pl="/ mies.">/ month</small></div>
+        </div>
+        <dl>
+          <dt data-pl="Odzyskane przy Twoim założeniu">Won back at your assumption</dt><dd id="r-won">€3,645 / mo</dd>
+          <dt data-pl="Hazeo Engine · Transakcje">Hazeo Engine · Transactions</dt><dd>€2,900 / mo</dd>
+          <dt data-pl="Zwrot z abonamentu">Return on subscription</dt><dd id="r-roi">1.3×</dd>
+        </dl>
+        <p class="fine" data-pl="Przykładowe wartości startowe. Wynik zależy od Twoich danych i rynku.">Starting values are examples. Results depend on your data and market.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============ NICHE ============ -->
-<section class="section niche" id="niche">
+<section class="section" id="niche" style="padding-top:0">
   <div class="wrap">
-    <div class="head rv">
-      <div class="eyebrow" data-pl="Nowa nisza">The niche</div>
-      <h2 data-pl="Transgraniczne biuro transakcji, <em>prowadzone przez agenta AI.</em>">A cross-border deal desk, <em>run by an AI agent.</em></h2>
-      <p data-pl="Nie kolejny chatbot na stronę. Hazeo prowadzi dwa strumienie, które dziś obsługuje ręcznie drogi zespół międzynarodowy: transakcje z kupcami z zagranicy i pozyskiwanie kapitału do projektów inwestycyjnych.">Not another website chatbot. Hazeo runs the two streams that today need an expensive international sales team: transactions with foreign buyers, and capital for investment projects.</p>
+    <div class="head">
+      <div class="label" data-pl="Nowa nisza">The niche</div>
+      <h2 class="rv-h"><span data-pl="Transgraniczne biuro transakcji,">A cross-border deal desk,</span> <span class="it" data-pl="prowadzone przez agenta AI.">run by an AI agent.</span></h2>
+      <p data-pl="Nie kolejny chatbot. Hazeo prowadzi dwa strumienie, które dziś wymagają drogiego zespołu międzynarodowego: transakcje z kupcami z zagranicy i kapitał do projektów inwestycyjnych.">Not another chatbot. Hazeo runs the two streams that today need an expensive international team: transactions with foreign buyers, and capital for investment projects.</p>
     </div>
 
     <div class="tabs" role="tablist" aria-label="Audience">
-      <button type="button" role="tab" id="tab-a" aria-controls="panel-a" aria-selected="true" data-pl="Biura nieruchomości · transakcje">Agencies · transactions</button>
-      <button type="button" role="tab" id="tab-b" aria-controls="panel-b" aria-selected="false" tabindex="-1" data-pl="Deweloperzy · projekty inwestycyjne">Developers · investment projects</button>
+      <button type="button" role="tab" id="tab-a" aria-controls="panel-a" aria-selected="true" data-pl="Biura · transakcje">Agencies · transactions</button>
+      <button type="button" role="tab" id="tab-b" aria-controls="panel-b" aria-selected="false" tabindex="-1" data-pl="Deweloperzy · projekty">Developers · projects</button>
     </div>
 
     <div class="tabpanel" id="panel-a" role="tabpanel" aria-labelledby="tab-a">
       <div>
         <h3 data-pl="Dla biur, których kupcy mieszkają gdzie indziej">For agencies whose buyers live somewhere else</h3>
-        <p class="lead" data-pl="Biura z 10–150 agentami w miejscach, gdzie kupuje świat: kurorty, stolice, rynki z programami rezydencyjnymi.">Agencies with 10–150 brokers in places the world buys into: resort coasts, capitals, residency-by-investment markets.</p>
-        <ul class="checks">
-          <li data-pl="Obsługa zapytań 24/7 z portali, WhatsAppa i strony, w języku kupca">24/7 handling of portal, WhatsApp and website enquiries in the buyer's language</li>
-          <li data-pl="Kwalifikacja i ocena leadów zapisywana prosto w CRM">Qualification and lead scoring written straight into your CRM</li>
-          <li data-pl="Sieć biur partnerskich: agent pisze do biur w krajach pochodzenia kupców i ustala zasady poleceń">Partner network: the agent contacts agencies in your buyers' home countries and sets up referral terms</li>
-          <li data-pl="Dopasowanie ofert z rynku pierwotnego i wtórnego, umawianie wideo-oględzin">Matching across off-plan and resale, booking video viewings</li>
+        <p class="lead" data-pl="Biura z 10–150 agentami tam, gdzie kupuje świat: wybrzeża, stolice, rynki z programami rezydencyjnymi.">Agencies with 10–150 brokers where the world buys: resort coasts, capitals, residency-by-investment markets.</p>
+        <ul class="feat">
+          <li><b data-pl="Odpowiedź">Reply</b><span data-pl="Zapytania z portali, WhatsAppa i strony 24/7, w języku kupca">Portal, WhatsApp and website enquiries 24/7, in the buyer's language</span></li>
+          <li><b data-pl="Kwalifikacja">Qualify</b><span data-pl="Ocena leada i notatka zapisane prosto w CRM">Lead score and notes written straight into your CRM</span></li>
+          <li><b data-pl="Sieć partnerska">Partner network</b><span data-pl="Agent pisze do biur w krajach pochodzenia kupców i ustala zasady poleceń">The agent contacts agencies in your buyers' home countries and sets referral terms</span></li>
+          <li><b data-pl="Dopasowanie">Match</b><span data-pl="Rynek pierwotny i wtórny, wideo-oględziny w kalendarzu">Off-plan and resale, video viewings in the calendar</span></li>
         </ul>
       </div>
       <div class="fitcard">
-        <div>
-          <h4 data-pl="Pasuje, jeśli">Good fit if</h4>
+        <div><h4 data-pl="Pasuje, jeśli">Good fit if</h4>
           <ul class="checks">
-            <li data-pl="ponad 30% Twoich kupców to cudzoziemcy albo chcesz to osiągnąć">30%+ of your buyers are foreign, or you want them to be</li>
-            <li data-pl="dostajesz zapytania poza godzinami pracy biura">enquiries arrive outside office hours</li>
+            <li data-pl="ponad 30% kupców to cudzoziemcy albo chcesz to osiągnąć">30%+ of your buyers are foreign, or you want them to be</li>
+            <li data-pl="zapytania przychodzą poza godzinami pracy">enquiries arrive outside office hours</li>
             <li data-pl="masz CRM albo jesteś gotów go wdrożyć">you run a CRM, or are ready to</li>
-          </ul>
-        </div>
-        <div>
-          <h4 data-pl="Nie podejmiemy się, jeśli">Not for you if</h4>
+          </ul></div>
+        <div><h4 data-pl="Nie podejmiemy się, jeśli">Not for you if</h4>
           <ul class="checks no">
             <li data-pl="oczekujesz masowej wysyłki bez zgody odbiorców">you want mass messaging without consent</li>
-            <li data-pl="chcesz, żeby AI podpisywało umowy zamiast licencjonowanego agenta">you want AI to sign instead of a licensed broker</li>
-          </ul>
-        </div>
+            <li data-pl="AI ma podpisywać zamiast licencjonowanego agenta">you want AI to sign instead of a licensed broker</li>
+          </ul></div>
       </div>
     </div>
 
     <div class="tabpanel" id="panel-b" role="tabpanel" aria-labelledby="tab-b" hidden>
       <div>
         <h3 data-pl="Dla deweloperów i projektów, które szukają kapitału">For developers and projects raising capital</h3>
-        <p class="lead" data-pl="Inwestycje mieszkaniowe, apartamenty wakacyjne, hotele condo, portfele najmu. Projekty, które potrzebują kupców hurtowych, inwestorów i sprzedawców za granicą.">Residential schemes, holiday apartments, condo hotels, rental portfolios. Projects that need bulk buyers, investors and sales partners abroad.</p>
-        <ul class="checks">
-          <li data-pl="Mapa inwestorów: family offices, doradcy majątkowi, biura kupujących, fundusze">Investor map: family offices, wealth advisers, buyer agencies, funds</li>
-          <li data-pl="Roadshow: spotkania z inwestorami w trzech rynkach naraz, w kalendarzu Twojego zespołu">Roadshow: investor meetings across three markets at once, in your team's calendar</li>
-          <li data-pl="Pokój danych i śledzenie listów intencyjnych (LOI) do rezerwacji">Data room and LOI tracking through to reservation</li>
-          <li data-pl="Aktywacja zagranicznych agentów sprzedaży z jasnym modelem prowizji">Activation of overseas sales agents with clear commission terms</li>
+        <p class="lead" data-pl="Osiedla, apartamenty wakacyjne, condo hotele, portfele najmu. Projekty, które potrzebują inwestorów i sprzedawców za granicą.">Residential schemes, holiday apartments, condo hotels, rental portfolios. Projects that need investors and sales partners abroad.</p>
+        <ul class="feat">
+          <li><b data-pl="Mapa inwestorów">Investor map</b><span data-pl="Family offices, doradcy majątkowi, biura kupujących, fundusze">Family offices, wealth advisers, buyer agencies, funds</span></li>
+          <li><b>Roadshow</b><span data-pl="Spotkania w trzech rynkach naraz, w kalendarzu zespołu">Meetings across three markets at once, in your team's calendar</span></li>
+          <li><b data-pl="Pokój danych">Data room</b><span data-pl="Materiały inwestorskie i śledzenie LOI do rezerwacji">Investor pack and LOI tracking through to reservation</span></li>
+          <li><b data-pl="Sieć sprzedaży">Sales network</b><span data-pl="Aktywacja zagranicznych agentów z jasnym modelem prowizji">Overseas agents activated on clear commission terms</span></li>
         </ul>
       </div>
       <div class="fitcard">
-        <div>
-          <h4 data-pl="Pasuje, jeśli">Good fit if</h4>
+        <div><h4 data-pl="Pasuje, jeśli">Good fit if</h4>
           <ul class="checks">
-            <li data-pl="masz projekt z pozwoleniem na budowę lub w sprzedaży">your project is permitted or already selling</li>
+            <li data-pl="projekt ma pozwolenie lub jest w sprzedaży">your project is permitted or already selling</li>
             <li data-pl="sprzedajesz pule lokali albo szukasz partnera kapitałowego">you sell unit blocks or seek an equity partner</li>
-            <li data-pl="masz materiały inwestorskie albo zbudujemy je w audycie">you have an investor pack, or we build it in the audit</li>
-          </ul>
-        </div>
-        <div>
-          <h4 data-pl="Nie podejmiemy się, jeśli">Not for you if</h4>
+          </ul></div>
+        <div><h4 data-pl="Nie podejmiemy się, jeśli">Not for you if</h4>
           <ul class="checks no">
             <li data-pl="projekt wymaga publicznej oferty papierów wartościowych">the raise requires a public securities offering</li>
             <li data-pl="oczekujesz gwarancji pozyskania kapitału">you expect a guaranteed raise</li>
-          </ul>
-        </div>
+          </ul></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ AGENT DAY (horizontal) ============ -->
+<!-- ============ AGENT DAY ============ -->
 <section class="flow" id="agent">
   <div class="flow-pin">
     <div class="wrap">
-      <div class="head rv" style="margin-bottom:0">
-        <div class="eyebrow" data-pl="Agent AI · jeden dzień">The AI agent · one day</div>
-        <h2 data-pl="Sześć zadań, które agent wykonuje, <em>zanim zespół wypije kawę.</em>">Six jobs the agent finishes <em>before your team's first coffee.</em></h2>
+      <div class="head">
+        <div class="label" data-pl="Agent AI · jeden dzień">The AI agent · one day</div>
+        <h2 class="rv-h"><span data-pl="Sześć zadań przed">Six jobs done before</span> <span class="it" data-pl="pierwszą kawą zespołu.">your team's first coffee.</span></h2>
         <div class="channels" aria-label="Channels">
-          <span>WhatsApp Business</span><span>E-mail</span><span>Web chat</span><span data-pl="Leady z portali">Portal leads</span><span>HubSpot · Pipedrive · Salesforce</span><span>Google / Outlook Calendar</span>
+          <span>WhatsApp Business</span><span>E-mail</span><span>Web chat</span><span data-pl="Leady z portali">Portal leads</span><span>HubSpot · Pipedrive · Salesforce</span><span>Google / Outlook</span>
         </div>
       </div>
     </div>
     <div class="flow-track" id="flowTrack">
-      <article class="card">
-        <div class="step">01 · 00:00–24:00</div>
-        <h3 data-pl="Odpowiada">Answers</h3>
-        <p data-pl="Każde zapytanie dostaje odpowiedź w mniej niż minutę, w jednym z sześciu języków na start, z kolejnymi na życzenie.">Every enquiry gets a reply in under a minute, in one of six launch languages, with more on request.</p>
-        <div class="out" data-pl="Wynik: <b>brak leadów, które czekają do rana</b>">Output: <b>no leads waiting until morning</b></div>
-      </article>
-      <article class="card">
-        <div class="step">02 · CRM</div>
-        <h3 data-pl="Kwalifikuje">Qualifies</h3>
-        <p data-pl="Budżet, termin, finansowanie, cel zakupu, rezydencja. Ocena leada i notatka trafiają do CRM.">Budget, timeline, financing, purpose, residency goals. Score and notes land in your CRM.</p>
-        <div class="out" data-pl="Wynik: <b>karta kupca i ocena 0–100</b>">Output: <b>buyer card and 0–100 score</b></div>
-      </article>
-      <article class="card">
-        <div class="step">03 · Outbound</div>
-        <h3 data-pl="Pozyskuje partnerów">Prospects</h3>
-        <p data-pl="Docieranie do biur, doradców majątkowych i inwestorów w krajach pochodzenia kupców. Każdą wiadomość zatwierdzasz przed wysyłką.">Outreach to agencies, wealth advisers and investors in your buyers' home countries. You approve every message before it goes.</p>
-        <div class="out" data-pl="Wynik: <b>80–120 nowych firm miesięcznie</b>">Output: <b>80–120 new firms a month</b></div>
-      </article>
-      <article class="card">
-        <div class="step">04 · Inventory</div>
-        <h3 data-pl="Dopasowuje">Matches</h3>
-        <p data-pl="Czyta Twoją bazę ofert i projekty. Proponuje krótką listę z ceną, harmonogramem płatności i rentownością.">Reads your listings and projects. Proposes a shortlist with price, payment plan and yield.</p>
-        <div class="out" data-pl="Wynik: <b>3 propozycje zamiast 40 linków</b>">Output: <b>3 picks instead of 40 links</b></div>
-      </article>
-      <article class="card">
-        <div class="step">05 · Calendar</div>
-        <h3 data-pl="Umawia">Books</h3>
-        <p data-pl="Wideo-oględziny lub spotkanie u właściwego agenta, w odpowiedniej strefie czasowej, z notatką przed rozmową.">Video viewing or meeting with the right broker, in the right time zone, with a pre-call brief.</p>
-        <div class="out" data-pl="Wynik: <b>spotkanie z notatką w kalendarzu</b>">Output: <b>meeting plus brief in the calendar</b></div>
-      </article>
-      <article class="card">
-        <div class="step">06 · Deal room</div>
-        <h3 data-pl="Pilnuje transakcji">Tracks the deal</h3>
-        <p data-pl="Zbiera dokumenty KYC, przypomina o opłacie rezerwacyjnej i terminach, rozlicza prowizję partnera.">Collects KYC documents, chases the reservation fee and deadlines, logs the partner commission.</p>
-        <div class="out" data-pl="Wynik: <b>mniej transakcji, które cicho umierają</b>">Output: <b>fewer deals that quietly die</b></div>
-      </article>
-      <article class="card control">
-        <div class="step" data-pl="Ty decydujesz">You stay in charge</div>
-        <h3 data-pl="Człowiek podpisuje">A human signs</h3>
-        <p data-pl="Agent przygotowuje, licencjonowany pośrednik decyduje. Reguły eskalacji, zatwierdzanie wiadomości wychodzących i pełny zapis każdej rozmowy.">The agent prepares, a licensed broker decides. Escalation rules, approval of outbound messages and a full log of every conversation.</p>
-        <div class="out" data-pl="Zasada: <b>AI nie składa ofert ani obietnic w Twoim imieniu</b>">Rule: <b>the AI never makes offers or promises for you</b></div>
-      </article>
+      <article class="card"><div class="step">01 · 00:00–24:00</div><h3 data-pl="Odpowiada">Answers</h3><p data-pl="Każde zapytanie dostaje odpowiedź w mniej niż minutę, w jednym z sześciu języków na start.">Every enquiry gets a reply in under a minute, in one of six launch languages.</p><div class="out" data-pl="Wynik: <b>brak leadów czekających do rana</b>">Output: <b>no leads waiting until morning</b></div></article>
+      <article class="card"><div class="step">02 · CRM</div><h3 data-pl="Kwalifikuje">Qualifies</h3><p data-pl="Budżet, termin, finansowanie, cel, rezydencja. Ocena i notatka trafiają do CRM.">Budget, timeline, financing, purpose, residency goals. Score and notes land in your CRM.</p><div class="out" data-pl="Wynik: <b>karta kupca i ocena 0–100</b>">Output: <b>buyer card and 0–100 score</b></div></article>
+      <article class="card"><div class="step">03 · Outbound</div><h3 data-pl="Pozyskuje">Prospects</h3><p data-pl="Biura, doradcy i inwestorzy w krajach pochodzenia kupców. Każdą wiadomość zatwierdzasz przed wysyłką.">Agencies, advisers and investors in your buyers' home countries. You approve every message before it goes.</p><div class="out" data-pl="Wynik: <b>80–120 nowych firm miesięcznie</b>">Output: <b>80–120 new firms a month</b></div></article>
+      <article class="card"><div class="step">04 · Inventory</div><h3 data-pl="Dopasowuje">Matches</h3><p data-pl="Czyta Twoją bazę ofert i proponuje krótką listę z ceną, płatnościami i rentownością.">Reads your listings and proposes a shortlist with price, payment plan and yield.</p><div class="out" data-pl="Wynik: <b>3 propozycje zamiast 40 linków</b>">Output: <b>3 picks instead of 40 links</b></div></article>
+      <article class="card"><div class="step">05 · Calendar</div><h3 data-pl="Umawia">Books</h3><p data-pl="Wideo-oględziny u właściwego agenta, we właściwej strefie czasowej, z notatką.">Video viewing with the right broker, in the right time zone, with a brief.</p><div class="out" data-pl="Wynik: <b>spotkanie z notatką w kalendarzu</b>">Output: <b>meeting plus brief in the calendar</b></div></article>
+      <article class="card"><div class="step">06 · Deal room</div><h3 data-pl="Pilnuje">Tracks</h3><p data-pl="Dokumenty KYC, opłata rezerwacyjna, terminy, prowizja partnera.">KYC documents, reservation fee, deadlines, partner commission.</p><div class="out" data-pl="Wynik: <b>mniej transakcji, które cicho umierają</b>">Output: <b>fewer deals that quietly die</b></div></article>
+      <article class="card control"><div class="step" data-pl="Ty decydujesz">You stay in charge</div><h3 data-pl="Człowiek podpisuje">A human signs</h3><p data-pl="Agent przygotowuje, licencjonowany pośrednik decyduje. Reguły eskalacji i pełny zapis rozmów.">The agent prepares, a licensed broker decides. Escalation rules and a full log of every conversation.</p><div class="out" data-pl="Zasada: <b>AI nie składa ofert w Twoim imieniu</b>">Rule: <b>the AI never makes offers for you</b></div></article>
     </div>
-    <div class="wrap"><div class="flow-hint" id="flowHint" data-pl="Przewiń dalej →">Keep scrolling →</div></div>
+    <div class="wrap"><div class="flow-hint" id="flowHint" data-pl="Przewijaj dalej →">Keep scrolling →</div></div>
   </div>
 </section>
 
-<!-- ============ OFFER ============ -->
-<section class="section" id="offer">
+<!-- ============ OFFER (light) ============ -->
+<section class="section light" id="offer">
   <div class="wrap">
-    <div class="head rv">
-      <div class="eyebrow" data-pl="Oferta">Offer</div>
-      <h2 data-pl="Zacznij od audytu, <em>zostań przy wynikach.</em>">Start with an audit, <em>stay for the results.</em></h2>
+    <div class="head">
+      <div class="label" data-pl="Oferta">Offer</div>
+      <h2 class="rv-h"><span data-pl="Zacznij od audytu,">Start with an audit,</span> <span class="it" data-pl="zostań przy wynikach.">stay for the results.</span></h2>
       <p data-pl="Audyt pokazuje, ile leadów tracisz i z których krajów przyjdą następni kupcy. Jeśli liczby się zgadzają, uruchamiamy silnik. Ceny netto.">The audit shows how many leads you lose and which countries your next buyers come from. If the numbers work, we switch the engine on. Prices exclude VAT.</p>
     </div>
-
     <div class="plans">
       <article class="plan rv">
         <div class="kind" data-pl="Wejście">Entry</div>
@@ -659,15 +746,15 @@ p{margin:0}
         <div class="price">€1,900</div>
         <div class="terms" data-pl="jednorazowo · 10 dni roboczych">one-off · 10 working days</div>
         <ul>
-          <li data-pl="Test czasu odpowiedzi na Twoje własne kanały">Response-time test of your own channels</li>
+          <li data-pl="Test czasu odpowiedzi Twoich kanałów">Response-time test of your channels</li>
           <li data-pl="2 rynki źródłowe kupców z uzasadnieniem">2 source markets for buyers, with reasoning</li>
-          <li data-pl="50 biur partnerskich lub inwestorów docelowych">50 target partner agencies or investors</li>
+          <li data-pl="50 biur partnerskich lub inwestorów">50 target partner agencies or investors</li>
           <li data-pl="Scenariusz agenta i karta kwalifikacji">Agent script and qualification card</li>
         </ul>
         <a class="btn btn-line" href="#contact" data-interest="audit" data-pl="Zamów audyt">Order the audit</a>
       </article>
       <article class="plan main rv">
-        <span class="badge" data-pl="Rdzeń współpracy">Core plan</span>
+        <span class="badge" data-pl="Rdzeń">Core plan</span>
         <div class="kind" data-pl="Abonament">Subscription</div>
         <h3>Hazeo Engine · <span data-pl="Transakcje">Transactions</span></h3>
         <div class="price">€2,900 <small data-pl="/ mies.">/ month</small></div>
@@ -675,11 +762,11 @@ p{margin:0}
         <ul>
           <li data-pl="Agent AI 24/7 w maks. 6 językach">AI agent 24/7 in up to 6 languages</li>
           <li data-pl="Integracja z CRM, kalendarzem i WhatsAppem">CRM, calendar and WhatsApp integration</li>
-          <li data-pl="80 nowych biur partnerskich lub inwestorów miesięcznie">80 new partner agencies or investors a month</li>
+          <li data-pl="80 nowych biur lub inwestorów miesięcznie">80 new partner agencies or investors a month</li>
           <li data-pl="Spotkania z notatką i planem rozmowy">Meetings with a brief and call plan</li>
-          <li data-pl="Miesięczny raport: odpowiedzi, kwalifikacje, spotkania, rezerwacje">Monthly report: replies, qualified, meetings, reservations</li>
+          <li data-pl="Miesięczny raport wyników">Monthly results report</li>
         </ul>
-        <a class="btn btn-brass" href="#contact" data-interest="engine" data-pl="Umów demo">Book a demo</a>
+        <a class="btn btn-brass mag" href="#contact" data-interest="engine" data-pl="Umów demo">Book a demo</a>
       </article>
       <article class="plan rv">
         <div class="kind" data-pl="Dla deweloperów">For developers</div>
@@ -695,66 +782,66 @@ p{margin:0}
         <a class="btn btn-line" href="#contact" data-interest="projects" data-pl="Porozmawiajmy o projekcie">Talk about your project</a>
       </article>
     </div>
-    <p class="note" data-pl="Opcjonalnie: premia za wynik od podpisanej umowy rezerwacyjnej, ustalana indywidualnie i zgodnie z lokalnymi przepisami o pośrednictwie.">Optional: a success fee per signed reservation, agreed case by case and within local brokerage rules.</p>
+    <p class="note" data-pl="Opcjonalnie: premia za wynik od podpisanej rezerwacji, ustalana indywidualnie i zgodnie z lokalnymi przepisami.">Optional: a success fee per signed reservation, agreed case by case and within local brokerage rules.</p>
 
-    <div class="cmp-wrap rv" tabindex="0" role="region" aria-label="Comparison">
+    <div class="cmp-wrap" tabindex="0" role="region" aria-label="Comparison">
       <table class="cmp">
         <caption data-pl="Trzy sposoby obsługi kupców z zagranicy">Three ways to handle foreign buyers</caption>
-        <thead><tr><th scope="col"><span class="sr-only">Criterion</span></th><th scope="col" data-pl="Własny dział międzynarodowy">In-house international desk</th><th scope="col" data-pl="Zwykły chatbot">Website chatbot</th><th scope="col" class="us">Hazeo Engine</th></tr></thead>
+        <thead><tr><th scope="col"><span class="sr-only">Criterion</span></th><th scope="col" class="us">Hazeo Engine</th><th scope="col" data-pl="Własny dział">In-house desk</th><th scope="col" data-pl="Chatbot">Website chatbot</th></tr></thead>
         <tbody>
-          <tr><th scope="row" data-pl="Odpowiedź o 2:00 w nocy">Reply at 2 a.m.</th><td data-pl="Rzadko">Rarely</td><td data-pl="Tak, ogólnikowa">Yes, generic</td><td class="us" data-pl="Tak, z Twoją bazą ofert">Yes, from your own inventory</td></tr>
-          <tr><th scope="row" data-pl="Języki">Languages</th><td data-pl="Tyle, ilu ludzi zatrudnisz">As many as you hire</td><td data-pl="Zależy od dostawcy">Depends on vendor</td><td class="us" data-pl="6 na start, sprawdzane przez native speakera">6 at launch, native-checked</td></tr>
-          <tr><th scope="row" data-pl="Aktywne pozyskiwanie">Outbound prospecting</th><td data-pl="Jeśli starczy czasu">If time allows</td><td data-pl="Brak">None</td><td class="us" data-pl="80–120 firm miesięcznie">80–120 firms a month</td></tr>
-          <tr><th scope="row" data-pl="Śledzenie transakcji">Deal tracking</th><td data-pl="Arkusze i pamięć">Spreadsheets and memory</td><td data-pl="Brak">None</td><td class="us" data-pl="Pokój transakcji z terminami">Deal room with deadlines</td></tr>
-          <tr><th scope="row" data-pl="Koszt i ryzyko">Cost and risk</th><td data-pl="Pensje, rekrutacja, rotacja">Salaries, hiring, churn</td><td data-pl="Niski koszt, niski efekt">Low cost, low effect</td><td class="us" data-pl="Abonament, minimum 3 miesiące">Subscription, 3-month minimum</td></tr>
+          <tr><th scope="row" data-pl="Odpowiedź o 2:00">Reply at 2 a.m.</th><td class="us" data-pl="Tak, z Twoją bazą ofert">Yes, from your inventory</td><td data-pl="Rzadko">Rarely</td><td data-pl="Tak, ogólnikowa">Yes, generic</td></tr>
+          <tr><th scope="row" data-pl="Języki">Languages</th><td class="us" data-pl="6 na start, sprawdzane">6 at launch, native-checked</td><td data-pl="Ilu ludzi zatrudnisz">As many as you hire</td><td data-pl="Zależy od dostawcy">Depends on vendor</td></tr>
+          <tr><th scope="row" data-pl="Pozyskiwanie">Outbound</th><td class="us" data-pl="80–120 firm / mies.">80–120 firms / month</td><td data-pl="Jeśli starczy czasu">If time allows</td><td data-pl="Brak">None</td></tr>
+          <tr><th scope="row" data-pl="Śledzenie transakcji">Deal tracking</th><td class="us" data-pl="Pokój transakcji">Deal room with deadlines</td><td data-pl="Arkusze">Spreadsheets</td><td data-pl="Brak">None</td></tr>
+          <tr><th scope="row" data-pl="Koszt i ryzyko">Cost and risk</th><td class="us" data-pl="Abonament, min. 3 mies.">Subscription, 3-month min.</td><td data-pl="Pensje i rotacja">Salaries and churn</td><td data-pl="Niski koszt, niski efekt">Low cost, low effect</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 </section>
 
-<!-- ============ GUARDRAILS ============ -->
-<section class="section" style="padding-top:0" aria-labelledby="guard-h">
+<!-- ============ GUARDRAILS + FOUNDER ============ -->
+<section class="section" aria-labelledby="guard-h">
   <div class="wrap">
-    <div class="head rv">
-      <div class="eyebrow" data-pl="Zasady">Guardrails</div>
-      <h2 id="guard-h" data-pl="Agent przygotowuje. <em>Ludzie decydują.</em>">The agent prepares. <em>People decide.</em></h2>
+    <div class="head">
+      <div class="label" data-pl="Zasady">Guardrails</div>
+      <h2 id="guard-h" class="rv-h"><span data-pl="Agent przygotowuje.">The agent prepares.</span> <span class="it" data-pl="Ludzie decydują.">People decide.</span></h2>
     </div>
     <div class="guard">
-      <div class="rv"><h3 data-pl="Licencjonowany pośrednik prowadzi transakcję">A licensed broker owns the deal</h3><p data-pl="AI nie negocjuje ceny i nie składa ofert. Eskaluje do człowieka w ustalonych momentach.">The AI does not negotiate price or make offers. It hands over to a person at agreed moments.</p></div>
-      <div class="rv"><h3 data-pl="RODO i umowy powierzenia">GDPR and data agreements</h3><p data-pl="Dane kupców w Twoim CRM, narzędzia z umową powierzenia, łatwa rezygnacja z komunikacji.">Buyer data stays in your CRM, tools run under data processing agreements, opting out is one click.</p></div>
-      <div class="rv"><h3 data-pl="KYC i AML: zbieramy, nie oceniamy">KYC and AML: we collect, you assess</h3><p data-pl="Agent zbiera dokumenty. Weryfikację prowadzi Twój dział zgodności lub kancelaria. Nie świadczymy porad prawnych ani podatkowych.">The agent gathers documents. Your compliance team or lawyer verifies them. We give no legal or tax advice.</p></div>
-      <div class="rv"><h3 data-pl="Osobne domeny wysyłkowe">Separate sending domains</h3><p data-pl="Outbound idzie z rozgrzanych domen z limitami. Twoja główna domena nie trafia na czarne listy.">Outbound runs from warmed-up domains with daily limits, so your main domain stays off blocklists.</p></div>
+      <div class="rv"><h3 data-pl="Pośrednik prowadzi transakcję">A licensed broker owns the deal</h3><p data-pl="AI nie negocjuje ceny i nie składa ofert. Eskaluje do człowieka w ustalonych momentach.">The AI does not negotiate or make offers. It hands over to a person at agreed moments.</p></div>
+      <div class="rv"><h3 data-pl="RODO i umowy powierzenia">GDPR and data agreements</h3><p data-pl="Dane kupców w Twoim CRM, narzędzia z umową powierzenia, rezygnacja jednym kliknięciem.">Buyer data stays in your CRM, tools run under processing agreements, opting out takes one click.</p></div>
+      <div class="rv"><h3 data-pl="KYC: zbieramy, nie oceniamy">KYC: we collect, you assess</h3><p data-pl="Weryfikację prowadzi Twój dział zgodności. Nie świadczymy porad prawnych ani podatkowych.">Your compliance team verifies documents. We give no legal or tax advice.</p></div>
+      <div class="rv"><h3 data-pl="Osobne domeny wysyłkowe">Separate sending domains</h3><p data-pl="Outbound z rozgrzanych domen z limitami. Twoja domena nie trafia na czarne listy.">Outbound runs from warmed-up domains with limits, so your main domain stays clean.</p></div>
     </div>
-  </div>
-</section>
 
-<!-- ============ FOUNDER ============ -->
-<section class="section" style="padding-top:0" id="about">
-  <div class="wrap founder">
-    <div class="rv">
-      <div class="eyebrow" data-pl="Kto za tym stoi">Who is behind it</div>
-      <blockquote style="margin-top:18px" data-pl="„Przez 12 lat otwierałem rynki zagraniczne bez działu eksportu za plecami. Wiem, ile kosztuje odpowiedź, która przychodzi za późno.”">"For 12 years I opened foreign markets with no export department behind me. I know what a reply that comes too late costs."</blockquote>
-      <div class="sign">Michał Małek<span data-pl="założyciel Hazeo">founder, Hazeo</span></div>
+    <div class="founder">
+      <div class="rv">
+        <div class="label" data-pl="Kto za tym stoi">Who is behind it</div>
+        <blockquote data-pl="„Przez 12 lat otwierałem rynki zagraniczne bez działu eksportu za plecami. Wiem, ile kosztuje odpowiedź, która przychodzi za późno.”">“For 12 years I opened foreign markets with no export department behind me. I know what a reply that comes too late costs.”</blockquote>
+        <div class="sign">Michał Małek<span data-pl="założyciel Hazeo">founder, Hazeo</span></div>
+      </div>
+      <ul class="rv">
+        <li><span data-pl="rynków otwartych osobiście">markets opened in person</span><b>16</b></li>
+        <li><span data-pl="lat w sprzedaży B2B">years in B2B sales</span><b>12</b></li>
+        <li><span data-pl="konwersji na spotkania z decydentami">conversion to decision-maker meetings</span><b>30%</b></li>
+      </ul>
     </div>
-    <ul class="rv">
-      <li><span data-pl="rynków otwartych osobiście">markets opened in person</span><b>16</b></li>
-      <li><span data-pl="lat w sprzedaży B2B">years in B2B sales</span><b>12</b></li>
-      <li><span data-pl="konwersji na spotkania z decydentami">conversion to decision-maker meetings</span><b>30%</b></li>
-    </ul>
   </div>
 </section>
 
 <!-- ============ FAQ ============ -->
-<section class="section" style="padding-top:0" id="faq">
-  <div class="wrap">
-    <div class="head rv"><div class="eyebrow">FAQ</div><h2 data-pl="Najczęstsze pytania">Common questions</h2></div>
+<section class="section" id="faq" style="padding-top:0">
+  <div class="wrap faq-grid">
+    <div class="head" style="margin-bottom:0;align-content:start">
+      <div class="label">FAQ</div>
+      <h2 class="rv-h"><span data-pl="Najczęstsze">Common</span> <span class="it" data-pl="pytania.">questions.</span></h2>
+    </div>
     <div class="faq">
-      <details class="rv"><summary data-pl="Czy agent AI zastępuje moich pośredników?">Does the AI agent replace my brokers?</summary><p data-pl="Nie. Zdejmuje z nich pierwszą odpowiedź, kwalifikację, umawianie i przypomnienia. Rozmowę, negocjacje i podpis prowadzą ludzie.">No. It takes the first reply, qualification, scheduling and reminders off their plate. People run the conversation, the negotiation and the signature.</p></details>
-      <details class="rv"><summary data-pl="Ile trwa wdrożenie?">How long does setup take?</summary><p data-pl="Audyt trwa 10 dni roboczych. Agent odpowiada na zapytania po około 2–3 tygodniach od startu, gdy połączymy CRM, bazę ofert i kanały.">The audit takes 10 working days. The agent answers enquiries roughly 2–3 weeks after kickoff, once your CRM, listings and channels are connected.</p></details>
-      <details class="rv"><summary data-pl="W jakich językach działa?">Which languages does it speak?</summary><p data-pl="Na start sześć: angielski, niemiecki, polski, hiszpański, francuski i arabski. Kolejne dodajemy na życzenie, zawsze po sprawdzeniu przez native speakera.">Six at launch: English, German, Polish, Spanish, French and Arabic. More on request, always checked by a native speaker first.</p></details>
-      <details class="rv"><summary data-pl="Czy gwarantujecie sprzedaż?">Do you guarantee sales?</summary><p data-pl="Nie. Gwarantujemy czas odpowiedzi, jakość kwalifikacji i raportowanie. Sprzedaż zależy od oferty, ceny i Twojego zespołu.">No. We guarantee response time, qualification quality and reporting. Sales depend on the inventory, the price and your team.</p></details>
-      <details class="rv"><summary data-pl="Czy to działa na moim rynku?">Does it work in my market?</summary><p data-pl="Zaczynamy tam, gdzie jest najwięcej kupców z zagranicy: Zjednoczone Emiraty Arabskie, Hiszpania, Portugalia, Cypr, Grecja, Polska. Przepisy o pośrednictwie sprawdzamy przed startem w każdym kraju.">We start where foreign demand is highest: UAE, Spain, Portugal, Cyprus, Greece and Poland. We check local brokerage rules before going live in any country.</p></details>
+      <details><summary data-pl="Czy agent AI zastępuje pośredników?">Does the AI agent replace my brokers?</summary><p data-pl="Nie. Zdejmuje z nich pierwszą odpowiedź, kwalifikację, umawianie i przypomnienia. Rozmowę, negocjacje i podpis prowadzą ludzie.">No. It takes the first reply, qualification, scheduling and reminders off their plate. People run the conversation, the negotiation and the signature.</p></details>
+      <details><summary data-pl="Ile trwa wdrożenie?">How long does setup take?</summary><p data-pl="Audyt trwa 10 dni roboczych. Agent odpowiada na zapytania ok. 2–3 tygodnie po starcie, gdy połączymy CRM, bazę ofert i kanały.">The audit takes 10 working days. The agent answers enquiries roughly 2–3 weeks after kickoff, once your CRM, listings and channels are connected.</p></details>
+      <details><summary data-pl="W jakich językach działa?">Which languages does it speak?</summary><p data-pl="Na start sześć: angielski, niemiecki, polski, hiszpański, francuski i arabski. Kolejne na życzenie, zawsze po sprawdzeniu przez native speakera.">Six at launch: English, German, Polish, Spanish, French and Arabic. More on request, always checked by a native speaker first.</p></details>
+      <details><summary data-pl="Czy gwarantujecie sprzedaż?">Do you guarantee sales?</summary><p data-pl="Nie. Gwarantujemy czas odpowiedzi, jakość kwalifikacji i raportowanie. Sprzedaż zależy od oferty, ceny i Twojego zespołu.">No. We guarantee response time, qualification quality and reporting. Sales depend on the inventory, the price and your team.</p></details>
+      <details><summary data-pl="Czy to działa na moim rynku?">Does it work in my market?</summary><p data-pl="Zaczynamy tam, gdzie jest najwięcej kupców z zagranicy: ZEA, Hiszpania, Portugalia, Cypr, Grecja, Polska. Przepisy o pośrednictwie sprawdzamy przed startem.">We start where foreign demand is highest: UAE, Spain, Portugal, Cyprus, Greece and Poland. We check local brokerage rules before going live.</p></details>
     </div>
   </div>
 </section>
@@ -762,14 +849,13 @@ p{margin:0}
 <!-- ============ CONTACT ============ -->
 <section class="section contact" id="contact">
   <div class="wrap contact-grid">
-    <div class="rv">
-      <div class="eyebrow" data-pl="Kontakt">Contact</div>
-      <h2 data-pl="Sprawdźmy, <em>ilu kupców tracisz nocą.</em>">Let's see <em>how many buyers you lose overnight.</em></h2>
-      <p class="lead" data-pl="Napisz, gdzie działasz i skąd są Twoi kupcy. Odpowiemy w ciągu jednego dnia roboczego z propozycją 20-minutowego demo.">Tell us where you operate and where your buyers come from. We reply within one working day with a 20-minute demo slot.</p>
+    <div>
+      <div class="label" data-pl="Kontakt">Contact</div>
+      <h2><span data-pl="Sprawdźmy, ilu kupców">Let's see how many buyers</span> <span class="it" data-pl="tracisz nocą.">you lose overnight.</span></h2>
+      <p class="lead" data-pl="Napisz, gdzie działasz i skąd są Twoi kupcy. Odpowiemy w ciągu jednego dnia roboczego z terminem 20-minutowego demo.">Tell us where you operate and where your buyers come from. We reply within one working day with a 20-minute demo slot.</p>
       <div class="mail"><code id="mailAddr">michalmalek@hazeo.pl</code><button type="button" id="copyMail" data-pl="Kopiuj adres">Copy address</button></div>
     </div>
-
-    <form class="form rv" id="contactForm" novalidate>
+    <form class="form" id="contactForm" novalidate>
       <div class="field"><label for="f-name" data-pl="Imię i nazwisko *">Full name *</label><input id="f-name" name="name" autocomplete="name" required><span class="err" id="e-name"></span></div>
       <div class="field"><label for="f-company" data-pl="Biuro / deweloper *">Agency / developer *</label><input id="f-company" name="company" autocomplete="organization" required><span class="err" id="e-company"></span></div>
       <div class="field"><label for="f-email" data-pl="E-mail służbowy *">Work email *</label><input id="f-email" name="email" type="email" autocomplete="email" required><span class="err" id="e-email"></span></div>
@@ -783,7 +869,7 @@ p{margin:0}
         </select></div>
       <div class="field full"><label for="f-msg" data-pl="Skąd są Twoi kupcy i ile zapytań dostajesz miesięcznie? *">Where do your buyers come from, and how many enquiries a month? *</label><textarea id="f-msg" name="message" required></textarea><span class="err" id="e-msg"></span></div>
       <div class="form-actions">
-        <button class="btn btn-brass" type="submit" data-pl="Wyślij zapytanie">Send enquiry</button>
+        <button class="btn btn-brass mag" type="submit" data-pl="Wyślij zapytanie">Send enquiry</button>
         <span class="status" id="status" role="status" aria-live="polite"></span>
       </div>
     </form>
@@ -792,27 +878,47 @@ p{margin:0}
 </main>
 
 <footer class="foot">
-  <div class="wrap">
-    <span>© 2026 Hazeo · Hazeo Engine for real estate</span>
-    <span><a href="https://claude.ai/artifact/SpfSbAH92JWzMybkTC3RdD" target="_blank" rel="noopener" data-pl="Hazeo dla producentów (PL) ↗">Hazeo for manufacturers (PL) ↗</a></span>
+  <div class="wrap foot-row">
+    <span>© 2026 Hazeo · <span data-pl="Hazeo Engine dla nieruchomości">Hazeo Engine for real estate</span></span>
+    <a href="https://claude.ai/artifact/SpfSbAH92JWzMybkTC3RdD" target="_blank" rel="noopener" data-pl="Hazeo dla producentów (PL) ↗">Hazeo for manufacturers (PL) ↗</a>
   </div>
+  <div class="wordmark" aria-hidden="true">HAZEO</div>
 </footer>
+
+<div class="dock" id="dock"><a class="btn btn-brass" href="#contact" data-pl="Umów 20-minutowe demo">Book a 20-minute demo</a></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
 (function(){
   'use strict';
   var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var hasGsap = !!(window.gsap && window.ScrollTrigger);
-  var motion = hasGsap && !RM;
+  var hasG = !!(window.gsap && window.ScrollTrigger);
+  var motion = hasG && !RM;
   var root = document.documentElement;
   root.classList.add(motion ? 'js-motion' : 'no-motion');
-  if (hasGsap) gsap.registerPlugin(ScrollTrigger, window.ScrollToPlugin || {});
+  if (hasG) gsap.registerPlugin(ScrollTrigger);
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ---------- smooth scroll ---------- */
+  var lenis = null;
+  if (motion && window.Lenis){
+    lenis = new Lenis({duration:1.1, easing:function(t){ return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }});
+    root.classList.add('lenis');
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function(t){ lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+  function scrollToY(y, immediate){
+    if (lenis) lenis.scrollTo(y, {immediate:!!immediate, duration:1.2});
+    else window.scrollTo({top:y, behavior:(immediate || RM) ? 'auto' : 'smooth'});
+  }
+  function yOf(el){ return el.getBoundingClientRect().top + window.scrollY; }
 
   /* ---------- language ---------- */
   var lang = 'en';
+  var afterLang = [];
   function setLang(l){
     lang = l;
     document.querySelectorAll('[data-pl]').forEach(function(el){
@@ -826,52 +932,70 @@ p{margin:0}
     root.lang = l;
     document.querySelectorAll('.lang button').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.lang === l)); });
     try { localStorage.setItem('hazeo-lang', l); } catch(e){}
-    if (hasGsap) ScrollTrigger.refresh();
+    afterLang.forEach(function(fn){ fn(); });
+    if (hasG) ScrollTrigger.refresh();
   }
   document.querySelectorAll('.lang button').forEach(function(b){
     b.addEventListener('click', function(){ if (b.dataset.lang !== lang) curtain(function(){ setLang(b.dataset.lang); }); });
   });
-  try { var saved = localStorage.getItem('hazeo-lang'); if (saved === 'pl') setLang('pl'); } catch(e){}
 
-  /* ---------- curtain transition ---------- */
+  /* ---------- curtain ---------- */
   var cur = document.getElementById('curtain');
   function curtain(mid){
     if (!motion){ mid(); return; }
     var logo = cur.querySelector('svg');
     gsap.timeline()
       .set(cur, {transformOrigin:'bottom'})
-      .to(cur, {scaleY:1, duration:.45, ease:'power3.in'})
+      .to(cur, {scaleY:1, duration:.5, ease:'power4.in'})
       .to(logo, {opacity:1, duration:.15}, '-=.1')
       .add(mid)
       .set(cur, {transformOrigin:'top'})
-      .to(logo, {opacity:0, duration:.15}, '+=.12')
-      .to(cur, {scaleY:0, duration:.55, ease:'power3.out'});
+      .to(logo, {opacity:0, duration:.15}, '+=.15')
+      .to(cur, {scaleY:0, duration:.65, ease:'power4.out'});
   }
 
   /* ---------- in-page links ---------- */
-  function jumpTo(target){
-    if (hasGsap && window.ScrollToPlugin) gsap.set(window, {scrollTo:{y:target, offsetY:0}});
-    else target.scrollIntoView();
-  }
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
     a.addEventListener('click', function(e){
-      var id = a.getAttribute('href').slice(1);
-      var t = document.getElementById(id);
+      var t = document.getElementById(a.getAttribute('href').slice(1));
       if (!t) return;
       e.preventDefault();
       if (a.dataset.interest){ var s = document.getElementById('f-interest'); if (s) s.value = a.dataset.interest; }
-      curtain(function(){ jumpTo(t); if (hasGsap) ScrollTrigger.update(); });
+      curtain(function(){ scrollToY(yOf(t), true); if (hasG) ScrollTrigger.update(); });
     });
   });
 
-  /* ---------- header ---------- */
+  /* ---------- header: solid after hero start, hides on scroll down ---------- */
   var top = document.getElementById('top');
-  function headerState(){ top.classList.toggle('is-solid', window.scrollY > 40); }
-  window.addEventListener('scroll', headerState, {passive:true}); headerState();
+  var dock = document.getElementById('dock');
+  var hero = document.getElementById('hero');
+  var lastY = window.scrollY;
+  function onScroll(){
+    var y = window.scrollY;
+    top.classList.toggle('is-solid', y > 40);
+    top.classList.toggle('is-hidden', y > lastY + 4 && y > window.innerHeight * .5);
+    if (y < lastY - 4) top.classList.remove('is-hidden');
+    var heroEnd = hero.offsetHeight + (hero.parentElement.classList.contains('pin-spacer') ? hero.parentElement.offsetHeight - hero.offsetHeight : 0);
+    var contact = document.getElementById('contact');
+    dock.classList.toggle('is-on', y > heroEnd * .9 && y + window.innerHeight < yOf(contact) + 200);
+    lastY = y;
+  }
+  if (lenis) lenis.on('scroll', onScroll); else window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
 
-  /* ---------- clock in console ---------- */
-  var clock = document.getElementById('clock');
-  var clocks = ['02:14 GST','02:14 GST','02:16 GST','02:17 GST','02:19 GST'];
+  /* ---------- magnetic buttons ---------- */
+  if (motion && finePointer){
+    document.querySelectorAll('.mag').forEach(function(b){
+      var xTo = gsap.quickTo(b, 'x', {duration:.5, ease:'power3.out'});
+      var yTo = gsap.quickTo(b, 'y', {duration:.5, ease:'power3.out'});
+      b.addEventListener('mousemove', function(e){
+        var r = b.getBoundingClientRect();
+        xTo((e.clientX - r.left - r.width / 2) * .22);
+        yTo((e.clientY - r.top - r.height / 2) * .3);
+      });
+      b.addEventListener('mouseleave', function(){ xTo(0); yTo(0); });
+    });
+  }
 
   /* ---------- hero story ---------- */
   var scenes = document.querySelectorAll('.scene');
@@ -879,116 +1003,134 @@ p{margin:0}
   var railBtns = document.querySelectorAll('.rail button');
   var routes = document.querySelectorAll('#routes path');
   var video = document.getElementById('heroVideo');
-  var N = scenes.length;
-  var heroST = null;
-
-  function markStep(i, p){
-    railBtns.forEach(function(b, k){
-      var fill = b.querySelector('b');
-      if (k < i) fill.style.width = '100%';
-      else if (k > i) fill.style.width = '0%';
-      else fill.style.width = Math.round(p * 100) + '%';
-      if (k === i) b.setAttribute('aria-current','step'); else b.removeAttribute('aria-current');
-    });
-    if (clock) clock.textContent = clocks[i];
-  }
+  var clock = document.getElementById('clock');
+  var countNow = document.getElementById('countNow');
+  var clocks = ['02:14 GST','02:14 GST','02:16 GST','02:17 GST','02:19 GST'];
+  var N = scenes.length, curScene = 0, heroST = null;
 
   if (RM && video){ video.removeAttribute('autoplay'); video.pause(); }
 
+  function showScene(i){
+    if (i === curScene) return;
+    var dir = i > curScene ? 1 : -1;
+    var a = scenes[curScene], b = scenes[i], pa = panes[curScene], pb = panes[i];
+    gsap.killTweensOf([a, b, pa, pb]);
+    gsap.to(a, {autoAlpha:0, y:-36 * dir, duration:.45, ease:'power2.in'});
+    gsap.to(pa, {autoAlpha:0, y:-14 * dir, duration:.35, ease:'power2.in'});
+    gsap.fromTo(b, {autoAlpha:0, y:36 * dir}, {autoAlpha:1, y:0, duration:.75, ease:'power3.out', delay:.3});
+    gsap.fromTo(b.querySelectorAll('.mask > span'), {yPercent:110}, {yPercent:0, duration:1, ease:'power4.out', stagger:.08, delay:.3});
+    gsap.fromTo(pb, {autoAlpha:0, y:16 * dir}, {autoAlpha:1, y:0, duration:.6, ease:'power3.out', delay:.4});
+    gsap.fromTo(pb.children, {autoAlpha:0, y:10}, {autoAlpha:1, y:0, duration:.5, stagger:.07, ease:'power2.out', delay:.45});
+    curScene = i;
+    if (clock) clock.textContent = clocks[i];
+    if (countNow) countNow.textContent = '0' + (i + 1);
+    railBtns.forEach(function(btn, k){ if (k === i) btn.setAttribute('aria-current','step'); else btn.removeAttribute('aria-current'); });
+  }
+
   if (motion){
     routes.forEach(function(p){ var L = p.getTotalLength(); gsap.set(p, {strokeDasharray:L, strokeDashoffset:L}); });
-    gsap.set([].slice.call(scenes, 1), {autoAlpha:0, y:50});
-    gsap.set([].slice.call(panes, 1), {autoAlpha:0, y:24});
+    for (var s = 1; s < N; s++){ gsap.set(scenes[s], {autoAlpha:0}); gsap.set(panes[s], {autoAlpha:0}); }
 
-    /* page-load sequence */
     var s0 = scenes[0];
     gsap.timeline({defaults:{ease:'power3.out'}})
-      .from('.hero-media video, .hero-media .poster', {scale:1.18, duration:2.4, ease:'power2.out'}, 0)
-      .from('.top', {y:-30, autoAlpha:0, duration:.8}, .2)
-      .from(s0.querySelector('.eyebrow'), {y:20, autoAlpha:0, duration:.7}, .35)
-      .from(s0.querySelectorAll('h1 .ln'), {yPercent:60, autoAlpha:0, duration:1, stagger:.14}, .45)
-      .from(s0.querySelectorAll('p, .actions, .meta'), {y:24, autoAlpha:0, duration:.8, stagger:.1}, .85)
-      .from('.console', {x:40, autoAlpha:0, duration:1}, .9)
-      .from('.rail', {autoAlpha:0, duration:.8}, 1.2)
-      .to(routes[0], {strokeDashoffset:0, duration:1.6, ease:'power2.inOut'}, 1);
+      .from(video, {scale:1.2, duration:2.6, ease:'power2.out'}, 0)
+      .from('.top .wrap', {y:-24, autoAlpha:0, duration:.9}, .15)
+      .from(s0.querySelector('.label'), {y:16, autoAlpha:0, duration:.7}, .3)
+      .from(s0.querySelectorAll('.mask > span'), {yPercent:110, duration:1.15, ease:'power4.out', stagger:.1}, .35)
+      .from(s0.querySelectorAll('p, .actions'), {y:20, autoAlpha:0, duration:.8, stagger:.1}, .8)
+      .from('.console', {y:40, autoAlpha:0, duration:1}, .9)
+      .from('.rail, .hero-count', {autoAlpha:0, duration:.8}, 1.1)
+      .to(routes[0], {strokeDashoffset:0, duration:1.8, ease:'power2.inOut'}, 1);
 
-    var tl = gsap.timeline({defaults:{ease:'power2.inOut', duration:1}});
-    for (var i = 1; i < N; i++){
-      var at = i - 1;
-      tl.to(scenes[i-1], {autoAlpha:0, y:-50, duration:.45}, at + .1)
-        .to(panes[i-1], {autoAlpha:0, y:-18, duration:.4}, at + .1)
-        .to(scenes[i], {autoAlpha:1, y:0, duration:.5}, at + .5)
-        .to(panes[i], {autoAlpha:1, y:0, duration:.5}, at + .55)
-        .to(routes[i] || {}, {strokeDashoffset:0, duration:.8}, at + .2)
-        .to('.hero-media video', {scale:1 + i * .045, duration:1, ease:'none'}, at);
-    }
-    tl.to({}, {duration:.4});
+    /* scrubbed atmosphere: slow zoom, routes drawing */
+    var atmos = gsap.timeline({defaults:{ease:'none'}})
+      .to(video, {scale:1.14, duration:1}, 0);
+    for (var r = 1; r < routes.length; r++) atmos.to(routes[r], {strokeDashoffset:0, duration:.25}, (r - 1) * .25);
 
-    /* scene k is fully in at time k + .05 on the timeline */
-    var D = tl.duration();
-    var restAt = function(k){ return Math.min(1, (k === 0 ? 0 : k + .05) / D); };
     heroST = ScrollTrigger.create({
-      trigger:'#hero', start:'top top', end:function(){ return '+=' + (N - 1) * window.innerHeight * .9; },
-      pin:true, scrub:.8, animation:tl, anticipatePin:1,
-      snap:{snapTo:function(v){ var k = Math.max(0, Math.min(N - 1, Math.round(v * D))); return restAt(k); }, duration:{min:.2, max:.6}, ease:'power1.inOut', delay:.05},
+      trigger:hero, start:'top top',
+      end:function(){ return '+=' + (N - 1) * window.innerHeight * .75; },
+      pin:true, anticipatePin:1, scrub:.6, animation:atmos,
       onUpdate:function(self){
-        var pos = self.progress * D;
-        var i = Math.max(0, Math.min(N - 1, Math.floor(pos + .5)));
-        markStep(i, Math.min(1, Math.max(0, pos - i + .5)));
+        var pos = self.progress * (N - 1);
+        var i = Math.max(0, Math.min(N - 1, Math.round(pos)));
+        showScene(i);
+        railBtns.forEach(function(btn, k){
+          var w = Math.max(0, Math.min(1, pos - k + .5));
+          btn.querySelector('b').style.width = (w * 100) + '%';
+        });
       }
     });
-
-    railBtns.forEach(function(b){
-      b.addEventListener('click', function(){
-        var y = heroST.start + (heroST.end - heroST.start) * restAt(+b.dataset.go);
-        gsap.to(window, {scrollTo:y, duration:.9, ease:'power2.inOut'});
+    railBtns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var k = +btn.dataset.go;
+        scrollToY(heroST.start + (heroST.end - heroST.start) * (k / (N - 1)) + 1);
       });
     });
-    markStep(0, 0);
+  }
+
+  /* ---------- manifesto: words light up ---------- */
+  var man = document.getElementById('manifesto'), manST = null;
+  function buildManifesto(){
+    if (!motion || !man) return;
+    if (manST){ manST.kill(); manST = null; }
+    var text = man.textContent.trim();
+    man.innerHTML = text.split(/\s+/).map(function(w){ return '<span class="w">' + w + '</span>'; }).join(' ');
+    var tw = gsap.to(man.querySelectorAll('.w'), {opacity:1, stagger:.08, ease:'none',
+      scrollTrigger:{trigger:man, start:'top 80%', end:'bottom 45%', scrub:.5}});
+    manST = tw.scrollTrigger;
+  }
+  afterLang.push(buildManifesto);
+
+  /* ---------- headings and reveals ---------- */
+  if (motion){
+    gsap.utils.toArray('.rv-h').forEach(function(h){
+      gsap.fromTo(h, {clipPath:'inset(0 0 100% 0)', y:30}, {clipPath:'inset(0 0 -10% 0)', y:0, duration:1.2, ease:'power4.out', scrollTrigger:{trigger:h, start:'top 88%', once:true}});
+    });
+    ScrollTrigger.batch('.rv', {start:'top 90%', once:true, onEnter:function(els){
+      gsap.fromTo(els, {y:48, autoAlpha:0}, {y:0, autoAlpha:1, duration:1, ease:'power3.out', stagger:.08, overwrite:true});
+    }});
+    gsap.utils.toArray('.rv').forEach(function(el){ gsap.set(el, {autoAlpha:0, y:48}); });
+    ScrollTrigger.addEventListener('refreshInit', function(){});
   }
 
   /* ---------- counters ---------- */
-  document.querySelectorAll('.stat .num').forEach(function(el){
-    if (!motion) return;
-    var to = parseFloat(el.dataset.to), dec = +(el.dataset.dec || 0);
-    var pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
-    var o = {v:0};
-    ScrollTrigger.create({trigger:el, start:'top 90%', once:true, onEnter:function(){
-      gsap.fromTo(o, {v:0}, {v:to, duration:1.6, ease:'power3.out', onUpdate:function(){
-        el.textContent = pre + o.v.toFixed(dec) + suf;
-      }});
-    }});
-  });
-
-  /* ---------- reveals ---------- */
   if (motion){
-    gsap.utils.toArray('.rv').forEach(function(el){
-      gsap.from(el, {y:42, autoAlpha:0, duration:1, ease:'power3.out', scrollTrigger:{trigger:el, start:'top 90%', once:true}});
-    });
-    gsap.utils.toArray('.head h2').forEach(function(h){
-      gsap.fromTo(h, {clipPath:'inset(0 0 100% 0)'}, {clipPath:'inset(0 0 0% 0)', duration:1.1, ease:'power3.out', scrollTrigger:{trigger:h, start:'top 88%', once:true}});
+    document.querySelectorAll('.tile .num').forEach(function(el){
+      var to = parseFloat(el.dataset.to), dec = +(el.dataset.dec || 0);
+      var pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+      var o = {v:0};
+      ScrollTrigger.create({trigger:el, start:'top 92%', once:true, onEnter:function(){
+        gsap.fromTo(o, {v:0}, {v:to, duration:1.8, ease:'power3.out', onUpdate:function(){ el.textContent = pre + o.v.toFixed(dec) + suf; }});
+      }});
     });
   }
 
-  /* ---------- horizontal agent day ---------- */
-  var track = document.getElementById('flowTrack');
-  var hint = document.getElementById('flowHint');
-  if (motion && track){
-    ScrollTrigger.matchMedia({
-      '(min-width: 900px)': function(){
-        var dist = function(){ return Math.max(0, track.scrollWidth - window.innerWidth); };
-        var tw = gsap.to(track, {x:function(){ return -dist(); }, ease:'none',
-          scrollTrigger:{trigger:'#agent', start:'top top', end:function(){ return '+=' + dist(); }, pin:true, scrub:.6, invalidateOnRefresh:true}});
-        gsap.utils.toArray('.card').forEach(function(c){
-          gsap.from(c, {rotate:2.5, y:40, autoAlpha:.25, ease:'none', scrollTrigger:{trigger:c, containerAnimation:tw, start:'left 95%', end:'left 60%', scrub:true}});
-        });
-        return function(){ gsap.set(track, {clearProps:'transform'}); };
-      },
-      '(max-width: 899px)': function(){ root.classList.add('no-hscroll'); if (hint) hint.textContent = lang === 'pl' ? 'Przesuń karty w bok →' : 'Swipe the cards →'; return function(){ root.classList.remove('no-hscroll'); }; }
-    });
-  } else { root.classList.add('no-hscroll'); }
+  /* ---------- calculator ---------- */
+  var ids = ['leads','night','close','fee','rec'];
+  var inp = {}, outp = {};
+  ids.forEach(function(k){ inp[k] = document.getElementById('c-' + k); outp[k] = document.getElementById('o-' + k); });
+  function eur(n){ return '€' + Math.round(n).toLocaleString('en-US'); }
+  function paint(el){ var p = (el.value - el.min) / (el.max - el.min) * 100; el.style.setProperty('--p', p + '%'); }
+  function calc(){
+    var leads = +inp.leads.value, night = +inp.night.value / 100, close = +inp.close.value / 100, fee = +inp.fee.value, rec = +inp.rec.value / 100;
+    outp.leads.textContent = leads.toLocaleString('en-US');
+    outp.night.textContent = Math.round(night * 100) + '%';
+    outp.close.textContent = (close * 100).toFixed(1) + '%';
+    outp.fee.textContent = eur(fee);
+    outp.rec.textContent = Math.round(rec * 100) + '%';
+    var risk = leads * night * close * fee;
+    var won = risk * rec;
+    var per = lang === 'pl' ? ' / mies.' : ' / month';
+    document.getElementById('r-risk').innerHTML = eur(risk) + '<small>' + per + '</small>';
+    document.getElementById('r-won').textContent = eur(won) + (lang === 'pl' ? ' / mies.' : ' / mo');
+    document.getElementById('r-roi').textContent = (won / 2900).toFixed(1) + '×';
+    ids.forEach(function(k){ paint(inp[k]); });
+  }
+  ids.forEach(function(k){ inp[k].addEventListener('input', calc); });
+  afterLang.push(calc);
+  calc();
 
-  /* ---------- marquee speed on scroll ---------- */
   /* ---------- tabs ---------- */
   var tabs = document.querySelectorAll('[role="tab"]');
   function selectTab(t){
@@ -998,9 +1140,9 @@ p{margin:0}
       x.tabIndex = on ? 0 : -1;
       var p = document.getElementById(x.getAttribute('aria-controls'));
       p.hidden = !on;
-      if (on && motion) gsap.from(p.children, {y:24, autoAlpha:0, duration:.6, stagger:.08, ease:'power3.out'});
+      if (on && motion) gsap.fromTo(p.children, {y:28, autoAlpha:0}, {y:0, autoAlpha:1, duration:.7, stagger:.08, ease:'power3.out'});
     });
-    if (hasGsap) ScrollTrigger.refresh();
+    if (hasG) ScrollTrigger.refresh();
   }
   tabs.forEach(function(t, i){
     t.addEventListener('click', function(){ selectTab(t); });
@@ -1012,15 +1154,40 @@ p{margin:0}
     });
   });
 
+  /* ---------- agent day: sideways on desktop, swipe on phones ---------- */
+  var track = document.getElementById('flowTrack');
+  var hint = document.getElementById('flowHint');
+  if (motion && track){
+    ScrollTrigger.matchMedia({
+      '(min-width: 900px)': function(){
+        var dist = function(){ return Math.max(0, track.scrollWidth - window.innerWidth); };
+        var tw = gsap.to(track, {x:function(){ return -dist(); }, ease:'none',
+          scrollTrigger:{trigger:'#agent', start:'top top', end:function(){ return '+=' + dist(); }, pin:true, scrub:.6, invalidateOnRefresh:true}});
+        gsap.utils.toArray('.card').forEach(function(c){
+          gsap.from(c, {y:60, rotate:3, ease:'none', scrollTrigger:{trigger:c, containerAnimation:tw, start:'left 100%', end:'left 65%', scrub:true}});
+        });
+        return function(){ gsap.set(track, {clearProps:'transform'}); };
+      },
+      '(max-width: 899px)': function(){
+        root.classList.add('no-hscroll');
+        if (hint) hint.textContent = lang === 'pl' ? 'Przesuń karty w bok →' : 'Swipe the cards →';
+        return function(){ root.classList.remove('no-hscroll'); };
+      }
+    });
+  } else { root.classList.add('no-hscroll'); }
+
+  /* ---------- wordmark parallax ---------- */
+  if (motion){
+    gsap.fromTo('.wordmark', {yPercent:40}, {yPercent:12, ease:'none', scrollTrigger:{trigger:'.foot', start:'top bottom', end:'bottom bottom', scrub:true}});
+  }
+
   /* ---------- copy email ---------- */
   var copyBtn = document.getElementById('copyMail');
   copyBtn.addEventListener('click', function(){
     var addr = document.getElementById('mailAddr');
     function sel(){ var r = document.createRange(); r.selectNodeContents(addr); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
     var done = function(){ copyBtn.textContent = lang === 'pl' ? 'Skopiowano' : 'Copied'; };
-    try {
-      navigator.clipboard.writeText(addr.textContent).then(done, function(){ sel(); });
-    } catch(e){ sel(); }
+    try { navigator.clipboard.writeText(addr.textContent).then(done, sel); } catch(e){ sel(); }
   });
 
   /* ---------- form ---------- */
@@ -1033,13 +1200,11 @@ p{margin:0}
   form.addEventListener('submit', function(e){
     e.preventDefault();
     var m = msgs[lang], bad = null;
-    var checks = [
-      ['f-name','e-name', function(v){ return v.trim().length > 1; }, m.name],
-      ['f-company','e-company', function(v){ return v.trim().length > 1; }, m.company],
-      ['f-email','e-email', function(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); }, m.email],
-      ['f-msg','e-msg', function(v){ return v.trim().length > 9; }, m.msg]
-    ];
-    checks.forEach(function(c){
+    [['f-name','e-name', function(v){ return v.trim().length > 1; }, m.name],
+     ['f-company','e-company', function(v){ return v.trim().length > 1; }, m.company],
+     ['f-email','e-email', function(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); }, m.email],
+     ['f-msg','e-msg', function(v){ return v.trim().length > 9; }, m.msg]
+    ].forEach(function(c){
       var input = document.getElementById(c[0]), slot = document.getElementById(c[1]);
       var ok = c[2](input.value);
       input.setAttribute('aria-invalid', String(!ok));
@@ -1052,6 +1217,8 @@ p{margin:0}
     form.reset();
   });
 
-  if (hasGsap) window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+  /* ---------- boot ---------- */
+  try { if (localStorage.getItem('hazeo-lang') === 'pl') setLang('pl'); else buildManifesto(); } catch(e){ buildManifesto(); }
+  if (hasG) window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
 })();
 </script>
