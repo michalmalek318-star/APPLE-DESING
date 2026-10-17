@@ -859,6 +859,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
           <option value="other" data-pl="Inne">Something else</option>
         </select></div>
       <div class="field full"><label for="f-msg" data-pl="Skąd są Twoi inwestorzy i ile zapytań dostajesz miesięcznie? *">Where do your investors come from, and how many enquiries a month? *</label><textarea id="f-msg" name="message" required></textarea><span class="err" id="e-msg"></span></div>
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <div class="form-actions">
         <button class="btn btn-brass mag" type="submit" data-pl="Wyślij zapytanie">Send enquiry</button>
         <span class="status" id="status" role="status" aria-live="polite"></span>
@@ -1178,11 +1179,12 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
   });
 
   /* ---------- form ---------- */
+  var FORM_ENDPOINT = 'https://formsubmit.co/ajax/michalmalek@hazeo.pl';
   var form = document.getElementById('contactForm');
   var status = document.getElementById('status');
   var msgs = {
-    en:{name:'Enter your name.', company:'Enter your agency or company.', email:'Enter a valid work email.', msg:'Add a few words about your investors.', ok:'Thank you. This preview is not connected to email yet, so please also write to michalmalek@hazeo.pl.'},
-    pl:{name:'Podaj imię i nazwisko.', company:'Podaj nazwę biura lub firmy.', email:'Podaj poprawny e-mail służbowy.', msg:'Napisz kilka słów o swoich inwestorach.', ok:'Dziękujemy. Ten podgląd nie wysyła jeszcze e-maili, więc napisz też na michalmalek@hazeo.pl.'}
+    en:{name:'Enter your name.', company:'Enter your agency or company.', email:'Enter a valid work email.', msg:'Add a few words about your investors.', sent:'Thank you. We will reply within one working day.', fail:'Sending failed. Please write directly to michalmalek@hazeo.pl.'},
+    pl:{name:'Podaj imię i nazwisko.', company:'Podaj nazwę biura lub firmy.', email:'Podaj poprawny e-mail służbowy.', msg:'Napisz kilka słów o swoich inwestorach.', sent:'Dziękujemy. Odpowiemy w ciągu jednego dnia roboczego.', fail:'Nie udało się wysłać. Napisz bezpośrednio na michalmalek@hazeo.pl.'}
   };
   form.addEventListener('submit', function(e){
     e.preventDefault();
@@ -1200,8 +1202,21 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
       if (!ok && !bad) bad = input;
     });
     if (bad){ status.textContent = ''; bad.focus(); return; }
-    status.textContent = m.ok;
-    form.reset();
+    var btn = form.querySelector('button[type="submit"]');
+    var label = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = lang === 'pl' ? 'Wysyłanie…' : 'Sending…';
+    status.textContent = '';
+    var data = {};
+    new FormData(form).forEach(function(v, k){ data[k] = v; });
+    data._subject = 'Hazeo Engine: ' + (data.company || 'new enquiry');
+    data._template = 'table';
+    data._language = lang;
+    fetch(FORM_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json', 'Accept':'application/json'}, body:JSON.stringify(data)})
+      .then(function(res){ return res.json().then(function(j){ if (!res.ok || String(j.success) !== 'true') throw new Error('send'); }); })
+      .then(function(){ status.style.color = ''; status.textContent = m.sent; form.reset(); })
+      .catch(function(){ status.style.color = '#E59886'; status.textContent = m.fail; })
+      .then(function(){ btn.disabled = false; btn.textContent = label; });
   });
 
   /* ---------- boot ---------- */

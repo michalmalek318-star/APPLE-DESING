@@ -408,7 +408,7 @@
         </ul>
       </div>
 
-      <form class="form reveal" id="contactForm" action="kontakt.php" method="post" novalidate>
+      <form class="form reveal" id="contactForm" action="https://formsubmit.co/ajax/michalmalek@hazeo.pl" method="post" novalidate>
         <div class="field">
           <label for="f-name">Imię i nazwisko *</label>
           <input id="f-name" name="name" type="text" autocomplete="name" required maxlength="120">
@@ -444,9 +444,11 @@
           <textarea id="f-message" name="message" required maxlength="3000"></textarea>
           <span class="error-msg" id="e-message"></span>
         </div>
+        <input type="hidden" name="_subject" value="Hazeo producenci: nowe zapytanie">
+        <input type="hidden" name="_template" value="table">
         <div class="hp" aria-hidden="true">
           <label for="f-website">Nie wypełniaj tego pola</label>
-          <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
+          <input id="f-website" name="_honey" type="text" tabindex="-1" autocomplete="off">
         </div>
         <label class="consent">
           <input type="checkbox" name="consent" id="f-consent" required>
@@ -481,12 +483,6 @@
 </footer>
 
 <script src="assets/js/main.js" defer></script>
-<script>
-/* Tylko podglad: kontakt.php wymaga hostingu z PHP, wiec zamiast bledu 404 pokazujemy komunikat. */
-document.addEventListener("submit",function(e){var f=e.target.closest("#contactForm");if(!f)return;e.preventDefault();e.stopImmediatePropagation();
-var s=document.getElementById("formStatus");if(s){s.textContent="Podglad: wysylka dziala po wgraniu strony na hosting z PHP.";s.style.color="#C08F3E";}
-},true);
-</script>
 </body>
 </html>
 

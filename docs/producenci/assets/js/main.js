@@ -196,7 +196,7 @@
     })
       .then(function (res) { return res.json().catch(function () { return { ok: false }; }).then(function (data) { return { res: res, data: data }; }); })
       .then(function (r) {
-        if (r.res.ok && r.data.ok) {
+        if (r.res.ok && (r.data.ok || String(r.data.success) === 'true')) {
           form.reset();
           status.className = 'form-status ok';
           status.textContent = 'Dziękujemy. Odpowiemy w ciągu jednego dnia roboczego.';
