@@ -1036,106 +1036,42 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
   if (lenis) lenis.on('scroll', onScroll); else window.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
 
-  /* ---------- ambient sound: an original loop synthesized in the browser ---------- */
+  /* ---------- sound: looping theme with fade in/out ---------- */
   var sndBtn = document.getElementById('soundBtn');
   var snd = null;
-  function midi(n){ return 440 * Math.pow(2, (n - 69) / 12); }
   function buildSound(){
+    var el = new Audio('assets/hazeo-theme.mp3');
+    el.loop = true; el.preload = 'auto';
     var AC = window.AudioContext || window.webkitAudioContext;
-    if (!AC) return null;
+    if (!AC) return {el:el, ctx:null, gain:null};
     var ctx = new AC();
-    var master = ctx.createGain(); master.gain.value = 0;
-    var comp = ctx.createDynamicsCompressor(); comp.threshold.value = -18; comp.ratio.value = 3;
-    master.connect(comp); comp.connect(ctx.destination);
-
-    /* hall reverb from decaying noise */
-    var len = Math.floor(ctx.sampleRate * 3.4), ir = ctx.createBuffer(2, len, ctx.sampleRate);
-    for (var c = 0; c < 2; c++){ var d = ir.getChannelData(c); for (var i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.8); }
-    var verb = ctx.createConvolver(); verb.buffer = ir;
-    var wet = ctx.createGain(); wet.gain.value = .6; verb.connect(wet); wet.connect(master);
-    var dry = ctx.createGain(); dry.gain.value = .45; dry.connect(master);
-
-    /* dotted-eighth echo for the arpeggio */
-    var echo = ctx.createDelay(1.5); echo.delayTime.value = .5625;
-    var fb = ctx.createGain(); fb.gain.value = .32;
-    var echoTone = ctx.createBiquadFilter(); echoTone.type = 'lowpass'; echoTone.frequency.value = 2200;
-    echo.connect(echoTone); echoTone.connect(fb); fb.connect(echo); echoTone.connect(verb); echoTone.connect(dry);
-
-    /* soft sea: looping filtered noise with slow swells */
-    var nb = ctx.createBuffer(1, ctx.sampleRate * 4, ctx.sampleRate), nd = nb.getChannelData(0), last = 0;
-    for (var k = 0; k < nd.length; k++){ last = (last + .02 * (Math.random() * 2 - 1)) / 1.02; nd[k] = last * 3.5; }
-    var sea = ctx.createBufferSource(); sea.buffer = nb; sea.loop = true;
-    var seaF = ctx.createBiquadFilter(); seaF.type = 'lowpass'; seaF.frequency.value = 700;
-    var seaG = ctx.createGain(); seaG.gain.value = .05;
-    var swell = ctx.createOscillator(); swell.frequency.value = .09;
-    var swellAmt = ctx.createGain(); swellAmt.gain.value = .035;
-    swell.connect(swellAmt); swellAmt.connect(seaG.gain);
-    sea.connect(seaF); seaF.connect(seaG); seaG.connect(verb); seaG.connect(dry);
-    sea.start(); swell.start();
-
-    /* warm progression, 80 bpm: Dmaj9, Bm9, Gmaj9, A6/9sus, two bars each */
-    var chords = [[50,54,57,61,64],[47,50,54,57,61],[43,47,50,54,57],[45,50,52,54,57]];
-    var roots = [38,35,31,33];
-    var arp = [0,2,4,1,3,2,4,3,0,2,4,1,3,4,2,1];
-    var beat = .75, chordLen = beat * 8, eighth = beat / 2;
-
-    function voice(freq, t, dur, type, peak, attack, release, out, detune){
-      var o = ctx.createOscillator(), g = ctx.createGain();
-      o.type = type; o.frequency.value = freq; if (detune) o.detune.value = detune;
-      g.gain.setValueAtTime(0, t);
-      g.gain.linearRampToValueAtTime(peak, t + attack);
-      g.gain.setValueAtTime(peak, t + Math.max(attack, dur - release));
-      g.gain.linearRampToValueAtTime(0, t + dur + release);
-      o.connect(g); g.connect(out);
-      o.start(t); o.stop(t + dur + release + .05);
-    }
-    var padF = ctx.createBiquadFilter(); padF.type = 'lowpass'; padF.frequency.value = 1300; padF.Q.value = .4;
-    padF.connect(dry); padF.connect(verb);
-    var padLfo = ctx.createOscillator(); padLfo.frequency.value = .05;
-    var padLfoAmt = ctx.createGain(); padLfoAmt.gain.value = 450;
-    padLfo.connect(padLfoAmt); padLfoAmt.connect(padF.frequency); padLfo.start();
-
-    var plk = ctx.createGain(); plk.gain.value = 1; plk.connect(dry); plk.connect(verb); plk.connect(echo);
-
-    var idx = 0, next = ctx.currentTime + .1;
-    function scheduleChord(i, t){
-      var ch = chords[i];
-      ch.forEach(function(n){
-        voice(midi(n), t, chordLen, 'triangle', .026, 2.2, 2.4, padF, -7);
-        voice(midi(n), t, chordLen, 'sine', .03, 2.2, 2.4, padF, 6);
-      });
-      voice(midi(roots[i]), t, chordLen, 'sine', .11, 1.2, 1.8, dry, 0);
-      for (var e = 0; e < 16; e++){
-        if (e % 8 === 7) continue;
-        var n = ch[arp[e]] + 12;
-        voice(midi(n), t + e * eighth, .05, 'sine', .045, .006, 1.1, plk, 0);
-      }
-    }
-    var timer = setInterval(function(){
-      while (next < ctx.currentTime + 1.5){ scheduleChord(idx, next); idx = (idx + 1) % chords.length; next += chordLen; }
-    }, 250);
-    return {ctx:ctx, master:master, timer:timer};
+    var src = ctx.createMediaElementSource(el);
+    var gain = ctx.createGain(); gain.gain.value = 0;
+    src.connect(gain); gain.connect(ctx.destination);
+    return {el:el, ctx:ctx, gain:gain};
   }
   function setSound(on){
     if (on && !snd) snd = buildSound();
     if (!snd) return;
-    var now = snd.ctx.currentTime;
     sndBtn.setAttribute('aria-pressed', String(on));
+    if (!snd.ctx){ if (on){ snd.el.volume = .6; snd.el.play().catch(function(){}); } else snd.el.pause(); return; }
+    var now = snd.ctx.currentTime;
+    snd.gain.gain.cancelScheduledValues(now);
+    snd.gain.gain.setValueAtTime(snd.gain.gain.value, now);
     if (on){
       snd.ctx.resume();
-      snd.master.gain.cancelScheduledValues(now);
-      snd.master.gain.setTargetAtTime(.85, now, 1.2);
+      snd.el.play().catch(function(){ sndBtn.setAttribute('aria-pressed', 'false'); });
+      snd.gain.gain.linearRampToValueAtTime(.7, now + 2.2);
     } else {
-      snd.master.gain.cancelScheduledValues(now);
-      snd.master.gain.setTargetAtTime(0, now, .35);
-      setTimeout(function(){ if (sndBtn.getAttribute('aria-pressed') === 'false') snd.ctx.suspend(); }, 1600);
+      snd.gain.gain.linearRampToValueAtTime(0, now + .8);
+      setTimeout(function(){ if (sndBtn.getAttribute('aria-pressed') === 'false') snd.el.pause(); }, 900);
     }
   }
   if (sndBtn){
     sndBtn.addEventListener('click', function(){ setSound(sndBtn.getAttribute('aria-pressed') !== 'true'); });
     document.addEventListener('visibilitychange', function(){
       if (!snd || sndBtn.getAttribute('aria-pressed') !== 'true') return;
-      if (document.hidden) snd.ctx.suspend(); else snd.ctx.resume();
+      if (document.hidden) snd.el.pause(); else snd.el.play().catch(function(){});
     });
   }
 
