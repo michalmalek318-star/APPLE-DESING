@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Hazeo">
+  <title>Hazeo</title>
+  <!-- Dwa nabrzeża tworzą H. Mosiężny kurs wznosi się z portu wyjścia do portu docelowego,
+       a szałwiowe zwieńczenie prawego nabrzeża oznacza dotarcie na miejsce. -->
+  <rect x="12" y="12" width="8" height="40" fill="currentColor"/>
+  <rect x="44" y="22" width="8" height="30" fill="currentColor"/>
+  <rect x="44" y="12" width="8" height="10" fill="#5FA08C"/>
+  <path d="M20 34 L44 22 L44 30 L20 42 Z" fill="#C08F3E"/>
+</svg>
