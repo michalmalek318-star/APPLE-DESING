@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Hazeo">
+  <title>Hazeo</title>
+  <rect width="48" height="48" rx="11" fill="#081A26"/>
+  <rect x="1" y="1" width="46" height="46" rx="10" fill="none" stroke="#C08F3E" stroke-width="1.5" opacity=".55"/>
+  <g transform="scale(.75)">
+    <rect x="12" y="12" width="8" height="40" fill="#E6ECEE"/>
+    <rect x="44" y="22" width="8" height="30" fill="#E6ECEE"/>
+    <rect x="44" y="12" width="8" height="10" fill="#5FA08C"/>
+    <path d="M20 34 L44 22 L44 30 L20 42 Z" fill="#C08F3E"/>
+  </g>
+</svg>
