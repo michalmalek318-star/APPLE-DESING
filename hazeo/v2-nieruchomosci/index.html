@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
 <style>
-/* Layout: full-bleed film hero pinned as a 5-scene deal story (giant grotesk headline bottom-left, live agent console bottom-right), then a manifesto that lights up word by word, a bento of evidence, a calculator, the niche, a sideways "agent day", a light offer section for rhythm, and a closing CTA with a giant wordmark. One night look (harbour city at blue hour), brass for money and routes, mist for the offer. */
+/* Layout: full-bleed film hero pinned as a 5-scene deal story (giant grotesk headline bottom-left, live agent console bottom-right), then a manifesto that lights up word by word, a bento of evidence, a calculator, the niche, a sideways "agent day", a light offer section for rhythm, and a closing CTA with a giant wordmark. One night look that opens on a golden-hour villa film, brass for money and calls to action, mist for the offer. */
 :root{
   --ink:#05101A;        /* night harbour */
   --ink-2:#0A1A27;      /* raised surface */
@@ -89,13 +89,11 @@ p{margin:0;text-wrap:pretty}
 
 /* ---------- hero ---------- */
 .hero{position:relative;height:100svh;min-height:600px;overflow:hidden;isolation:isolate}
-.hero-media{position:absolute;inset:0;z-index:-1;background:radial-gradient(120% 80% at 70% 30%,#1b3a52 0%,var(--ink) 70%)}
+.hero-media{position:absolute;inset:0;z-index:-1;background:url("assets/villa-poster.jpg") center/cover no-repeat,radial-gradient(120% 80% at 70% 30%,#1b3a52 0%,var(--ink) 70%)}
 .hero-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform-origin:60% 55%}
-.routes{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.routes path{fill:none;stroke:var(--brass-hi);stroke-width:1.3;stroke-linecap:round;opacity:.5}
 .scrim{position:absolute;inset:0;background:
-  linear-gradient(180deg,rgba(5,16,26,.55) 0%,rgba(5,16,26,0) 20%,rgba(5,16,26,0) 42%,rgba(5,16,26,.78) 78%,var(--ink) 100%),
-  linear-gradient(90deg,rgba(5,16,26,.7) 0%,rgba(5,16,26,.25) 45%,rgba(5,16,26,0) 70%)}
+  linear-gradient(180deg,rgba(5,16,26,.5) 0%,rgba(5,16,26,.08) 22%,rgba(5,16,26,.08) 40%,rgba(5,16,26,.72) 76%,var(--ink) 100%),
+  linear-gradient(90deg,rgba(5,16,26,.62) 0%,rgba(5,16,26,.3) 42%,rgba(5,16,26,0) 68%)}
 
 .hero-inner{position:relative;height:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px);grid-template-rows:auto 1fr;column-gap:clamp(24px,4vw,64px);padding-top:104px;padding-bottom:108px}
 .hero-count{grid-column:2;grid-row:1;justify-self:end;font:400 13px/1 var(--f-mono);letter-spacing:.1em;color:var(--soft);display:flex;gap:10px;align-items:center}
@@ -420,15 +418,8 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 <!-- ============ HERO ============ -->
 <section class="hero" id="hero" aria-label="How Hazeo Engine handles a foreign investor">
   <div class="hero-media" aria-hidden="true">
-    <video id="heroVideo" muted loop playsinline autoplay preload="auto" poster="assets/hero.jpg">
-      <source src="assets/hero.mp4" type="video/mp4">
-    </video>
-    <svg class="routes" id="routes" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
-      <path d="M1580 120 C1380 200 1240 250 1080 360"/>
-      <path d="M1600 520 C1420 470 1260 430 1080 360"/>
-      <path d="M1080 360 C 1180 280 1300 200 1460 60"/>
-      <path d="M1080 360 C 1040 470 1010 540 980 610"/>
-    </svg>
+    <video id="heroVideo" muted loop playsinline autoplay preload="auto" poster="assets/villa-poster.jpg"></video>
+    <script>(function(){var v=document.getElementById('heroVideo');v.src=window.innerWidth<900?'assets/villa-720.mp4':'assets/villa-1080.mp4';})();</script>
     <div class="scrim"></div>
   </div>
 
@@ -1001,7 +992,6 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
   var scenes = document.querySelectorAll('.scene');
   var panes = document.querySelectorAll('.pane');
   var railBtns = document.querySelectorAll('.rail button');
-  var routes = document.querySelectorAll('#routes path');
   var video = document.getElementById('heroVideo');
   var clock = document.getElementById('clock');
   var countNow = document.getElementById('countNow');
@@ -1028,7 +1018,6 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
   }
 
   if (motion){
-    routes.forEach(function(p){ var L = p.getTotalLength(); gsap.set(p, {strokeDasharray:L, strokeDashoffset:L}); });
     for (var s = 1; s < N; s++){ gsap.set(scenes[s], {autoAlpha:0}); gsap.set(panes[s], {autoAlpha:0}); }
 
     var s0 = scenes[0];
@@ -1039,13 +1028,11 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
       .from(s0.querySelectorAll('.mask > span'), {yPercent:110, duration:1.15, ease:'power4.out', stagger:.1}, .35)
       .from(s0.querySelectorAll('p, .actions'), {y:20, autoAlpha:0, duration:.8, stagger:.1}, .8)
       .from('.console', {y:40, autoAlpha:0, duration:1}, .9)
-      .from('.rail, .hero-count', {autoAlpha:0, duration:.8}, 1.1)
-      .to(routes[0], {strokeDashoffset:0, duration:1.8, ease:'power2.inOut'}, 1);
+      .from('.rail, .hero-count', {autoAlpha:0, duration:.8}, 1.1);
 
-    /* scrubbed atmosphere: slow zoom, routes drawing */
+    /* scrubbed atmosphere: slow zoom */
     var atmos = gsap.timeline({defaults:{ease:'none'}})
       .to(video, {scale:1.14, duration:1}, 0);
-    for (var r = 1; r < routes.length; r++) atmos.to(routes[r], {strokeDashoffset:0, duration:.25}, (r - 1) * .25);
 
     heroST = ScrollTrigger.create({
       trigger:hero, start:'top top',
