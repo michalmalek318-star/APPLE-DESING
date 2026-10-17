@@ -27,7 +27,7 @@
   --f-sans:"Geist", "Helvetica Neue", Arial, system-ui, sans-serif;
   --f-serif:"Instrument Serif", "Iowan Old Style", Georgia, serif;
   --f-mono:"Geist Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-  --fs-hero:clamp(42px, 7vw, 116px);
+  --fs-hero:clamp(34px, min(10.2cqi, 11vh), 116px);  /* sized to the hero text column, not the window */
   --fs-h2:clamp(36px, 5vw, 80px);
   --fs-h3:clamp(22px, 2vw, 30px);
   --fs-body:clamp(16.5px, 1.15vw, 18.5px);
@@ -88,7 +88,7 @@ p{margin:0;text-wrap:pretty}
 .curtain svg{width:72px;height:72px;color:var(--ink);opacity:0}
 
 /* ---------- hero ---------- */
-.hero{position:relative;height:100svh;min-height:600px;overflow:hidden;isolation:isolate}
+.hero{position:relative;height:100vh;height:100svh;overflow:hidden;isolation:isolate}
 .hero-media{position:absolute;inset:0;z-index:-1;background:url("assets/villa-poster.jpg") center/cover no-repeat,radial-gradient(120% 80% at 70% 30%,#1b3a52 0%,var(--ink) 70%)}
 .hero-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform-origin:60% 55%}
 .scrim{position:absolute;inset:0;background:
@@ -99,12 +99,12 @@ p{margin:0;text-wrap:pretty}
 .hero-count{grid-column:2;grid-row:1;justify-self:end;font:400 13px/1 var(--f-mono);letter-spacing:.1em;color:var(--soft);display:flex;gap:10px;align-items:center}
 .hero-count b{font-weight:500;color:var(--fg);font-size:15px;font-variant-numeric:tabular-nums}
 .hero-count i{display:block;width:44px;height:1px;background:var(--line)}
-.scenes{grid-column:1;grid-row:2;align-self:end;display:grid;gap:64px}
+.scenes{grid-column:1;grid-row:2;align-self:end;display:grid;gap:64px;container-type:inline-size}
 .scene{display:grid;gap:22px;align-content:end;min-width:0}
 .js-motion .scenes{gap:0}
 .js-motion .scene{grid-area:1/1}
 .scene h1,.scene h2{font:500 var(--fs-hero)/.94 var(--f-sans);letter-spacing:-.045em}
-.scene h2{font-size:clamp(40px,6vw,100px)}
+.scene h2{font-size:clamp(28px,min(8.6cqi,9.5vh),100px)}
 .scene .it{font-size:1.06em;line-height:.9}
 .mask{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
 .mask > span{display:inline-block}
@@ -162,8 +162,8 @@ p{margin:0;text-wrap:pretty}
   .msg{padding:8px 11px}
   .msg:nth-child(4),.demo-note,.score{display:none}
   .scene{gap:12px}
-  .scene h1{font-size:clamp(36px,10.4vw,46px)}
-  .scene h2{font-size:clamp(34px,9.6vw,44px)}
+  .scene h1{font-size:clamp(30px,min(10.4cqi,6.2vh),46px)}
+  .scene h2{font-size:clamp(28px,min(9.6cqi,5.8vh),44px)}
   .scene p{font-size:15px;line-height:1.5}
   .scene .actions .btn-line{display:none}
   .scene .btn{min-height:48px}
@@ -173,6 +173,32 @@ p{margin:0;text-wrap:pretty}
   .no-motion .scenes{grid-row:1}.no-motion .console{grid-row:2}
 }
 @media (max-width:900px) and (max-height:760px){.console{display:none}.hero-inner{grid-template-rows:1fr}}
+/* short desktop and laptop screens: keep the hero inside one viewport */
+@media (min-width:901px) and (max-height:860px){
+  .hero-inner{padding-top:92px;padding-bottom:94px}
+  .scene{gap:16px}
+  .scene p{font-size:16px;line-height:1.5}
+  .scene .btn{min-height:46px}
+  .console{font-size:12.5px}
+  .console-bar{padding:10px 16px}
+  .pane{padding:14px 16px;gap:8px}
+  .kv{gap:5px 14px}
+  .demo-note,.unit:nth-child(n+4){display:none}
+  .rail{bottom:20px}
+}
+@media (min-width:901px) and (max-height:700px){
+  .msg:nth-child(4),.score{display:none}
+  .scene p{max-width:40ch}
+}
+@media (min-width:901px) and (max-height:600px){ .console{display:none} .hero-inner{grid-template-columns:minmax(0,1fr)} }
+/* phones in landscape */
+@media (max-height:500px){
+  .hero-inner{padding-top:78px;padding-bottom:58px}
+  .scene p{display:none}
+  .scene{gap:10px}
+  .rail{bottom:10px}
+  .rail button{gap:6px}
+}
 
 /* ---------- marquee ---------- */
 .marquee{border-bottom:1px solid var(--line);overflow:hidden;padding-block:22px}
