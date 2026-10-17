@@ -1161,7 +1161,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 
     var s0 = scenes[0];
     gsap.timeline({defaults:{ease:'power3.out'}})
-      .from(video, {scale:1.2, duration:2.6, ease:'power2.out'}, 0)
+      .from(video, {scale:1.06, duration:2.6, ease:'power2.out'}, 0)
       .from('.top .wrap', {y:-24, autoAlpha:0, duration:.9}, .15)
       .from(s0.querySelector('.label'), {y:16, autoAlpha:0, duration:.7}, .3)
       .from(s0.querySelectorAll('.mask > span'), {yPercent:110, duration:1.15, ease:'power4.out', stagger:.1}, .35)
@@ -1171,7 +1171,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 
     /* scrubbed atmosphere: slow zoom */
     var atmos = gsap.timeline({defaults:{ease:'none'}})
-      .to(video, {scale:1.14, duration:1}, 0);
+      .to(video, {scale:1.04, duration:1}, 0);
 
     heroST = ScrollTrigger.create({
       trigger:hero, start:'top top',
