@@ -370,6 +370,20 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 .foot a:hover{color:var(--brass-hi)}
 .wordmark{font:600 clamp(80px,23vw,380px)/.8 var(--f-sans);letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1px rgba(238,242,244,.22);text-align:center;margin-top:clamp(40px,6vw,80px);user-select:none;white-space:nowrap;transform:translateY(12%)}
 
+/* sound toggle */
+.sound{display:inline-flex;align-items:center;gap:10px;min-height:42px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:rgba(5,16,26,.35);backdrop-filter:blur(10px);color:var(--soft);font:500 12px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:color .25s,border-color .25s}
+.sound:hover{color:var(--fg);border-color:rgba(238,242,244,.3)}
+.sound[aria-pressed="true"]{color:var(--brass-hi);border-color:rgba(203,163,92,.55)}
+.sound .bars{display:flex;align-items:flex-end;gap:2px;height:14px}
+.sound .bars i{display:block;width:2px;height:4px;background:currentColor;border-radius:1px;transition:height .3s}
+.sound[aria-pressed="true"] .bars i{animation:eq 1.1s ease-in-out infinite}
+.sound[aria-pressed="true"] .bars i:nth-child(2){animation-delay:-.3s}
+.sound[aria-pressed="true"] .bars i:nth-child(3){animation-delay:-.6s}
+.sound[aria-pressed="true"] .bars i:nth-child(4){animation-delay:-.85s}
+@keyframes eq{0%,100%{height:4px}50%{height:14px}}
+@media (max-width:600px){.sound .lbl{display:none}.sound{padding:0 13px}}
+@media (prefers-reduced-motion:reduce){.sound[aria-pressed="true"] .bars i{animation:none;height:10px}}
+
 /* mobile dock */
 .dock{position:fixed;left:0;right:0;bottom:0;z-index:55;padding:12px var(--gut-r) calc(12px + env(safe-area-inset-bottom,0px)) var(--gut-l);background:linear-gradient(180deg,rgba(5,16,26,0),rgba(5,16,26,.92) 40%);display:none;transform:translateY(110%);transition:transform .45s var(--ease)}
 .dock .btn{width:100%}
@@ -405,6 +419,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
       </ul>
     </nav>
     <div class="nav-end">
+      <button class="sound" id="soundBtn" type="button" aria-pressed="false" aria-label="Sound on or off"><span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="lbl" data-pl="Dźwięk">Sound</span></button>
       <div class="lang" role="group" aria-label="Language">
         <button type="button" data-lang="en" aria-pressed="true">EN</button>
         <button type="button" data-lang="pl" aria-pressed="false">PL</button>
@@ -974,6 +989,109 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
   }
   if (lenis) lenis.on('scroll', onScroll); else window.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
+
+  /* ---------- ambient sound: an original loop synthesized in the browser ---------- */
+  var sndBtn = document.getElementById('soundBtn');
+  var snd = null;
+  function midi(n){ return 440 * Math.pow(2, (n - 69) / 12); }
+  function buildSound(){
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    var ctx = new AC();
+    var master = ctx.createGain(); master.gain.value = 0;
+    var comp = ctx.createDynamicsCompressor(); comp.threshold.value = -18; comp.ratio.value = 3;
+    master.connect(comp); comp.connect(ctx.destination);
+
+    /* hall reverb from decaying noise */
+    var len = Math.floor(ctx.sampleRate * 3.4), ir = ctx.createBuffer(2, len, ctx.sampleRate);
+    for (var c = 0; c < 2; c++){ var d = ir.getChannelData(c); for (var i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.8); }
+    var verb = ctx.createConvolver(); verb.buffer = ir;
+    var wet = ctx.createGain(); wet.gain.value = .6; verb.connect(wet); wet.connect(master);
+    var dry = ctx.createGain(); dry.gain.value = .45; dry.connect(master);
+
+    /* dotted-eighth echo for the arpeggio */
+    var echo = ctx.createDelay(1.5); echo.delayTime.value = .5625;
+    var fb = ctx.createGain(); fb.gain.value = .32;
+    var echoTone = ctx.createBiquadFilter(); echoTone.type = 'lowpass'; echoTone.frequency.value = 2200;
+    echo.connect(echoTone); echoTone.connect(fb); fb.connect(echo); echoTone.connect(verb); echoTone.connect(dry);
+
+    /* soft sea: looping filtered noise with slow swells */
+    var nb = ctx.createBuffer(1, ctx.sampleRate * 4, ctx.sampleRate), nd = nb.getChannelData(0), last = 0;
+    for (var k = 0; k < nd.length; k++){ last = (last + .02 * (Math.random() * 2 - 1)) / 1.02; nd[k] = last * 3.5; }
+    var sea = ctx.createBufferSource(); sea.buffer = nb; sea.loop = true;
+    var seaF = ctx.createBiquadFilter(); seaF.type = 'lowpass'; seaF.frequency.value = 700;
+    var seaG = ctx.createGain(); seaG.gain.value = .05;
+    var swell = ctx.createOscillator(); swell.frequency.value = .09;
+    var swellAmt = ctx.createGain(); swellAmt.gain.value = .035;
+    swell.connect(swellAmt); swellAmt.connect(seaG.gain);
+    sea.connect(seaF); seaF.connect(seaG); seaG.connect(verb); seaG.connect(dry);
+    sea.start(); swell.start();
+
+    /* warm progression, 80 bpm: Dmaj9, Bm9, Gmaj9, A6/9sus, two bars each */
+    var chords = [[50,54,57,61,64],[47,50,54,57,61],[43,47,50,54,57],[45,50,52,54,57]];
+    var roots = [38,35,31,33];
+    var arp = [0,2,4,1,3,2,4,3,0,2,4,1,3,4,2,1];
+    var beat = .75, chordLen = beat * 8, eighth = beat / 2;
+
+    function voice(freq, t, dur, type, peak, attack, release, out, detune){
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = type; o.frequency.value = freq; if (detune) o.detune.value = detune;
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(peak, t + attack);
+      g.gain.setValueAtTime(peak, t + Math.max(attack, dur - release));
+      g.gain.linearRampToValueAtTime(0, t + dur + release);
+      o.connect(g); g.connect(out);
+      o.start(t); o.stop(t + dur + release + .05);
+    }
+    var padF = ctx.createBiquadFilter(); padF.type = 'lowpass'; padF.frequency.value = 1300; padF.Q.value = .4;
+    padF.connect(dry); padF.connect(verb);
+    var padLfo = ctx.createOscillator(); padLfo.frequency.value = .05;
+    var padLfoAmt = ctx.createGain(); padLfoAmt.gain.value = 450;
+    padLfo.connect(padLfoAmt); padLfoAmt.connect(padF.frequency); padLfo.start();
+
+    var plk = ctx.createGain(); plk.gain.value = 1; plk.connect(dry); plk.connect(verb); plk.connect(echo);
+
+    var idx = 0, next = ctx.currentTime + .1;
+    function scheduleChord(i, t){
+      var ch = chords[i];
+      ch.forEach(function(n){
+        voice(midi(n), t, chordLen, 'triangle', .026, 2.2, 2.4, padF, -7);
+        voice(midi(n), t, chordLen, 'sine', .03, 2.2, 2.4, padF, 6);
+      });
+      voice(midi(roots[i]), t, chordLen, 'sine', .11, 1.2, 1.8, dry, 0);
+      for (var e = 0; e < 16; e++){
+        if (e % 8 === 7) continue;
+        var n = ch[arp[e]] + 12;
+        voice(midi(n), t + e * eighth, .05, 'sine', .045, .006, 1.1, plk, 0);
+      }
+    }
+    var timer = setInterval(function(){
+      while (next < ctx.currentTime + 1.5){ scheduleChord(idx, next); idx = (idx + 1) % chords.length; next += chordLen; }
+    }, 250);
+    return {ctx:ctx, master:master, timer:timer};
+  }
+  function setSound(on){
+    if (on && !snd) snd = buildSound();
+    if (!snd) return;
+    var now = snd.ctx.currentTime;
+    sndBtn.setAttribute('aria-pressed', String(on));
+    if (on){
+      snd.ctx.resume();
+      snd.master.gain.cancelScheduledValues(now);
+      snd.master.gain.setTargetAtTime(.85, now, 1.2);
+    } else {
+      snd.master.gain.cancelScheduledValues(now);
+      snd.master.gain.setTargetAtTime(0, now, .35);
+      setTimeout(function(){ if (sndBtn.getAttribute('aria-pressed') === 'false') snd.ctx.suspend(); }, 1600);
+    }
+  }
+  if (sndBtn){
+    sndBtn.addEventListener('click', function(){ setSound(sndBtn.getAttribute('aria-pressed') !== 'true'); });
+    document.addEventListener('visibilitychange', function(){
+      if (!snd || sndBtn.getAttribute('aria-pressed') !== 'true') return;
+      if (document.hidden) snd.ctx.suspend(); else snd.ctx.resume();
+    });
+  }
 
   /* ---------- magnetic buttons ---------- */
   if (motion && finePointer){
