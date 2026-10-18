@@ -1283,8 +1283,8 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
   var form = document.getElementById('contactForm');
   var status = document.getElementById('status');
   var msgs = {
-    en:{name:'Enter your name.', company:'Enter your agency or company.', email:'Enter a valid work email.', msg:'Add a few words about your investors.', sent:'Thank you. We will reply within one working day.', fail:'Sending failed. Please write directly to michalmalek@hazeo.pl.'},
-    pl:{name:'Podaj imię i nazwisko.', company:'Podaj nazwę biura lub firmy.', email:'Podaj poprawny e-mail służbowy.', msg:'Napisz kilka słów o swoich inwestorach.', sent:'Dziękujemy. Odpowiemy w ciągu jednego dnia roboczego.', fail:'Nie udało się wysłać. Napisz bezpośrednio na michalmalek@hazeo.pl.'}
+    en:{name:'Enter your name.', company:'Enter your agency or company.', email:'Enter a valid work email.', msg:'Add a few words about your investors.', sent:'Thank you. We will reply within one working day.', fail:'The form could not send right now.'},
+    pl:{name:'Podaj imię i nazwisko.', company:'Podaj nazwę biura lub firmy.', email:'Podaj poprawny e-mail służbowy.', msg:'Napisz kilka słów o swoich inwestorach.', sent:'Dziękujemy. Odpowiemy w ciągu jednego dnia roboczego.', fail:'Formularz chwilowo nie wysłał wiadomości.'}
   };
   form.addEventListener('submit', function(e){
     e.preventDefault();
@@ -1313,9 +1313,22 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
     data._template = 'table';
     data._language = lang;
     fetch(FORM_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json', 'Accept':'application/json'}, body:JSON.stringify(data)})
-      .then(function(res){ return res.json().then(function(j){ if (!res.ok || String(j.success) !== 'true') throw new Error('send'); }); })
+      .then(function(res){ return res.json().catch(function(){ return {}; }).then(function(j){ if (!res.ok || String(j.success) !== 'true') throw new Error(j.message || 'send'); }); })
       .then(function(){ status.style.color = ''; status.textContent = m.sent; form.reset(); })
-      .catch(function(){ status.style.color = '#E59886'; status.textContent = m.fail; })
+      .catch(function(err){
+        /* fallback: open the visitor's mail app with the enquiry already filled in */
+        var body = ['Name: ' + (data.name || ''), 'Company: ' + (data.company || ''), 'Email: ' + (data.email || ''), 'Market: ' + (data.market || ''), 'Interest: ' + (data.interest || ''), '', data.message || ''].join('\n');
+        var href = 'mailto:michalmalek@hazeo.pl?subject=' + encodeURIComponent(data._subject) + '&body=' + encodeURIComponent(body);
+        status.style.color = '#E59886';
+        status.textContent = '';
+        status.appendChild(document.createTextNode(m.fail + ' '));
+        var a = document.createElement('a');
+        a.href = href;
+        a.textContent = lang === 'pl' ? 'Wyślij z programu pocztowego →' : 'Send from your email app →';
+        a.style.color = 'inherit';
+        status.appendChild(a);
+        if (window.console) console.warn('Form endpoint:', err && err.message);
+      })
       .then(function(){ btn.disabled = false; btn.textContent = label; });
   });
 

@@ -201,7 +201,7 @@
           status.className = 'form-status ok';
           status.textContent = 'Dziękujemy. Odpowiemy w ciągu jednego dnia roboczego.';
         } else {
-          throw new Error((r.data && r.data.error) || 'send');
+          throw new Error((r.data && (r.data.error || r.data.message)) || 'send');
         }
       })
       .catch(function (err) {
