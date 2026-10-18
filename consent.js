@@ -3,7 +3,7 @@
    While it is empty, the banner still records the visitor's choice and nothing is tracked. */
 (function () {
   'use strict';
-  var GA_ID = '';
+  var GA_ID = 'G-KRPZ1BME3S';
   var KEY = 'hazeo-consent-v1';
   var POLICY = '/polityka-prywatnosci.html#cookies';
 
