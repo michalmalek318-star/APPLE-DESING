@@ -95,8 +95,32 @@ p{margin:0;text-wrap:pretty}
 .lang button{font:500 12px/1 var(--f-mono);letter-spacing:.06em;background:none;border:0;color:var(--muted);padding:9px 11px;border-radius:999px;cursor:pointer;min-width:42px;min-height:34px}
 .lang button[aria-pressed="true"]{background:var(--fg);color:var(--ink)}
 .nav .btn{min-height:42px;padding:0 18px;font-size:14.5px}
-@media (max-width:1060px){.nav{grid-template-columns:1fr auto}.nav nav{display:none}}
-@media (max-width:440px){.nav .btn{display:none}}
+.nav-toggle,.lang-mobile{display:none}
+@media (max-width:1060px){
+  .nav{grid-template-columns:1fr auto}.nav nav{display:none}
+  .nav-toggle{display:flex;align-items:center;justify-content:center;flex:none;width:44px;height:44px;padding:0;border:1px solid var(--line);border-radius:999px;background:rgba(5,16,26,.35);color:var(--fg);cursor:pointer}
+  .nav-toggle span,.nav-toggle span::before,.nav-toggle span::after{display:block;width:18px;height:1.5px;background:currentColor;transition:transform .3s var(--ease),background .3s}
+  .nav-toggle span{position:relative}
+  .nav-toggle span::before,.nav-toggle span::after{content:"";position:absolute;left:0}
+  .nav-toggle span::before{top:-6px}
+  .nav-toggle span::after{top:6px}
+  .top.menu-open .nav-toggle span{background:transparent}
+  .top.menu-open .nav-toggle span::before{transform:translateY(6px) rotate(45deg)}
+  .top.menu-open .nav-toggle span::after{transform:translateY(-6px) rotate(-45deg)}
+  .top.menu-open,.top.menu-open.is-hidden{transform:none;background:rgba(5,16,26,.96);border-color:var(--line)}
+  .top.menu-open .nav nav{display:block;position:absolute;top:100%;left:0;right:0;max-height:calc(100vh - 72px);overflow-y:auto;padding:4px var(--gut-r) 24px var(--gut-l);background:rgba(5,16,26,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .top.menu-open .nav ul{flex-direction:column;gap:0;padding:0;border:0;border-radius:0;background:none;backdrop-filter:none}
+  .top.menu-open .nav ul a{padding:16px 2px;font-size:17px;border-radius:0;border-bottom:1px solid var(--line)}
+  .top.menu-open .nav ul li:last-child a{border-bottom:0}
+}
+@media (max-width:440px){
+  .nav-end{gap:8px}
+  .nav .sound,.nav-end > .lang{display:none}
+  .nav .btn{min-height:40px;padding:0 14px;font-size:13.5px;white-space:nowrap}
+  .top.menu-open .lang-mobile{display:inline-flex;margin-top:16px}
+  .lang-mobile button{min-width:56px;min-height:44px}
+}
+@media (max-width:360px){.nav{gap:10px}.nav .logo{letter-spacing:.12em}.nav .btn{padding:0 11px;font-size:13px}.nav-end{gap:6px}}
 
 /* ---------- curtain ---------- */
 .curtain{position:fixed;inset:0;z-index:80;pointer-events:none;display:grid;place-items:center;background:var(--brass);transform:scaleY(0);transform-origin:bottom}
@@ -137,7 +161,7 @@ p{margin:0;text-wrap:pretty}
 .pane .tag{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass)}
 .msg{max-width:92%;padding:10px 13px;border-radius:12px;background:var(--ink-3);color:var(--fg)}
 .msg.me{justify-self:end;background:rgba(203,163,92,.15);border:1px solid rgba(203,163,92,.3)}
-.msg small{display:block;color:var(--muted);font-size:11px;margin-bottom:2px}
+.msg small{display:block;color:var(--muted);font-size:12px;margin-bottom:2px}
 .kv{display:grid;grid-template-columns:auto 1fr auto;gap:7px 14px;align-items:baseline;margin:0}
 .kv dt{color:var(--muted)}
 .kv dd{margin:0;color:var(--fg)}
@@ -205,7 +229,21 @@ p{margin:0;text-wrap:pretty}
   .msg:nth-child(4),.score{display:none}
   .scene p{max-width:40ch}
 }
-@media (min-width:901px) and (max-height:600px){ .console{display:none} .hero-inner{grid-template-columns:minmax(0,1fr)} }
+@media (min-width:901px) and (max-height:600px){
+  .hero-inner{padding-top:84px;padding-bottom:80px}
+  .scene{gap:12px}
+  .scene h1{font-size:clamp(30px,min(8.6cqi,9vh),96px)}
+  .scene h2{font-size:clamp(26px,min(7.6cqi,8vh),84px)}
+  .scene p{font-size:15px}
+  .console{font-size:12px;border-radius:14px}
+  .console-bar{padding:8px 14px;font-size:11.5px}
+  .pane{padding:11px 14px;gap:6px}
+  .kv{gap:3px 12px}
+  .msg{padding:7px 10px}
+  .unit{padding:8px 11px}
+  .unit:nth-child(n+3){display:none}
+}
+@media (min-width:901px) and (max-height:480px), (min-width:901px) and (max-width:1199px) and (max-height:600px){ .console{display:none} .hero-inner{grid-template-columns:minmax(0,1fr)} }
 /* phones in landscape */
 @media (max-height:500px){
   .hero-inner{padding-top:78px;padding-bottom:58px}
@@ -246,6 +284,8 @@ p{margin:0;text-wrap:pretty}
 .tile p{color:var(--soft);font-size:16px;max-width:48ch}
 .tile.big p{font-size:clamp(17px,1.4vw,20px)}
 .tile a{font:400 12.5px/1.4 var(--f-mono);color:var(--muted);text-decoration:none;border-bottom:1px solid rgba(143,163,174,.35);justify-self:start;padding-bottom:2px}
+.tile a,.foot a,small > a{position:relative}
+.tile a::after,.foot a::after,small > a::after{content:"";position:absolute;inset:-12px -4px}
 .tile a:hover{color:var(--brass-hi);border-color:var(--brass-hi)}
 @media (max-width:960px){.bento{grid-template-columns:repeat(2,minmax(0,1fr))}.tile.big{grid-column:1/-1;grid-row:auto}}
 @media (max-width:600px){.bento{grid-template-columns:minmax(0,1fr)}}
@@ -339,7 +379,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 .plan.main{background:var(--ink);color:var(--fg);border-color:var(--ink)}
 .plan.main .kind,.plan.main .terms,.plan.main .price small{color:var(--muted)}
 .plan.main ul li::before{background:var(--brass)}
-.plan .badge{position:absolute;top:24px;right:24px;background:var(--brass);color:var(--ink);font:500 11.5px/1 var(--f-mono);letter-spacing:.06em;padding:8px 11px;border-radius:999px}
+.plan .badge{position:absolute;top:24px;right:24px;background:var(--brass);color:var(--ink);font:500 12px/1 var(--f-mono);letter-spacing:.06em;padding:8px 11px;border-radius:999px}
 .note{margin-top:20px;font-size:14.5px;color:var(--muted-on-mist)}
 .cmp-wrap{margin-top:clamp(56px,7vw,96px);overflow-x:auto;border:1px solid var(--line-on-mist);border-radius:22px;background:var(--mist-2)}
 .cmp{width:100%;min-width:640px;border-collapse:collapse;font-size:15.5px;color:var(--ink-on-mist)}
@@ -452,7 +492,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
       <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="12" y="12" width="8" height="40" fill="currentColor"/><rect x="44" y="22" width="8" height="30" fill="currentColor"/><rect x="44" y="12" width="8" height="10" fill="#74B8A0"/><path d="M20 34 L44 22 L44 30 L20 42 Z" fill="#CBA35C"/></svg>
       HAZEO
     </a>
-    <nav aria-label="Main">
+    <nav aria-label="Main" id="mainNav">
       <ul>
         <li><a href="#demand" data-pl="Popyt">Why now</a></li>
         <li><a href="#calc" data-pl="Kalkulator">Calculator</a></li>
@@ -460,6 +500,10 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
         <li><a href="#agent" data-pl="Agent AI">The agent</a></li>
         <li><a href="#offer" data-pl="Oferta">Offer</a></li>
       </ul>
+      <div class="lang lang-mobile" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="pl" aria-pressed="false">PL</button>
+      </div>
     </nav>
     <div class="nav-end">
       <button class="sound" id="soundBtn" type="button" aria-pressed="false" aria-label="Sound on or off"><span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="lbl" data-pl="Dźwięk">Sound</span></button>
@@ -468,6 +512,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
         <button type="button" data-lang="pl" aria-pressed="false">PL</button>
       </div>
       <a class="btn btn-brass" href="#contact" data-pl="Umów demo">Book a demo</a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mainNav"><span></span></button>
     </div>
   </div>
 </header>
@@ -552,7 +597,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
           <div class="demo-note" data-pl="Przykładowe dane demonstracyjne">Example demo data</div>
         </div>
         <div class="pane" data-i="1">
-          <div class="tag">Property portal · 02:14 · DE</div>
+          <div class="tag" data-pl="Portal ogłoszeń · 02:14 · DE">Property portal · 02:14 · DE</div>
           <div class="msg"><small>Jonas W.</small>Hallo, wir suchen eine 2-Zimmer-Wohnung am Meer. Budget ca. 450.000 €.</div>
           <div class="msg me"><small>Hazeo · 38 s</small>Guten Abend, Herr W. Kaufen Sie zur Eigennutzung oder als Kapitalanlage?</div>
           <div class="msg"><small>Jonas W.</small>Beides. Ein paar Wochen selbst, sonst vermieten.</div>
@@ -562,25 +607,25 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
           <dl class="kv">
             <dt data-pl="Budżet">Budget</dt><dd>€420–480k</dd><dd class="ok">✓</dd>
             <dt data-pl="Termin">Timeline</dt><dd>Q1 2027</dd><dd class="ok">✓</dd>
-            <dt data-pl="Finansowanie">Financing</dt><dd>60% cash</dd><dd class="ok">✓</dd>
-            <dt data-pl="Cel">Purpose</dt><dd>own use + rental</dd><dd class="ok">✓</dd>
-            <dt data-pl="Środki">Proof of funds</dt><dd>requested</dd><dd class="wait">…</dd>
+            <dt data-pl="Finansowanie">Financing</dt><dd data-pl="60% gotówki">60% cash</dd><dd class="ok">✓</dd>
+            <dt data-pl="Cel">Purpose</dt><dd data-pl="własne + wynajem">own use + rental</dd><dd class="ok">✓</dd>
+            <dt data-pl="Środki">Proof of funds</dt><dd data-pl="wysłano prośbę">requested</dd><dd class="wait">…</dd>
           </dl>
           <div class="score"><span data-pl="Ocena">Lead score</span><span class="bar"><i></i></span><b>82</b></div>
         </div>
         <div class="pane" data-i="3">
           <div class="tag" data-pl="Krótka lista · 3 z 214 ofert">Shortlist · 3 of 214 listings</div>
-          <div class="unit best"><b>Marina Residences · 2BR</b><em>€455k</em><span>off-plan · Q4 2027 · 50/50</span><span>yield 6.8%</span></div>
-          <div class="unit"><b>Sea View Tower · 2BR</b><em>€468k</em><span>ready · furnished</span><span>yield 6.1%</span></div>
-          <div class="unit"><b>Palm Court · 1BR + study</b><em>€410k</em><span>resale · vacant</span><span>yield 7.2%</span></div>
+          <div class="unit best"><b>Marina Residences · 2BR</b><em>€455k</em><span data-pl="w budowie · IV kw. 2027 · 50/50">off-plan · Q4 2027 · 50/50</span><span data-pl="zwrot 6,8%">yield 6.8%</span></div>
+          <div class="unit"><b>Sea View Tower · 2BR</b><em>€468k</em><span data-pl="gotowe · umeblowane">ready · furnished</span><span data-pl="zwrot 6,1%">yield 6.1%</span></div>
+          <div class="unit"><b data-pl="Palm Court · 1BR + gabinet">Palm Court · 1BR + study</b><em>€410k</em><span data-pl="rynek wtórny · wolne">resale · vacant</span><span data-pl="zwrot 7,2%">yield 7.2%</span></div>
         </div>
         <div class="pane" data-i="4">
           <div class="tag" data-pl="Kalendarz i pokój transakcji">Calendar &amp; deal room</div>
-          <div class="unit best"><b>Thu 14:00 CET · video viewing</b><em class="ok">✓</em><span>Anna K. · briefing attached</span><span></span></div>
+          <div class="unit best"><b data-pl="czw. 14:00 CET · prezentacja wideo">Thu 14:00 CET · video viewing</b><em class="ok">✓</em><span data-pl="Anna K. · notatka dołączona">Anna K. · briefing attached</span><span></span></div>
           <dl class="kv">
-            <dt data-pl="Rezerwacja">Reservation form</dt><dd>signed</dd><dd class="ok">✓</dd>
+            <dt data-pl="Rezerwacja">Reservation form</dt><dd data-pl="podpisany">signed</dd><dd class="ok">✓</dd>
             <dt data-pl="Dokumenty KYC">KYC documents</dt><dd>2 / 3</dd><dd class="wait">…</dd>
-            <dt data-pl="Opłata">Reservation fee</dt><dd>due 30 Oct</dd><dd class="wait">…</dd>
+            <dt data-pl="Opłata">Reservation fee</dt><dd data-pl="do 30 paź">due 30 Oct</dd><dd class="wait">…</dd>
           </dl>
         </div>
       </div>
@@ -625,10 +670,10 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 
     <div class="bento">
       <div class="tile big rv">
-        <div class="label" data-pl="Zagraniczni kupcy · USA">Foreign buyers · USA</div>
+        <div class="label" data-pl="Zagraniczni inwestorzy · USA">Foreign buyers · USA</div>
         <div>
           <div class="num" data-to="56" data-prefix="$" data-suffix="B">$56B</div>
-          <p style="margin-top:18px" data-pl="wydali zagraniczni kupcy na domy z rynku wtórnego w USA (IV 2024 – III 2025), o 33,2% więcej rok do roku. 47% zapłaciło gotówką.">spent by foreign buyers on existing US homes, Apr 2024 – Mar 2025, up 33.2% year on year. 47% paid cash.</p>
+          <p style="margin-top:18px" data-pl="wydali zagraniczni inwestorzy na domy z rynku wtórnego w USA (IV 2024 – III 2025), o 33,2% więcej rok do roku. 47% zapłaciło gotówką.">spent by foreign buyers on existing US homes, Apr 2024 – Mar 2025, up 33.2% year on year. 47% paid cash.</p>
         </div>
         <a href="https://www.nar.realtor/newsroom/international-buyers-purchased-56-billion-worth-of-u-s-homes-from-april-24-to-march-25" target="_blank" rel="noopener">NAR, International Transactions 2025 ↗</a>
       </div>
@@ -1017,6 +1062,15 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 
   /* ---------- header: solid after hero start, hides on scroll down ---------- */
   var top = document.getElementById('top');
+  var navToggle = document.getElementById('navToggle');
+  function setMenu(open){
+    top.classList.toggle('menu-open', open);
+    navToggle.setAttribute('aria-expanded', String(open));
+  }
+  navToggle.addEventListener('click', function(){ setMenu(!top.classList.contains('menu-open')); });
+  document.getElementById('mainNav').addEventListener('click', function(e){ if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && top.classList.contains('menu-open')) { setMenu(false); navToggle.focus(); } });
+  window.addEventListener('resize', function(){ if (window.innerWidth > 1060) setMenu(false); });
   var dock = document.getElementById('dock');
   var hero = document.getElementById('hero');
   var lastY = window.scrollY;
