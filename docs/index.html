@@ -20,7 +20,7 @@
 <meta name="description" content="Hazeo Engine: AI deal agent for real estate agencies and developers selling to foreign investors.">
 <link rel="stylesheet" href="/assets/css/fonts.css">
 <style>
-/* Layout: full-bleed film hero pinned as a 5-scene deal story (giant grotesk headline bottom-left, live agent console bottom-right), then a manifesto that lights up word by word, a bento of evidence, a calculator, the niche, a sideways "agent day", a light offer section for rhythm, and a closing CTA with a giant wordmark. One night look that opens on a golden-hour villa film, brass for money and calls to action, mist for the offer. */
+/* Layout: full-bleed film hero pinned as a 5-scene deal story (giant grotesk headline bottom-left, live agent console bottom-right), then a manifesto that lights up word by word, a bento of evidence, a calculator, the niche, a sideways "agent day", a light offer section for rhythm, and a closing CTA. One night look that opens on a golden-hour villa film, brass for money and calls to action, mist for the offer. */
 :root{
   --ink:#05101A;        /* night harbour */
   --ink-2:#0A1A27;      /* raised surface */
@@ -405,11 +405,10 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 .status{font-size:15px;color:var(--sage);max-width:52ch}
 
 /* footer */
-.foot{padding-top:clamp(64px,8vw,110px);overflow:hidden;border-top:1px solid var(--line)}
+.foot{padding:clamp(48px,6vw,80px) 0 clamp(40px,5vw,64px);overflow:hidden;border-top:1px solid var(--line)}
 .foot-row{display:flex;flex-wrap:wrap;gap:16px 36px;justify-content:space-between;align-items:center;font-size:14.5px;color:var(--muted)}
 .foot a{color:var(--soft);text-underline-offset:4px}
 .foot a:hover{color:var(--brass-hi)}
-.wordmark{font:600 clamp(80px,23vw,380px)/.8 var(--f-sans);letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1px rgba(238,242,244,.22);text-align:center;margin-top:clamp(40px,6vw,80px);user-select:none;white-space:nowrap;transform:translateY(12%)}
 
 /* sound toggle */
 .sound{display:inline-flex;align-items:center;gap:10px;min-height:42px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:rgba(5,16,26,.35);backdrop-filter:blur(10px);color:var(--soft);font:500 12px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:color .25s,border-color .25s}
@@ -934,7 +933,6 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
     <span>© 2026 Hazeo · <span data-pl="Hazeo Engine dla nieruchomości">Hazeo Engine for real estate</span></span>
     <span><a href="/polityka-prywatnosci.html" data-pl="Polityka prywatności">Privacy policy</a> · <a href="#" data-cookie-settings data-pl="Ustawienia cookies">Cookie settings</a> · <a href="/producenci/" data-pl="Hazeo dla producentów (PL)">Hazeo for manufacturers (PL)</a></span>
   </div>
-  <div class="wordmark" aria-hidden="true">HAZEO</div>
 </footer>
 
 <div class="dock" id="dock"><a class="btn btn-brass" href="#contact" data-pl="Umów 20-minutowe demo">Book a 20-minute demo</a></div>
@@ -1262,11 +1260,6 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
       }
     });
   } else { root.classList.add('no-hscroll'); }
-
-  /* ---------- wordmark parallax ---------- */
-  if (motion){
-    gsap.fromTo('.wordmark', {yPercent:40}, {yPercent:12, ease:'none', scrollTrigger:{trigger:'.foot', start:'top bottom', end:'bottom bottom', scrub:true}});
-  }
 
   /* ---------- copy email ---------- */
   var copyBtn = document.getElementById('copyMail');
