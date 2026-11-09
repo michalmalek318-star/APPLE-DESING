@@ -1,13 +1,14 @@
 # HAZEO – strona i ustawienia
 
-Stan na 25.10.2026. Repo: https://github.com/michalmalek318-star/APPLE-DESING
+Stan na 9.11.2026. Repo: https://github.com/michalmalek318-star/APPLE-DESING
 
 ## Gdzie co jest
 
 | Ścieżka | Co to jest |
 |---|---|
 | `docs/` | Gotowa strona, dokładnie to, co jest na hazeo.pl |
-| `hazeo/v2-nieruchomosci/index.html` | Źródło strony głównej (Hazeo Engine dla nieruchomości). Edytuj tutaj |
+| `hazeo/v4-hazeo-engine/` | Źródło strony głównej: Hazeo Engine – pozyskiwanie klientów B2B i B2C (gotowy HTML, grafiki, czcionka, llms.txt). Edytuj tutaj |
+| `hazeo/v2-nieruchomosci/index.html` | Źródło strony Hazeo Engine Real Estate, publikowanej pod /real-estate/ |
 | `hazeo/v2-nieruchomosci/assets/` | Wideo hero (1080p i 720p), kadr startowy, muzyka |
 | `hazeo/site/` | Baner cookies (`consent.js`), polityka prywatności, czcionki i skrypty hostowane lokalnie |
 | `hazeo/v1-producenci/` | Archiwum pierwszej strony dla producentów |
@@ -18,7 +19,8 @@ Gałąź robocza: `claude/dazzling-archimedes-bpwna4`.
 
 ## Adresy
 
-- https://hazeo.pl – Hazeo Engine dla nieruchomości (EN/PL)
+- https://hazeo.pl – Hazeo Engine: pozyskiwanie klientów B2B i B2C (PL)
+- https://hazeo.pl/real-estate/ – Hazeo Engine dla nieruchomości (EN/PL)
 - https://hazeo.pl/producenci/ – strona dla producentów (PL)
 - https://hazeo.pl/polityka-prywatnosci.html – polityka prywatności i cookies (PL/EN)
 
@@ -47,7 +49,8 @@ Poprzedni rekord A (przed GitHub Pages): `2.57.91.91`.
 - Usługa: FormSubmit, adres docelowy `michalmalek@hazeo.pl`
 - Endpoint: `https://formsubmit.co/ajax/michalmalek@hazeo.pl`
 - Pierwsze wysłanie wymaga kliknięcia „Activate Form” w mailu od FormSubmit
-- Przy błędzie formularz pokazuje link „Wyślij z programu pocztowego”
+- Przy błędzie formularz pokazuje link „Wyślij z programu pocztowego” (real estate, producenci) albo sam otwiera gotową wiadomość e-mail (strona główna)
+- Strona główna wysyła do GA4 (po zgodzie) zdarzenia: cta_click, form_step_1, generate_lead
 
 ## Analityka i cookies
 
@@ -58,8 +61,8 @@ Poprzedni rekord A (przed GitHub Pages): `2.57.91.91`.
 
 ## Jak wprowadzić zmianę
 
-1. Edytuj `hazeo/v2-nieruchomosci/index.html` (albo pliki w `hazeo/site/`).
-2. Uruchom `python3 hazeo/build.py` – odświeży `docs/` i `hazeo/dist/`.
+1. Edytuj `hazeo/v4-hazeo-engine/index.html` (strona główna), `hazeo/v2-nieruchomosci/index.html` (real estate) albo pliki w `hazeo/site/`.
+2. Uruchom `python3 hazeo/build.py` – odświeży `docs/` i `hazeo/dist/` (razem z sitemap.xml, robots.txt i llms.txt).
 3. Skopiuj zawartość `docs/` do gałęzi `gh-pages` i wypchnij. Po 1–2 minutach zmiana jest na hazeo.pl.
 
 Ręcznie wgrywając stronę na inny hosting, wystarczy zawartość `docs/` (plik `.htaccess` jest w `hazeo/dist/`).
