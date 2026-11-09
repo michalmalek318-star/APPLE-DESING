@@ -1,0 +1,946 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pozyskiwanie klientów B2B z AI | Hazeo Engine | HAZEO</title>
+<meta name="description" content="Hazeo Engine wyszukuje firmy i decydentów, ocenia dopasowanie leadów i prowadzi kontakt do rozmowy z handlowcem. Pakiety od 2 500 zł netto.">
+<link rel="canonical" href="https://hazeo.pl/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:site_name" content="HAZEO">
+<meta property="og:url" content="https://hazeo.pl/">
+<meta property="og:title" content="Hazeo Engine: pozyskiwanie klientów B2B i B2C z AI">
+<meta property="og:description" content="System AI, który szuka klientów, zamiast czekać na nich. Wyszukiwanie decydentów, scoring, spersonalizowany kontakt, przekazanie leada handlowcowi.">
+<meta property="og:image" content="https://hazeo.pl/assets/hazeo-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#111217">
+<link rel="icon" type="image/png" href="/assets/hazeo-logo.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" as="image" href="/assets/hazeo-hero.webp" media="(min-width:900px)">
+<link rel="preload" as="image" href="/assets/hazeo-hero-mobile.webp" media="(max-width:899px)">
+<link rel="preload" href="/assets/fonts/geist-variable.woff2" as="font" type="font/woff2" crossorigin>
+<style>@font-face{font-family:"Geist";src:url("/assets/fonts/geist-variable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}</style>
+<script>document.documentElement.classList.add('js')</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":["Organization","ProfessionalService"],"@id":"https://hazeo.pl/#org","name":"HAZEO","url":"https://hazeo.pl/","logo":"https://hazeo.pl/assets/hazeo-logo.png","image":"https://hazeo.pl/assets/hazeo-og.jpg","email":"michalmalek@hazeo.pl","description":"Pomagamy firmom rosnąć i optymalizować procesy marketingowe i sprzedażowe dzięki zaawansowanej sztucznej inteligencji. Hazeo Engine: pozyskiwanie klientów B2B i B2C z AI.","slogan":"Nowi klienci. Wyższy bieg.","areaServed":{"@type":"Country","name":"Polska"},"knowsLanguage":["pl","en"],"founder":[{"@id":"https://hazeo.pl/#michal"},{"@id":"https://hazeo.pl/#konrad"}],"makesOffer":[{"@type":"Offer","name":"Start – Digital Foundation","priceSpecification":{"@type":"PriceSpecification","minPrice":2500,"maxPrice":6000,"priceCurrency":"PLN","valueAddedTaxIncluded":false}},{"@type":"Offer","name":"Grow – Marketing & Acquisition","itemOffered":{"@id":"https://hazeo.pl/#hazeo-engine"},"priceSpecification":{"@type":"UnitPriceSpecification","minPrice":4000,"maxPrice":9000,"priceCurrency":"PLN","unitText":"miesiąc","valueAddedTaxIncluded":false}},{"@type":"Offer","name":"Scale – AI Growth Partner","itemOffered":{"@id":"https://hazeo.pl/#hazeo-engine"},"priceSpecification":{"@type":"UnitPriceSpecification","minPrice":8000,"priceCurrency":"PLN","unitText":"miesiąc","valueAddedTaxIncluded":false}}]},{"@type":"Service","@id":"https://hazeo.pl/#hazeo-engine","name":"Hazeo Engine","serviceType":"Pozyskiwanie klientów B2B i B2C z AI","description":"System AI, który wyszukuje firmy i decydentów, ocenia dopasowanie leadów, prowadzi spersonalizowany kontakt i przekazuje leada handlowcowi. Modele: B2B Acquisition Engine i B2C Growth Engine.","provider":{"@id":"https://hazeo.pl/#org"},"areaServed":"PL","url":"https://hazeo.pl/#hazeo-engine"},{"@type":"Person","@id":"https://hazeo.pl/#michal","name":"Michał Małek","jobTitle":"Założyciel, CEO","worksFor":{"@id":"https://hazeo.pl/#org"}},{"@type":"Person","@id":"https://hazeo.pl/#konrad","name":"Konrad Potocki","jobTitle":"Współzałożyciel, CMO","worksFor":{"@id":"https://hazeo.pl/#org"}},{"@type":"WebSite","@id":"https://hazeo.pl/#web","url":"https://hazeo.pl/","name":"HAZEO","inLanguage":"pl-PL","publisher":{"@id":"https://hazeo.pl/#org"}},{"@type":"Service","name":"Brand & Creative","serviceType":"Branding i content marketing","provider":{"@id":"https://hazeo.pl/#org"},"isRelatedTo":{"@id":"https://hazeo.pl/#hazeo-engine"},"areaServed":"PL"},{"@type":"Service","name":"Digital Experience","serviceType":"Projektowanie stron internetowych","provider":{"@id":"https://hazeo.pl/#org"},"isRelatedTo":{"@id":"https://hazeo.pl/#hazeo-engine"},"areaServed":"PL"},{"@type":"Service","name":"AI Search & Analytics","serviceType":"SEO, AI SEO i analityka","provider":{"@id":"https://hazeo.pl/#org"},"isRelatedTo":{"@id":"https://hazeo.pl/#hazeo-engine"},"areaServed":"PL"},{"@type":"Service","name":"Events & Partnerships","serviceType":"Marketing eventowy B2B","provider":{"@id":"https://hazeo.pl/#org"},"isRelatedTo":{"@id":"https://hazeo.pl/#hazeo-engine"},"areaServed":"PL"},{"@type":"FAQPage","@id":"https://hazeo.pl/#faq","mainEntity":[{"@type":"Question","name":"Czym jest Hazeo Engine?","acceptedAnswer":{"@type":"Answer","text":"To system AI do pozyskiwania klientów. Wyszukuje firmy i decydentów, ocenia ich dopasowanie, prowadzi spersonalizowany kontakt i przekazuje leada handlowcowi. Działa w dwóch modelach: B2B i B2C."}},{"@type":"Question","name":"Czy Hazeo Engine to chatbot?","acceptedAnswer":{"@type":"Answer","text":"Nie. Chatbot odpowiada osobom, które już trafiły na Twoją stronę. Hazeo Engine aktywnie szuka klientów, którzy jeszcze o Tobie nie wiedzą, i prowadzi z nimi kontakt do rozmowy z handlowcem."}},{"@type":"Question","name":"Ile kosztuje współpraca?","acceptedAnswer":{"@type":"Answer","text":"Start (Digital Foundation) to jednorazowo 2 500–6 000 zł netto. Grow (Marketing & Acquisition) to 4 000–9 000 zł netto miesięcznie. Scale (AI Growth Partner) to 8 000–18 000+ zł netto miesięcznie. Kwoty są orientacyjne."}},{"@type":"Question","name":"Czy gwarantujecie określoną liczbę leadów?","acceptedAnswer":{"@type":"Answer","text":"Nie obiecujemy określonej liczby leadów ani wzrostu sprzedaży, zanim nie mamy danych i warunków, które pozwalają wiarygodnie określić taki cel."}},{"@type":"Question","name":"Czym różni się model B2B od B2C?","acceptedAnswer":{"@type":"Answer","text":"B2B Acquisition Engine wyszukuje firmy i decydentów, ocenia dopasowanie i prowadzi spersonalizowany proces sprzedaży. B2C Growth Engine pozyskuje popyt, zwiększa konwersję i pomaga utrzymywać klientów."}},{"@type":"Question","name":"Jak rozliczacie Hazeo Engine?","acceptedAnswer":{"@type":"Answer","text":"B2B: wdrożenie systemu i abonament za obsługę oraz optymalizację, opcjonalnie premie za jasno zdefiniowane wyniki. B2C: miesięczna obsługa wzrostu, osobny budżet mediowy i wdrożenia automatyzacji."}},{"@type":"Question","name":"Czy AI zastępuje u was ludzi?","acceptedAnswer":{"@type":"Answer","text":"Nie. Pracujemy AI-first, human-led. AI przyspiesza pracę, analizuje dane i automatyzuje procesy. Strategia, kontrola jakości i odpowiedzialność zostają po naszej stronie."}},{"@type":"Question","name":"Do kogo należą strona, domena i konta?","acceptedAnswer":{"@type":"Answer","text":"Do Ciebie. Hosting, domena i kluczowe konta należą do klienta, na przejrzystych zasadach i z dostępami dla nas."}}]}]}</script>
+<style>
+/* Layout: obsidian stage with a moving red/ice light field behind real glass tiles; one 12-col frame;
+   chapters alternate obsidian (glass over light) and ice-grey sheets. Three colours only: obsidian, ice, racing red. */
+:root{
+  --obsidian:#111217; --obsidian-2:#16171d; --obsidian-3:#1e2028; --line:rgba(223,229,235,.12);
+  --ice:#DFE5EB; --ice-2:#a8b0ba; --ice-3:#7d8590;
+  --red:#EF233C; --red-hi:#ff3d55; --red-deep:#9e1426;
+  --sheet:#DFE5EB; --sheet-ink:#111217; --sheet-ink-2:#4b515b;
+  --face:"Geist","Helvetica Neue",Arial,system-ui,sans-serif;
+  --margin:max(1.25rem, env(safe-area-inset-left,0px)); --margin-r:max(1.25rem, env(safe-area-inset-right,0px));
+  --gutter:clamp(1rem,2vw,1.75rem);
+  --step-mega:clamp(3.25rem,9vw,9.375rem);
+  --step-head:clamp(2.375rem,5.2vw,5.25rem);
+  --step-sub:clamp(1.375rem,2.1vw,2rem);
+  --step-body:clamp(1rem,1.15vw,1.125rem);
+  --ease-out:cubic-bezier(.22,1,.36,1); --ease-expo:cubic-bezier(.16,1,.3,1); --ease-in-out:cubic-bezier(.76,0,.24,1);
+  color-scheme:dark;
+}
+@media (min-width:900px){:root{--margin:max(3rem, env(safe-area-inset-left,0px));--margin-r:max(3rem, env(safe-area-inset-right,0px))}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{margin:0;background:var(--obsidian);color:var(--ice);font:400 var(--step-body)/1.6 var(--face);-webkit-font-smoothing:antialiased;overflow-x:clip}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--obsidian)}
+h1,h2,h3,p,ul,ol,figure,blockquote{margin:0}
+ul,ol{padding:0;list-style:none}
+h1,h2,h3{text-wrap:balance}
+h2{font-size:var(--step-head);font-weight:600;letter-spacing:-.045em;line-height:.98}
+h3{font-weight:500;letter-spacing:-.025em;line-height:1.1}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--red);outline-offset:0.25rem;border-radius:0.375rem}
+.frame{width:100%;max-width:92.5rem;margin:0 auto;padding-left:var(--margin);padding-right:var(--margin-r)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.red{color:var(--red)}
+.muted{color:var(--ice-2)}
+.lede{font-size:clamp(1.125rem,1.45vw,1.375rem);line-height:1.5;color:var(--ice-2);max-width:44ch}
+
+/* ---------- light field behind the glass ---------- */
+.field{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:var(--obsidian)}
+.field i{position:absolute;border-radius:50%;filter:blur(5rem);opacity:.55;will-change:transform}
+.field .f1{width:46vmax;height:46vmax;left:-12vmax;top:10vh;background:radial-gradient(closest-side,rgba(239,35,60,.55),rgba(239,35,60,0))}
+.field .f2{width:40vmax;height:40vmax;right:-14vmax;top:40vh;background:radial-gradient(closest-side,rgba(223,229,235,.22),rgba(223,229,235,0))}
+.field .f3{width:30vmax;height:30vmax;left:35vw;bottom:-14vmax;background:radial-gradient(closest-side,rgba(239,35,60,.35),rgba(239,35,60,0))}
+@media (prefers-reduced-motion:no-preference){
+  .field .f1{animation:drift1 26s ease-in-out infinite alternate}
+  .field .f2{animation:drift2 32s ease-in-out infinite alternate}
+  .field .f3{animation:drift3 22s ease-in-out infinite alternate}
+}
+@keyframes drift1{to{transform:translate(18vw,12vh) scale(1.15)}}
+@keyframes drift2{to{transform:translate(-16vw,-10vh) scale(.9)}}
+@keyframes drift3{to{transform:translate(-20vw,-18vh) scale(1.2)}}
+.grain{position:fixed;inset:-50%;z-index:58;pointer-events:none;opacity:.06;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+@media (prefers-reduced-motion:no-preference){.grain{animation:grain 900ms steps(6) infinite}}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-4%,3%)}50%{transform:translate(3%,-5%)}75%{transform:translate(-5%,-2%)}100%{transform:translate(0,0)}}
+main,footer,header{position:relative;z-index:2}
+
+/* ---------- glass ---------- */
+.glass{--mx:50%;--my:0%;--rx:0deg;--ry:0deg;position:relative;isolation:isolate;border-radius:1.375rem;
+  background:linear-gradient(140deg,rgba(223,229,235,.11),rgba(223,229,235,.035) 45%,rgba(223,229,235,.02));
+  -webkit-backdrop-filter:blur(1.25rem) saturate(150%);backdrop-filter:blur(1.25rem) saturate(150%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.20),inset 0 0 0 1px rgba(223,229,235,.10),0 2.5rem 5rem -40px rgba(0,0,0,.85);
+  transform:perspective(62.5rem) rotateX(var(--rx)) rotateY(var(--ry));transition:transform 500ms var(--ease-out),box-shadow 400ms ease}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:-1;
+  background:linear-gradient(160deg,rgba(255,255,255,.45),rgba(255,255,255,.05) 35%,rgba(255,255,255,.02) 60%,rgba(239,35,60,.45));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.glass::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;opacity:0;transition:opacity 400ms ease;
+  background:radial-gradient(26.25rem circle at var(--mx) var(--my),rgba(255,255,255,.12),transparent 60%)}
+@media (hover:hover) and (pointer:fine){.glass:hover::after{opacity:1}.glass.tilt:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.24),inset 0 0 0 1px rgba(223,229,235,.14),0 3.125rem 5.625rem -40px rgba(239,35,60,.35)}}
+.glass.is-moving{transition:transform 120ms linear,box-shadow 400ms ease}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:0.75rem;min-height:3.375rem;padding:0 1.625rem;border-radius:62.4375rem;border:0;font:600 1rem/1 var(--face);text-decoration:none;cursor:pointer;transition:transform 140ms var(--ease-out),background-color 180ms ease,box-shadow 300ms ease}
+.btn:active{transform:scale(.97)}
+.btn-red{background:var(--red);color:var(--obsidian);box-shadow:0 0.875rem 2.5rem -14px rgba(239,35,60,.8)}
+.btn-ghost{background:rgba(223,229,235,.08);color:var(--ice);box-shadow:inset 0 0 0 1px rgba(223,229,235,.18)}
+.btn .arr{display:inline-block;transition:transform 240ms var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.btn-red:hover{background:var(--red-hi);box-shadow:0 1.125rem 3.125rem -12px rgba(239,35,60,.95)}.btn-ghost:hover{background:rgba(223,229,235,.14)}.btn:hover .arr{transform:translate(0.1875rem,-3px)}}
+.on-sheet .btn-ghost{background:rgba(17,18,23,.06);color:var(--sheet-ink);box-shadow:inset 0 0 0 1px rgba(17,18,23,.18)}
+
+/* ---------- header ---------- */
+.bar{position:fixed;top:calc(env(safe-area-inset-top,0px) + 0.75rem);left:0;right:0;z-index:50}
+.bar .frame{display:flex;justify-content:center}
+.bar__in{width:100%;max-width:86.25rem;display:flex;align-items:center;justify-content:space-between;gap:1.25rem;padding:0.625rem 0.625rem 0.625rem 1.25rem;border-radius:62.4375rem}
+.wordmark{display:flex;align-items:center;gap:0.625rem;text-decoration:none;font-weight:600;letter-spacing:.18em;font-size:0.875rem}
+.wordmark svg{width:1.625rem;height:1.625rem}
+.nav{display:flex;gap:1.75rem;font-size:0.9375rem;color:var(--ice-2)}
+.nav a{text-decoration:none;transition:color 180ms ease}
+.nav a:hover,.nav a.is-current{color:var(--ice)}
+.bar .btn{min-height:2.75rem;padding:0 1.25rem;font-size:0.9375rem}
+@media (max-width:899px){.nav{display:none}.bar__in{padding-left:1rem}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;height:150svh}
+.hero__stage{position:sticky;top:0;height:100svh;overflow:clip}
+.hero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 50%;transform-origin:68% 45%;will-change:transform}
+.hero__beam{position:absolute;inset:-20% -40%;pointer-events:none;mix-blend-mode:screen;opacity:.55;
+  background:linear-gradient(115deg,transparent 42%,rgba(239,35,60,.0) 46%,rgba(239,35,60,.35) 50%,rgba(255,120,135,.12) 52%,transparent 58%)}
+@media (prefers-reduced-motion:no-preference){.hero__beam{animation:beam 9s var(--ease-in-out) infinite}}
+@keyframes beam{0%{transform:translateX(-30%)}55%{transform:translateX(30%)}100%{transform:translateX(30%)}}
+.hero__shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(17,18,23,.92) 0%,rgba(17,18,23,.65) 34%,rgba(17,18,23,0) 62%),linear-gradient(0deg,rgba(17,18,23,.85),rgba(17,18,23,0) 30%)}
+.hero__copy{position:absolute;left:0;right:0;bottom:0;padding-bottom:clamp(2.25rem,8svh,6rem)}
+.hero h1{display:grid;gap:clamp(0.875rem,2svh,1.5rem)}
+.hero .kick{font-size:clamp(0.9375rem,1.2vw,1.125rem);font-weight:500;letter-spacing:0;line-height:1.4;color:var(--ice-2);display:flex;align-items:center;gap:0.75rem}
+.hero .kick::before{content:"";width:1.75rem;height:2px;background:var(--red)}
+.hero .display{font-size:min(var(--step-mega),15vw);font-weight:600;letter-spacing:-.055em;line-height:.9}
+.hero .display .ln{display:block;overflow:clip;padding-bottom:.08em;margin-bottom:-.08em}
+.hero .display .ln>span{display:block}
+.hero .lede{margin-top:clamp(1.125rem,3svh,1.875rem);color:var(--ice);opacity:.86;max-width:40ch}
+.hero .actions{margin-top:clamp(1.375rem,3.5svh,2.25rem);display:flex;flex-wrap:wrap;gap:0.75rem}
+.hero .fine{margin-top:1rem;font-size:0.875rem;color:var(--ice-3)}
+@media (max-width:599px){
+  .hero__img{top:-72px;height:calc(100% + 4.5rem)}
+  .hero__shade{background:linear-gradient(0deg,rgba(17,18,23,.97) 0%,rgba(17,18,23,.88) 44%,rgba(17,18,23,.3) 60%,rgba(17,18,23,0) 72%)}
+  .hero__beam{opacity:.3}
+  .hero .lede{font-size:1.0625rem;line-height:1.5}
+  .hero .actions{flex-wrap:nowrap;gap:0.625rem}
+  .hero .actions .btn{flex:1 1 0;min-width:0;padding:0 0.875rem;gap:0.5rem;font-size:0.9375rem;min-height:3.25rem;white-space:nowrap}
+  .hero .fine{font-size:0.8125rem;color:var(--ice-2);opacity:.8}
+}
+@media (max-width:599px) and (max-height:740px){.hero__img{top:-124px;height:calc(100% + 7.75rem)}}
+.hero__tiles{position:absolute;right:var(--margin-r);top:22svh;display:grid;gap:0.75rem;width:min(18.75rem,26vw)}
+.hero__tiles .glass{padding:1rem 1.125rem;font-size:0.9375rem;line-height:1.35}
+.hero__tiles strong{display:block;font-size:1.375rem;font-weight:600;letter-spacing:-.03em;margin-bottom:2px}
+@media (max-width:899px){
+  .hero{height:130svh}
+  .hero__img{object-position:50% 30%;transform-origin:50% 35%}
+  .hero__shade{background:linear-gradient(0deg,rgba(17,18,23,.96) 0%,rgba(17,18,23,.8) 40%,rgba(17,18,23,0) 70%)}
+  .hero__tiles{display:none}
+}
+
+/* ---------- facts strip ---------- */
+.facts{padding-block:clamp(1.5rem,4vw,2.75rem)}
+.facts ul{display:flex;flex-wrap:wrap;gap:0.625rem}
+.facts li{padding:0.75rem 1.125rem;border-radius:62.4375rem;font-size:0.9375rem;color:var(--ice)}
+.facts li b{color:var(--red);font-weight:600;margin-right:0.375rem}
+
+/* ---------- chapters ---------- */
+.chapter{position:relative;padding-block:clamp(6rem,11vw,11rem);overflow-x:clip}
+.sheet{background:var(--sheet);color:var(--sheet-ink)}
+.sheet .lede,.sheet .muted{color:var(--sheet-ink-2)}
+
+/* problem */
+.problem{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);align-items:start}
+.problem h2{grid-column:1/span 6}
+.problem ul{grid-column:7/span 6;display:grid;gap:0}
+.problem li{display:grid;grid-template-columns:1.75rem minmax(0,1fr);gap:0.5rem;padding-block:1.125rem;font-size:clamp(1.1875rem,1.6vw,1.5rem);letter-spacing:-.015em;line-height:1.3;border-top:1px solid rgba(17,18,23,.12)}
+.problem li::before{content:"?";font-weight:600;color:var(--red)}
+.problem .punch{grid-column:1/-1;margin-top:clamp(3rem,6vw,5.5rem);font-size:clamp(1.625rem,3vw,2.875rem);font-weight:600;letter-spacing:-.035em;line-height:1.08;max-width:24ch}
+@media (max-width:899px){.problem h2,.problem ul{grid-column:1/-1}.problem ul{margin-top:1.75rem}}
+
+/* engine: pinned scene */
+.engine{position:relative;height:calc(5 * 70svh + 100svh)}
+.engine__stage{position:sticky;top:0;height:100svh;display:grid;align-items:center;overflow:clip;padding-top:4.5rem}
+.engine__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);align-items:center}
+.engine__text{grid-column:1/span 5}
+.engine__text h2{font-size:clamp(1.875rem,3.3vw,3.375rem)}
+.engine__text .lede{margin-top:1.25rem;font-size:clamp(1rem,1.2vw,1.1875rem)}
+.steps{margin-top:clamp(1.5rem,4svh,2.5rem);display:grid;gap:0.5rem;counter-reset:s}
+.step{counter-increment:s;display:grid;grid-template-columns:2.5rem minmax(0,1fr);gap:0.625rem;padding:0.875rem 1rem;border-radius:1rem;opacity:.45;transition:opacity 500ms ease,background-color 500ms ease}
+.step::before{content:counter(s);display:grid;place-items:center;width:1.875rem;height:1.875rem;border-radius:50%;background:rgba(223,229,235,.08);font-weight:600;font-size:0.875rem;transition:background-color 400ms ease,color 400ms ease}
+.step b{display:block;font-weight:600;font-size:clamp(1.0625rem,1.3vw,1.25rem);letter-spacing:-.015em}
+.step span{display:block;max-height:0;overflow:hidden;color:var(--ice-2);font-size:0.9375rem;line-height:1.5;transition:max-height 600ms var(--ease-out),margin 600ms var(--ease-out)}
+.step.is-on{opacity:1;background:rgba(223,229,235,.06)}
+.step.is-on::before{background:var(--red);color:var(--obsidian)}
+.step.is-on span{max-height:7.5rem;margin-top:0.375rem}
+.engine__tag{margin-top:1.125rem;font-size:0.9375rem;color:var(--ice-2)}
+.engine__tag b{color:var(--red);font-weight:600}
+.engine__visual{grid-column:7/span 6;position:relative;aspect-ratio:4/3;border-radius:1.75rem;overflow:hidden}
+.engine__visual img{width:100%;height:100%;object-fit:cover;transform:scale(calc(1.12 - var(--ep,0) * .12));transition:transform 200ms linear}
+.engine__visual .glass{position:absolute;left:1.125rem;bottom:1.125rem;padding:0.75rem 1rem;font-size:0.875rem}
+.engine__visual .glass b{color:var(--red)}
+.engine__rail{position:absolute;left:0;top:0;bottom:0;width:0.1875rem;background:rgba(223,229,235,.1)}
+.engine__rail i{position:absolute;left:0;top:0;width:100%;height:100%;background:var(--red);transform-origin:top;transform:scaleY(var(--ep,0))}
+@media (max-width:899px){
+  .engine{height:auto}.engine__stage{position:static;height:auto;padding-block:6rem}
+  .engine__text,.engine__visual{grid-column:1/-1}.engine__visual{order:-1;margin-bottom:1.75rem}
+  .step{opacity:1}.step span{max-height:none;margin-top:0.375rem}.step::before{background:var(--red);color:var(--obsidian)}
+}
+
+/* deliverables: bento of glass tiles */
+.get__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);align-items:end}
+.get__head h2{grid-column:1/span 7}
+.get__head p{grid-column:9/span 4}
+.bento{margin-top:clamp(3rem,6vw,5.5rem);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:0.875rem;position:relative}
+.bento__bg{position:absolute;inset:-6% 0;z-index:-1;border-radius:2.5rem;overflow:hidden;opacity:.85}
+.bento__bg img{width:100%;height:100%;object-fit:cover}
+.tile{padding:clamp(1.375rem,2.4vw,2rem);min-height:10rem;display:flex;flex-direction:column;justify-content:space-between;gap:1.5rem}
+.tile .n{font-size:0.875rem;color:var(--ice-3)}
+.tile p{font-size:clamp(1.125rem,1.5vw,1.375rem);letter-spacing:-.015em;line-height:1.3}
+.bento .t1{grid-column:span 5}.bento .t2{grid-column:span 4}.bento .t3{grid-column:span 3}
+.bento .t4{grid-column:span 3}.bento .t5{grid-column:span 4}.bento .t6{grid-column:span 5}
+.bento .t7{grid-column:span 12;flex-direction:row;align-items:center;justify-content:space-between;min-height:0}
+.bento .t7 p{font-size:clamp(1.25rem,1.8vw,1.75rem)}
+@media (max-width:899px){.get__head h2,.get__head p{grid-column:1/-1}.bento .tile{grid-column:span 12!important}.bento .t7{flex-direction:column;align-items:flex-start}}
+
+/* models */
+.models__head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:1.5rem}
+.seg{display:inline-grid;grid-template-columns:1fr 1fr;gap:0.25rem;padding:0.25rem;border-radius:62.4375rem}
+.seg button{min-height:2.875rem;padding:0 1.375rem;border:0;border-radius:62.4375rem;background:transparent;color:var(--ice-2);font:600 0.9375rem var(--face);cursor:pointer;transition:background-color 240ms var(--ease-out),color 180ms ease}
+.seg button[aria-selected="true"]{background:var(--ice);color:var(--obsidian)}
+.model{margin-top:clamp(2.25rem,5vw,4rem);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);align-items:center}
+.model__img{grid-column:1/span 6;aspect-ratio:4/3;border-radius:1.75rem;overflow:hidden;position:relative}
+.model__img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity 700ms ease,transform 1200ms var(--ease-expo)}
+.model__img img[hidden]{display:block!important;opacity:0;transform:scale(1.06)}
+.model__card{grid-column:8/span 5;padding:clamp(1.5rem,3vw,2.5rem);display:grid;gap:1rem}
+.model__card .who{color:var(--ice-2);font-size:0.9375rem}
+.model__card h3{font-size:clamp(1.75rem,2.8vw,2.75rem);font-weight:600;letter-spacing:-.04em}
+.model__card .bill{padding:1rem 1.125rem;border-radius:0.875rem;background:rgba(17,18,23,.45);font-size:0.9375rem;color:var(--ice-2)}
+.model__card .bill b{display:block;color:var(--ice);font-weight:600;margin-bottom:0.25rem}
+.models .both{margin-top:1.75rem;color:var(--ice-2)}
+@media (prefers-reduced-motion:no-preference){.model__card.swap{animation:swap 500ms var(--ease-out)}}
+@keyframes swap{from{opacity:0;transform:translateY(0.75rem)}}
+@media (max-width:899px){.model__img,.model__card{grid-column:1/-1}}
+
+/* pillars */
+.pillars{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter)}
+.pillars h2{grid-column:1/span 5;align-self:start;position:sticky;top:7.5rem}
+.pillars ol{grid-column:7/span 6;display:grid;gap:0;counter-reset:p}
+.pillars li{counter-increment:p;display:grid;grid-template-columns:3rem minmax(0,1fr);gap:0.625rem;padding-block:1.625rem;border-top:1px solid rgba(17,18,23,.14)}
+.pillars li::before{content:"0" counter(p);font-weight:600;font-size:0.875rem;color:var(--sheet-ink-2);padding-top:0.375rem}
+.pillars li:first-child::before{color:var(--red)}
+.pillars li b{display:block;font-size:clamp(1.375rem,2vw,1.875rem);font-weight:600;letter-spacing:-.03em;line-height:1.15}
+.pillars li span{display:block;margin-top:0.375rem;color:var(--sheet-ink-2)}
+@media (max-width:899px){.pillars h2,.pillars ol{grid-column:1/-1}.pillars h2{position:static;margin-bottom:1.5rem}}
+
+/* packages */
+.pack__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);align-items:end}
+.pack__head h2{grid-column:1/span 7}.pack__head p{grid-column:9/span 4}
+.plans{margin-top:clamp(3rem,6vw,5.5rem);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;align-items:stretch}
+.plan{padding:clamp(1.625rem,2.8vw,2.5rem);display:flex;flex-direction:column;gap:1.125rem}
+.plan .kind{font-size:0.875rem;color:var(--ice-3)}
+.plan h3{font-size:clamp(1.625rem,2.4vw,2.25rem);font-weight:600;letter-spacing:-.04em}
+.plan .price{font-size:clamp(1.875rem,2.6vw,2.625rem);font-weight:600;letter-spacing:-.045em;line-height:1;white-space:nowrap;font-variant-numeric:tabular-nums}
+.plan .per{display:block;margin-top:0.5rem;font-size:0.875rem;font-weight:400;letter-spacing:0;color:var(--ice-2);white-space:normal}
+.plan .for{color:var(--ice-2);font-size:0.9375rem}
+.plan ul{display:grid;gap:0.5625rem;font-size:0.9375rem}
+.plan li{padding-left:1.25rem;position:relative}
+.plan li::before{content:"";position:absolute;left:0;top:.62em;width:0.375rem;height:0.375rem;border-radius:50%;background:var(--ice-3)}
+.plan .btn{margin-top:auto;align-self:stretch}
+.plan.main{background:linear-gradient(150deg,rgba(239,35,60,.22),rgba(239,35,60,.05) 45%,rgba(223,229,235,.04))}
+.plan.main::before{background:linear-gradient(160deg,rgba(255,120,135,.9),rgba(239,35,60,.3) 40%,rgba(255,255,255,.05) 70%,rgba(239,35,60,.6))}
+.plan.main .kind{color:var(--red-hi)}
+.plan.main li::before{background:var(--red)}
+.disclaimer{margin-top:1.5rem;font-size:0.875rem;color:var(--ice-3);max-width:72ch}
+@media (max-width:980px){.pack__head h2,.pack__head p{grid-column:1/-1}.plans{grid-template-columns:1fr}.plan.main{order:-1}}
+
+/* care */
+.care{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);align-items:start}
+.care__text{grid-column:1/span 5}
+.care__text .lede{margin-top:1.25rem}
+.levels{grid-column:7/span 6;display:grid;gap:0.75rem}
+.level{padding:1.375rem 1.5rem;display:grid;grid-template-columns:7.5rem minmax(0,1fr);gap:1rem;align-items:baseline}
+.level b{font-weight:600;font-size:1.125rem}
+.level b small{display:block;font-weight:400;font-size:0.8125rem;color:var(--ice-3);margin-top:2px}
+.level span{color:var(--ice-2)}
+.level.ai b{color:var(--red-hi)}
+@media (max-width:899px){.care__text,.levels{grid-column:1/-1}.levels{margin-top:1.75rem}.level{grid-template-columns:1fr;gap:0.375rem}}
+
+/* founders */
+.people{margin-top:clamp(3rem,6vw,5.5rem);display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.person{padding:clamp(1.625rem,3vw,2.75rem);display:grid;gap:1.5rem;align-content:start}
+.person blockquote{font-size:clamp(1.3125rem,1.8vw,1.75rem);line-height:1.3;letter-spacing:-.02em}
+.person .who strong{display:block;font-size:1.1875rem;font-weight:600}
+.person .who span{color:var(--ice-3);font-size:0.875rem}
+.person .nums{display:flex;flex-wrap:wrap;gap:0.5rem}
+.person .nums li{padding:0.5rem 0.875rem;border-radius:62.4375rem;background:rgba(223,229,235,.07);font-size:0.875rem;color:var(--ice-2)}
+.person .nums b{color:var(--ice);font-weight:600}
+@media (max-width:899px){.people{grid-template-columns:1fr}}
+
+/* faq */
+.faq{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter)}
+.faq h2{grid-column:1/span 4;align-self:start}
+.faq__list{grid-column:6/span 7;display:grid;gap:0.5rem}
+.faq details{border-radius:1rem;background:rgba(17,18,23,.06)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:1.25rem 1.375rem;font-size:clamp(1.0625rem,1.35vw,1.25rem);font-weight:500;letter-spacing:-.01em;min-height:2.75rem}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:1.625rem;font-weight:300;color:var(--red);transition:transform 240ms var(--ease-out)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 1.375rem 1.375rem;color:var(--sheet-ink-2);max-width:62ch}
+@media (max-width:899px){.faq h2,.faq__list{grid-column:1/-1}.faq__list{margin-top:1.5rem}}
+
+/* contact + form */
+.contact{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);align-items:start}
+.contact__copy{grid-column:1/span 5;position:sticky;top:7.5rem}
+.contact__copy h2{font-size:clamp(2.75rem,6vw,6rem)}
+.contact__copy .lede{margin-top:1.5rem}
+.contact__mail{margin-top:1.75rem;display:flex;flex-wrap:wrap;gap:0.625rem;align-items:center;color:var(--ice-2)}
+.contact__mail .addr{color:var(--ice);user-select:all}
+.copy{min-height:2.75rem;padding:0 1rem;border-radius:62.4375rem;border:0;background:rgba(223,229,235,.1);color:var(--ice);font:500 0.875rem var(--face);cursor:pointer}
+form.lead{grid-column:7/span 6;padding:clamp(1.5rem,3vw,2.75rem);display:grid;gap:1.375rem}
+.form-top{display:flex;justify-content:space-between;align-items:baseline;gap:0.75rem}
+.form-top h3{font-size:clamp(1.375rem,2vw,1.875rem);font-weight:600}
+.form-top span{font-size:0.875rem;color:var(--ice-3);font-variant-numeric:tabular-nums}
+.progress{height:0.1875rem;border-radius:0.1875rem;background:rgba(223,229,235,.1);overflow:hidden}
+.progress i{display:block;height:100%;width:50%;background:var(--red);transition:width 500ms var(--ease-out)}
+fieldset{border:0;margin:0;padding:0;display:grid;gap:0.625rem}
+legend{font-size:0.9375rem;font-weight:600;margin-bottom:0.625rem;padding:0}
+.chips{display:flex;flex-wrap:wrap;gap:0.5rem}
+.chip input{position:absolute;opacity:0;pointer-events:none}
+.chip span{display:inline-flex;align-items:center;min-height:2.75rem;padding:0 1rem;border-radius:62.4375rem;background:rgba(223,229,235,.07);box-shadow:inset 0 0 0 1px rgba(223,229,235,.12);font-size:0.9375rem;cursor:pointer;transition:background-color 200ms ease,color 200ms ease,box-shadow 200ms ease}
+.chip input:checked+span{background:var(--ice);color:var(--obsidian);box-shadow:none}
+.chip input:focus-visible+span{outline:2px solid var(--red);outline-offset:0.1875rem}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:0.875rem}
+.f{display:grid;gap:0.375rem}
+.f label{font-size:0.875rem;color:var(--ice-2)}
+.f input{width:100%;min-height:3.25rem;padding:0 1rem;border-radius:0.75rem;border:1px solid rgba(223,229,235,.16);background:rgba(17,18,23,.55);color:var(--ice);font:400 1.0625rem var(--face);transition:border-color 200ms ease,box-shadow 200ms ease}
+.f input:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 0.1875rem rgba(239,35,60,.22)}
+.f input[aria-invalid="true"]{border-color:var(--red)}
+.consent{display:grid;grid-template-columns:1.375rem minmax(0,1fr);gap:0.625rem;font-size:0.875rem;color:var(--ice-2);line-height:1.5}
+.consent input{width:1.125rem;height:1.125rem;margin-top:2px;accent-color:var(--red)}
+.form-row{display:flex;justify-content:space-between;align-items:center;gap:0.75rem;flex-wrap:wrap}
+.linkbtn{background:none;border:0;padding:0;min-height:2.75rem;color:var(--ice-2);font:500 0.9375rem var(--face);cursor:pointer;text-decoration:underline;text-underline-offset:.22em}
+.err{color:var(--red-hi);font-size:0.875rem}
+.done{padding:1.375rem;border-radius:1rem;background:rgba(239,35,60,.12);box-shadow:inset 0 0 0 1px rgba(239,35,60,.35)}
+.done b{display:block;font-size:1.25rem;margin-bottom:0.375rem}
+@media (max-width:899px){.contact__copy,form.lead{grid-column:1/-1}.contact__copy{position:static}form.lead{margin-top:2rem}.field-row{grid-template-columns:1fr}}
+
+/* owner inbox */
+.inbox{margin-top:clamp(3rem,6vw,5rem);padding:clamp(1.375rem,2.6vw,2.25rem)}
+.inbox__head{display:flex;justify-content:space-between;align-items:baseline;gap:0.75rem;flex-wrap:wrap}
+.inbox__head h3{font-size:1.375rem;font-weight:600}
+.inbox__head span{font-size:0.875rem;color:var(--ice-3)}
+.inbox__wrap{margin-top:1.125rem;overflow-x:auto}
+.inbox table{width:100%;min-width:45rem;border-collapse:collapse;font-size:0.875rem}
+.inbox th,.inbox td{text-align:left;padding:0.75rem 0.625rem;border-bottom:1px solid var(--line);vertical-align:top}
+.inbox th{color:var(--ice-3);font-weight:500}
+.inbox td{color:var(--ice)}
+.inbox .empty{color:var(--ice-2);padding:1rem 0}
+
+footer{padding-block:clamp(4rem,8vw,6.875rem) calc(2rem + env(safe-area-inset-bottom,0px));background:var(--obsidian)}
+.footmark{font-size:clamp(5rem,20vw,20rem);font-weight:700;letter-spacing:-.06em;line-height:.8;color:transparent;-webkit-text-stroke:1px rgba(223,229,235,.18)}
+.footrow{margin-top:2.25rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.75rem 1.75rem;color:var(--ice-3);font-size:0.875rem}
+.footrow a{color:var(--ice-2)}
+.rodo{margin-top:1.375rem;border-top:1px solid rgba(223,229,235,.1);padding-top:1.125rem;color:var(--ice-3);font-size:0.8125rem;line-height:1.6}
+.rodo summary{cursor:pointer;color:var(--ice-2);font-size:0.875rem;list-style:none}
+.rodo summary::-webkit-details-marker{display:none}
+.rodo summary::after{content:" +";color:var(--red)}
+.rodo[open] summary::after{content:" −"}
+.rodo ol{margin:0.875rem 0 0;padding-left:1.125rem;max-width:56.25rem;display:grid;gap:0.375rem}
+.rodo a{color:var(--ice-2)}
+.rodo p{margin:0.75rem 0 0}
+
+.dock{position:fixed;left:0.75rem;right:0.75rem;bottom:calc(0.75rem + env(safe-area-inset-bottom,0px));z-index:45;display:none;align-items:center;justify-content:space-between;gap:0.75rem;padding:0.5rem 0.5rem 0.5rem 1.125rem;border-radius:62.4375rem;transform:translateY(140%);transition:transform 450ms var(--ease-out)}
+.dock.is-on{transform:none}
+.dock b{font-size:0.875rem;font-weight:600}
+.dock .btn{min-height:2.75rem;padding:0 1.125rem;font-size:0.9375rem}
+@media (max-width:899px){.dock{display:flex}}
+
+/* entrances */
+@media (prefers-reduced-motion:no-preference){
+  .js .hero .display .ln>span{transform:translateY(105%);animation:up 1100ms var(--ease-expo) forwards;animation-delay:calc(220ms + var(--i)*110ms)}
+  .js .hero [data-load]{opacity:0;transform:translateY(0.875rem);animation:rise 650ms var(--ease-out) forwards;animation-delay:var(--d)}
+  .js [data-reveal].is-below{opacity:0;transform:translateY(1.75rem)}
+  .js [data-reveal].is-in{opacity:1;transform:none;transition:opacity 800ms var(--ease-out) var(--delay,0ms),transform 1000ms var(--ease-expo) var(--delay,0ms)}
+}
+@keyframes up{to{transform:none}}
+@keyframes rise{to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.hero{height:100svh}}
+
+/* ---------- fluid scaling: the whole layout grows with very wide screens (rem-based), and short landscape phones get a flowing hero ---------- */
+html{font-size:16px}
+@media (min-width:1800px){html{font-size:min(calc(100vw / 112.5),32px)}}
+.hero .display{font-size:min(var(--step-mega),15vw,19svh)}
+@media (orientation:landscape) and (max-height:560px){
+  .hero{height:auto}
+  .hero__stage{position:relative;height:auto;min-height:100svh;display:flex;align-items:flex-end}
+  .hero__copy{position:relative;padding-top:6rem;padding-bottom:1.75rem}
+  .hero .display{font-size:min(var(--step-mega),11vw,21svh)}
+  .hero .lede{max-width:52ch}
+  .hero__tiles{display:none}
+}
+@media (min-width:900px){.faq h2{grid-column:1/span 5;padding-right:var(--gutter)}}
+@media (min-aspect-ratio:2/1) and (min-width:900px){.hero__img{left:auto;right:0;width:calc(100svh * 16 / 9)}}
+@media (min-width:900px) and (max-height:820px){.engine__text h2{font-size:min(clamp(1.875rem,3.3vw,3.375rem),6.2svh)}.engine__text .lede{font-size:1rem;margin-top:.75rem}.steps{margin-top:1rem}.step{padding:.625rem .875rem}}
+@media (min-width:900px) and (max-height:680px){.engine{height:auto}.engine__stage{position:static;height:auto;padding-block:6rem}.step{opacity:1}.step span{max-height:none;margin-top:.375rem}.step::before{background:var(--red);color:var(--obsidian)}}
+@media (min-width:900px){.hero .lede{max-width:40ch}}
+@media (pointer:coarse){.footrow a,.rodo summary{display:inline-block;padding:12px 0}.footrow{gap:4px 28px}}
+
+/* ---------- audit fixes ---------- */
+
+/* cookie banner (consent.js) in HAZEO colours */
+.hz-cc{background:rgba(22,23,29,.92)!important;color:var(--ice)!important;border:1px solid rgba(223,229,235,.14)!important;border-radius:1.25rem!important;-webkit-backdrop-filter:blur(18px) saturate(1.3);backdrop-filter:blur(18px) saturate(1.3);box-shadow:0 24px 60px -20px rgba(0,0,0,.7)!important;font-family:var(--face)!important}
+.hz-cc h2{font:600 1rem/1.3 var(--face)!important;letter-spacing:-.01em!important;margin:0 0 .375rem!important;color:var(--ice)}
+.hz-cc p{color:var(--ice-2)!important;font-size:.875rem!important;line-height:1.5!important}
+.hz-cc button{background:rgba(223,229,235,.08)!important;border:1px solid rgba(223,229,235,.18)!important;color:var(--ice)!important;font:600 .875rem/1 var(--face)!important}
+.hz-cc button:last-of-type{background:var(--red)!important;border-color:var(--red)!important;color:#0a0b0e!important}
+.hz-cc button:hover{background:rgba(223,229,235,.16)!important}.hz-cc button:last-of-type:hover{background:var(--red-hi)!important;border-color:var(--red-hi)!important}
+.hz-cc a{color:var(--ice-2)!important}.hz-cc a:hover{color:var(--ice)!important}
+.hz-cc button:focus-visible,.hz-cc a:focus-visible{outline:2px solid var(--red)!important}
+.footlinks{margin-top:14px;font-size:13px;color:var(--ice-3)}.footlinks a{color:var(--ice-2)}
+img{max-width:100%;height:auto}
+.btn-red{color:#0a0b0e}
+.facts li b,.engine__tag b,.engine__visual .glass b,.rodo summary::after{color:var(--red-hi)}
+.skip{position:absolute;left:1rem;top:-5rem;z-index:100;background:var(--ice);color:var(--obsidian);padding:.75rem 1.125rem;border-radius:.75rem;font-weight:600;text-decoration:none;transition:top 160ms var(--ease-out)}
+.skip:focus{top:1rem}
+.hp{position:absolute!important;left:-9999px;width:1px;height:1px;overflow:hidden}
+@media (min-width:900px) and (min-height:681px){.step:not(.is-on){opacity:.58}}
+</style>
+</head>
+<body>
+<div class="field" aria-hidden="true"><i class="f1"></i><i class="f2"></i><i class="f3"></i></div>
+<div class="grain" aria-hidden="true"></div>
+
+<a class="skip" href="#top">Przejdź do treści</a>
+<header class="bar">
+  <div class="frame">
+    <div class="bar__in glass">
+      <a class="wordmark" href="#top" aria-label="HAZEO, początek strony">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="12" y="12" width="8" height="40" fill="#DFE5EB"/><rect x="44" y="22" width="8" height="30" fill="#DFE5EB"/><rect x="44" y="12" width="8" height="10" fill="#EF233C"/><path d="M20 34 L44 22 L44 30 L20 42 Z" fill="#EF233C"/></svg>
+        HAZEO
+      </a>
+      <nav class="nav" aria-label="Główna nawigacja">
+        <a href="#hazeo-engine">Hazeo Engine</a><a href="#modele">B2B / B2C</a><a href="#pakiety">Pakiety</a><a href="#faq">FAQ</a>
+      </nav>
+      <a class="btn btn-red" href="#zgloszenie" data-cta="header">Umów rozmowę</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" id="hero" aria-labelledby="h1">
+    <div class="hero__stage">
+      <picture><source media="(max-width:899px)" width="1080" height="1920" srcset="/assets/hazeo-hero-mobile-540.webp 540w, /assets/hazeo-hero-mobile.webp 1080w" sizes="100vw"><img class="hero__img" id="heroImg" width="2400" height="1350" src="/assets/hazeo-hero.webp" srcset="/assets/hazeo-hero-1280.webp 1280w, /assets/hazeo-hero.webp 2400w" sizes="100vw" alt="Szklany monogram HAZEO z czerwonymi elementami na tle smugi czerwonego światła" fetchpriority="high"></picture>
+      <div class="hero__beam" aria-hidden="true"></div>
+      <div class="hero__shade" aria-hidden="true"></div>
+      <div class="hero__tiles" aria-hidden="true" id="heroTiles">
+        <div class="glass tilt" data-depth="0.6"><strong>B2B i B2C</strong>Dwa silniki, jeden zespół</div>
+        <div class="glass tilt" data-depth="1"><strong>Od 2 500 zł</strong>Kwoty orientacyjne, netto</div>
+        <div class="glass tilt" data-depth="1.4"><strong>AI-first</strong>Człowiek zatwierdza, AI przyspiesza</div>
+      </div>
+      <div class="hero__copy" id="heroCopy">
+        <div class="frame">
+          <h1 id="h1"><span class="kick" data-load style="--d:120ms">Pozyskiwanie klientów B2B i B2C z AI</span> <span class="display"><span class="ln"><span style="--i:0">Nowi klienci.</span></span> <span class="ln"><span style="--i:1" class="red">Wyższy bieg.</span></span></span></h1>
+          <p class="lede" data-load style="--d:520ms">Hazeo Engine wyszukuje firmy i decydentów, ocenia ich dopasowanie i prowadzi spersonalizowany kontakt. Lead trafia do Twojego handlowca.</p>
+          <div class="actions" data-load style="--d:640ms">
+            <a class="btn btn-red" href="#zgloszenie" data-cta="hero">Umów rozmowę <span class="arr" aria-hidden="true">↗</span></a>
+            <a class="btn btn-ghost" href="#hazeo-engine" data-cta="hero-engine">Jak to działa</a>
+          </div>
+          <p class="fine" data-load style="--d:760ms">Kwoty orientacyjne netto od 2 500 zł. Żadnych obietnic bez pokrycia w danych.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="facts" aria-label="Fakty o HAZEO">
+    <div class="frame">
+      <ul>
+        <li class="glass" data-reveal><b>12 lat</b>w sprzedaży B2B</li>
+        <li class="glass" data-reveal style="--delay:60ms"><b>16 rynków</b>otwartych osobiście</li>
+        <li class="glass" data-reveal style="--delay:120ms"><b>9 lat</b>w marketingu B2B i B2C</li>
+        <li class="glass" data-reveal style="--delay:180ms">Narzędzia AI sprawdzone w dużych firmach w Polsce</li>
+        <li class="glass" data-reveal style="--delay:240ms">Hazeo Engine pracuje dziś w aktywnej sprzedaży eksportowej</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="chapter sheet on-sheet" id="problem" aria-labelledby="h-problem">
+    <div class="frame problem">
+      <h2 id="h-problem" data-reveal>Skąd biorą się klienci, gdy nikt ich nie szuka?</h2>
+      <ul>
+        <li data-reveal>Twoi handlowcy szukają kontaktów zamiast sprzedawać?</li>
+        <li data-reveal style="--delay:60ms">Zapytania przychodzą, ale nie pasują do oferty ani budżetu?</li>
+        <li data-reveal style="--delay:120ms">Follow-up ginie między skrzynką, arkuszem i CRM?</li>
+        <li data-reveal style="--delay:180ms">Nie wiesz, który kanał daje klientów, a który tylko koszty?</li>
+        <li data-reveal style="--delay:240ms">Czekasz, aż klient sam napisze?</li>
+      </ul>
+      <p class="punch" data-reveal>Leady nie biorą się z przypadku. Biorą się z <span class="red">systemu</span>, który codziennie wyszukuje, ocenia i prowadzi kontakt.</p>
+    </div>
+  </section>
+
+  <section class="engine" id="hazeo-engine" aria-labelledby="h-engine">
+    <div class="engine__stage">
+      <div class="frame engine__grid">
+        <div class="engine__text">
+          <h2 id="h-engine">Hazeo Engine. Lead generation B2B, który pracuje codziennie.</h2>
+          <p class="lede">AI przyspiesza pracę, analizuje dane i automatyzuje proces. Strategia, kontrola jakości i odpowiedzialność zostają po naszej stronie.</p>
+          <ol class="steps" id="steps">
+            <li class="step is-on"><div><b>Ustalamy cel.</b><span>Poznajemy ofertę, idealnego klienta i liczby, które mają znaczenie dla wzrostu.</span></div></li>
+            <li class="step"><div><b>Wyszukujemy firmy i decydentów.</b><span>System znajduje potencjalnych klientów w Twoim segmencie i wzbogaca dane.</span></div></li>
+            <li class="step"><div><b>Weryfikujemy i oceniamy.</b><span>Każdy lead dostaje scoring dopasowania do oferty. Do kontaktu trafiają ci z potencjałem.</span></div></li>
+            <li class="step"><div><b>Personalizujemy kontakt.</b><span>Spersonalizowane wiadomości, sekwencje i follow-upy utrzymują rozmowę w ruchu.</span></div></li>
+            <li class="step"><div><b>Przekazujemy leada handlowcowi.</b><span>Lead z historią kontaktu ląduje w CRM. Twój zespół prowadzi rozmowę.</span></div></li>
+          </ol>
+          <p class="engine__tag"><b>Człowiek zatwierdza.</b> AI przyspiesza.</p>
+        </div>
+        <figure class="engine__visual glass" id="engineVisual">
+          <img width="1600" height="1200" src="/assets/hazeo-engine.webp" srcset="/assets/hazeo-engine-800.webp 800w, /assets/hazeo-engine.webp 1600w" sizes="(max-width:899px) 100vw, 45vw" alt="Szklane kafle płynące do jednego czerwonego bloku: wiele leadów, jeden kwalifikowany wynik" loading="lazy">
+          <div class="engine__rail" aria-hidden="true"><i></i></div>
+          <figcaption class="glass" id="engineCap"><b>Krok 1 z 5</b> · Ustalamy cel</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="co-dostajesz" aria-labelledby="h-get">
+    <div class="frame">
+      <div class="get__head">
+        <h2 id="h-get" data-reveal>Co dostajesz w ramach Hazeo Engine</h2>
+        <p class="lede" data-reveal style="--delay:80ms">Konkretne elementy systemu, a nie ogólne obietnice.</p>
+      </div>
+      <div class="bento">
+        <div class="bento__bg" aria-hidden="true"><img width="1600" height="1000" src="/assets/hazeo-tiles.webp" srcset="/assets/hazeo-tiles-800.webp 800w, /assets/hazeo-tiles.webp 1600w" sizes="(max-width:899px) 100vw, 75vw" alt="" loading="lazy"></div>
+        <div class="tile glass tilt t1" data-reveal><span class="n">01</span><p>Listę firm i decydentów dopasowanych do Twojego idealnego klienta</p></div>
+        <div class="tile glass tilt t2" data-reveal style="--delay:60ms"><span class="n">02</span><p>Wzbogacone dane i scoring każdego leada</p></div>
+        <div class="tile glass tilt t3" data-reveal style="--delay:120ms"><span class="n">03</span><p>Spersonalizowane kampanie e-mailowe i follow-upy</p></div>
+        <div class="tile glass tilt t4" data-reveal><span class="n">04</span><p>CRM, automatyzacje i przekazanie leada handlowcowi</p></div>
+        <div class="tile glass tilt t5" data-reveal style="--delay:60ms"><span class="n">05</span><p>Raport wyników: skąd przychodzą leady i co działa</p></div>
+        <div class="tile glass tilt t6" data-reveal style="--delay:120ms"><span class="n">06</span><p>Miesięczny plan optymalizacji</p></div>
+        <div class="tile glass t7" data-reveal><p>Ludzi, którzy odpowiadają za strategię i jakość.</p><a class="btn btn-red" href="#zgloszenie" data-cta="bento">Wyślij zgłoszenie <span class="arr" aria-hidden="true">↗</span></a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter models" id="modele" aria-labelledby="h-models">
+    <div class="frame">
+      <div class="models__head">
+        <div><h2 id="h-models" data-reveal>Inny rynek, inny silnik.</h2><p class="lede" data-reveal style="margin-top:18px">Każdy model ma własny przepływ pracy, własne wskaźniki i własne rozliczenie.</p></div>
+        <div class="seg glass" role="tablist" aria-label="Model akwizycji">
+          <button type="button" role="tab" id="tab-b2b" aria-selected="true" aria-controls="model-card">B2B</button>
+          <button type="button" role="tab" id="tab-b2c" aria-selected="false" aria-controls="model-card" tabindex="-1">B2C</button>
+        </div>
+      </div>
+      <div class="model">
+        <div class="model__img glass" aria-hidden="false">
+          <img id="img-b2b" width="1200" height="900" src="/assets/hazeo-b2b.webp" srcset="/assets/hazeo-b2b-600.webp 600w, /assets/hazeo-b2b.webp 1200w" sizes="(max-width:899px) 100vw, 45vw" alt="Siatka szklanych bloków z jednym czerwonym blokiem pośrodku: precyzyjny wybór klienta B2B" loading="lazy">
+          <img id="img-b2c" width="1200" height="900" src="/assets/hazeo-b2c.webp" srcset="/assets/hazeo-b2c-600.webp 600w, /assets/hazeo-b2c.webp 1200w" sizes="(max-width:899px) 100vw, 45vw" alt="Czerwone kule przechodzące przez szklaną taflę: strumień klientów B2C" loading="lazy" hidden>
+        </div>
+        <div class="model__card glass" id="model-card" role="tabpanel" aria-labelledby="tab-b2b" aria-live="polite">
+          <span class="who" id="m-who">Firmy, dystrybutorzy, producenci, usługi profesjonalne</span>
+          <h3 id="m-name">B2B Acquisition Engine</h3>
+          <p id="m-desc">System wyszukuje potencjalnych klientów, ocenia ich dopasowanie do oferty i pomaga prowadzić spersonalizowany proces sprzedaży.</p>
+          <p class="bill"><b>Rozliczenie</b><span id="m-bill">Wdrożenie systemu i abonament za obsługę oraz optymalizację. Opcjonalnie premie za jasno zdefiniowane wyniki.</span></p>
+        </div>
+      </div>
+      <p class="both" data-reveal>Sprzedajesz w obu modelach? Jeden zespół, dwa silniki.</p>
+    </div>
+  </section>
+
+  <section class="chapter sheet on-sheet" id="filary" aria-labelledby="h-pillars">
+    <div class="frame pillars">
+      <h2 id="h-pillars" data-reveal>Hazeo Engine w centrum. Cztery filary wokół.</h2>
+      <ol>
+        <li data-reveal><div><b>AI Growth &amp; Lead Generation</b><span>Pozyskiwanie klientów i wzrost sprzedaży. Tu pracuje Hazeo Engine.</span></div></li>
+        <li data-reveal><div><b>Brand &amp; Creative</b><span>Marka, identyfikacja, content, copywriting PL-EN, PR i wideo.</span></div></li>
+        <li data-reveal><div><b>Digital Experience</b><span>Strony firmowe i landing pages nastawione na zapytania.</span></div></li>
+        <li data-reveal><div><b>AI Search &amp; Analytics</b><span>SEO, widoczność w odpowiedziach AI, analityka i tracking.</span></div></li>
+        <li data-reveal><div><b>Events &amp; Partnerships</b><span>Targi i wydarzenia branżowe z follow-upem po evencie.</span></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="chapter" id="pakiety" aria-labelledby="h-pack">
+    <div class="frame">
+      <div class="pack__head">
+        <h2 id="h-pack" data-reveal>Start. Grow. <span class="red">Scale.</span></h2>
+        <p class="lede" data-reveal style="--delay:80ms">Jednorazowy fundament albo stały abonament. Kwoty orientacyjne, netto.</p>
+      </div>
+      <div class="plans">
+        <article class="plan glass tilt" data-reveal>
+          <span class="kind">Start · jednorazowo</span>
+          <h3>Digital Foundation</h3>
+          <p class="price">2 500–6 000 zł<span class="per">jednorazowo, netto</span></p>
+          <p class="for">Dla firm, które potrzebują uporządkować podstawy marketingu.</p>
+          <ul><li>Audyt strony i komunikacji</li><li>Podstawowa analityka i tracking</li><li>Plan SEO i marketingu</li><li>Lista priorytetów</li><li>Konsultacja</li></ul>
+          <a class="btn btn-ghost" href="#zgloszenie" data-pack="Start">Wybieram Start</a>
+        </article>
+        <article class="plan main glass tilt" data-reveal style="--delay:80ms">
+          <span class="kind">Grow · główny produkt</span>
+          <h3>Marketing &amp; Acquisition</h3>
+          <p class="price">4 000–9 000 zł<span class="per">miesięcznie, netto</span></p>
+          <p class="for">Dla firm, które chcą regularnie zdobywać klientów i rozwijać marketing.</p>
+          <ul><li>AI-assisted lead generation lub obsługa marketingowa</li><li>SEO, content i social media w ustalonym zakresie</li><li>Automatyzacja wybranych procesów</li><li>Raportowanie</li><li>Miesięczny plan optymalizacji</li></ul>
+          <a class="btn btn-red" href="#zgloszenie" data-pack="Grow">Wybieram Grow <span class="arr" aria-hidden="true">↗</span></a>
+        </article>
+        <article class="plan glass tilt" data-reveal style="--delay:160ms">
+          <span class="kind">Scale · Enterprise / B2B</span>
+          <h3>AI Growth Partner</h3>
+          <p class="price">8 000–18 000+ zł<span class="per">miesięcznie, netto</span></p>
+          <p class="for">Dla firm potrzebujących zaawansowanej akwizycji i integracji technologicznych.</p>
+          <ul><li>Zaawansowany system pozyskiwania leadów</li><li>CRM i wieloetapowe workflow</li><li>Integracje IT i indywidualne automatyzacje</li><li>Analityka sprzedaży</li><li>Wsparcie strategiczne</li></ul>
+          <a class="btn btn-ghost" href="#zgloszenie" data-pack="Scale">Wybieram Scale</a>
+        </article>
+      </div>
+      <p class="disclaimer" data-reveal>Nie obiecujemy określonej liczby leadów ani wzrostu sprzedaży, zanim nie mamy danych i warunków, które pozwalają wiarygodnie określić taki cel.</p>
+    </div>
+  </section>
+
+  <section class="chapter" id="opieka" aria-labelledby="h-care" style="padding-top:0">
+    <div class="frame care">
+      <div class="care__text">
+        <h2 id="h-care" data-reveal>Twoja strona. Twoje zasady.</h2>
+        <p class="lede" data-reveal>Hosting, domena i kluczowe konta należą do Ciebie. My dokładamy opiekę techniczną, SEO i optymalizację.</p>
+      </div>
+      <div class="levels">
+        <div class="level glass tilt" data-reveal><b>Sam<small>Poziom 1</small></b><span>Edytujesz treści w CMS. My wdrażamy, szkolimy i wspieramy.</span></div>
+        <div class="level glass tilt" data-reveal style="--delay:60ms"><b>Z nami<small>Poziom 2</small></b><span>Zlecasz zmianę, my aktualizujemy, poprawiamy i publikujemy.</span></div>
+        <div class="level glass tilt ai" data-reveal style="--delay:120ms"><b>Z AI<small>Poziom 3</small></b><span>Zgłaszasz zmianę, AI przygotowuje poprawkę, Ty akceptujesz, system publikuje.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="zespol" aria-labelledby="h-team" style="padding-top:0">
+    <div class="frame">
+      <h2 id="h-team" data-reveal>Kto za tym stoi</h2>
+      <div class="people">
+        <article class="person glass tilt" data-reveal>
+          <blockquote>„Zanim powstało HAZEO, tworzyłem narzędzia AI do sprzedaży w jednych z największych firm w Polsce. Sprawdziły się tam, gdzie liczą się wyniki i nowi klienci.”</blockquote>
+          <div class="who"><strong>Michał Małek</strong><span>Założyciel, CEO</span></div>
+          <ul class="nums"><li><b>16</b> rynków otwartych osobiście</li><li><b>12 lat</b> w sprzedaży B2B</li></ul>
+        </article>
+        <article class="person glass tilt" data-reveal style="--delay:80ms">
+          <blockquote>„Od 9 lat buduję marki, do których klienci trafiają sami. Wiem, ile traci firma, której nie widać tam, gdzie są jej klienci.”</blockquote>
+          <div class="who"><strong>Konrad Potocki</strong><span>Współzałożyciel, CMO</span></div>
+          <ul class="nums"><li><b>9 lat</b> w marketingu B2B i B2C</li><li><b>4 obszary</b>: SEO, UX/UI, social media, marka</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter sheet on-sheet" id="faq" aria-labelledby="h-faq">
+    <div class="frame faq">
+      <h2 id="h-faq" data-reveal>Najczęstsze pytania</h2>
+      <div class="faq__list" data-reveal>
+        <details><summary>Czym jest Hazeo Engine?</summary><p>To system AI do pozyskiwania klientów. Wyszukuje firmy i decydentów, ocenia ich dopasowanie, prowadzi spersonalizowany kontakt i przekazuje leada handlowcowi. Działa w dwóch modelach: B2B i B2C.</p></details>
+        <details><summary>Czy Hazeo Engine to chatbot?</summary><p>Nie. Chatbot odpowiada osobom, które już trafiły na Twoją stronę. Hazeo Engine aktywnie szuka klientów, którzy jeszcze o Tobie nie wiedzą, i prowadzi z nimi kontakt do rozmowy z handlowcem.</p></details>
+        <details><summary>Ile kosztuje współpraca?</summary><p>Start (Digital Foundation) to jednorazowo 2 500–6 000 zł netto. Grow (Marketing &amp; Acquisition) to 4 000–9 000 zł netto miesięcznie. Scale (AI Growth Partner) to 8 000–18 000+ zł netto miesięcznie. Kwoty są orientacyjne.</p></details>
+        <details><summary>Czy gwarantujecie określoną liczbę leadów?</summary><p>Nie obiecujemy określonej liczby leadów ani wzrostu sprzedaży, zanim nie mamy danych i warunków, które pozwalają wiarygodnie określić taki cel.</p></details>
+        <details><summary>Czym różni się model B2B od B2C?</summary><p>B2B Acquisition Engine wyszukuje firmy i decydentów, ocenia dopasowanie i prowadzi spersonalizowany proces sprzedaży. B2C Growth Engine pozyskuje popyt, zwiększa konwersję i pomaga utrzymywać klientów.</p></details>
+        <details><summary>Jak rozliczacie Hazeo Engine?</summary><p>B2B: wdrożenie systemu i abonament za obsługę oraz optymalizację, opcjonalnie premie za jasno zdefiniowane wyniki. B2C: miesięczna obsługa wzrostu, osobny budżet mediowy i wdrożenia automatyzacji.</p></details>
+        <details><summary>Czy AI zastępuje u was ludzi?</summary><p>Nie. Pracujemy AI-first, human-led. AI przyspiesza pracę, analizuje dane i automatyzuje procesy. Strategia, kontrola jakości i odpowiedzialność zostają po naszej stronie.</p></details>
+        <details><summary>Do kogo należą strona, domena i konta?</summary><p>Do Ciebie. Hosting, domena i kluczowe konta należą do klienta, na przejrzystych zasadach i z dostępami dla nas.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="zgloszenie" aria-labelledby="h-contact">
+    <div class="frame contact">
+      <div class="contact__copy">
+        <h2 id="h-contact" data-reveal>Gotowi, by ruszyć <span class="red">z miejsca?</span></h2>
+        <p class="lede" data-reveal>Opowiedz, kogo chcesz pozyskać. Sprawdzimy, jak Hazeo Engine może pracować dla Twojej firmy.</p>
+        <div class="contact__mail" data-reveal>Kontakt: <span class="addr" id="addr">michalmalek@hazeo.pl</span><button class="copy" id="copy" type="button">Kopiuj adres</button></div>
+      </div>
+      <form class="lead glass" id="lead" novalidate data-endpoint="https://formsubmit.co/ajax/michalmalek@hazeo.pl" data-reveal>
+        <div class="form-top"><h3>Zgłoszenie</h3><span id="stepLabel">Krok 1 z 2</span></div>
+        <div class="progress" aria-hidden="true"><i id="progress"></i></div>
+        <div id="step1">
+          <div style="display:grid;gap:22px">
+            <fieldset><legend>Cel</legend><div class="chips">
+              <label class="chip"><input type="radio" name="goal" value="Więcej leadów B2B" checked><span>Więcej leadów B2B</span></label>
+              <label class="chip"><input type="radio" name="goal" value="Więcej klientów B2C"><span>Więcej klientów B2C</span></label>
+              <label class="chip"><input type="radio" name="goal" value="Uporządkować marketing"><span>Uporządkować marketing</span></label>
+              <label class="chip"><input type="radio" name="goal" value="Inny cel"><span>Inny cel</span></label>
+            </div></fieldset>
+            <fieldset><legend>Obszar <span class="muted" style="font-weight:400">(możesz wybrać kilka)</span></legend><div class="chips">
+              <label class="chip"><input type="checkbox" name="area" value="Pozyskiwanie klientów" checked><span>Pozyskiwanie klientów</span></label>
+              <label class="chip"><input type="checkbox" name="area" value="Marka"><span>Marka</span></label>
+              <label class="chip"><input type="checkbox" name="area" value="Strona"><span>Strona</span></label>
+              <label class="chip"><input type="checkbox" name="area" value="SEO i analityka"><span>SEO i analityka</span></label>
+              <label class="chip"><input type="checkbox" name="area" value="Eventy"><span>Eventy</span></label>
+            </div></fieldset>
+            <fieldset><legend>Model</legend><div class="chips">
+              <label class="chip"><input type="radio" name="model" value="B2B" checked><span>B2B</span></label>
+              <label class="chip"><input type="radio" name="model" value="B2C"><span>B2C</span></label>
+              <label class="chip"><input type="radio" name="model" value="Oba"><span>Oba</span></label>
+            </div></fieldset>
+            <fieldset><legend>Pakiet</legend><div class="chips">
+              <label class="chip"><input type="radio" name="pack" value="Start"><span>Start</span></label>
+              <label class="chip"><input type="radio" name="pack" value="Grow"><span>Grow</span></label>
+              <label class="chip"><input type="radio" name="pack" value="Scale"><span>Scale</span></label>
+              <label class="chip"><input type="radio" name="pack" value="Jeszcze nie wiem" checked><span>Jeszcze nie wiem</span></label>
+            </div></fieldset>
+          </div>
+          <div class="form-row" style="margin-top:26px"><span></span><button class="btn btn-red" type="button" id="next">Dalej <span class="arr" aria-hidden="true">→</span></button></div>
+        </div>
+        <div id="step2" hidden>
+          <div style="display:grid;gap:14px">
+            <div class="field-row">
+              <div class="f"><label for="f-name">Imię i nazwisko *</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
+              <div class="f"><label for="f-mail">Służbowy e-mail *</label><input id="f-mail" name="email" type="email" autocomplete="email" required></div>
+            </div>
+            <div class="field-row">
+              <div class="f"><label for="f-co">Firma lub strona www *</label><input id="f-co" name="company" type="text" autocomplete="organization" required></div>
+              <div class="f"><label for="f-tel">Telefon (opcjonalnie)</label><input id="f-tel" name="phone" type="tel" autocomplete="tel"></div>
+            </div>
+            <div class="hp" aria-hidden="true"><label for="f-web">Strona internetowa</label><input id="f-web" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+            <label class="consent" for="f-ok"><input id="f-ok" type="checkbox" required><span>Zgadzam się na kontakt w sprawie rozmowy. Moje dane będą przetwarzane zgodnie z <a href="https://hazeo.pl/polityka-prywatnosci.html" target="_blank" rel="noopener">polityką prywatności HAZEO</a> i <a href="#rodo">klauzulą RODO</a>. *</span></label>
+            <p class="err" id="err" hidden role="alert">Uzupełnij imię, poprawny e-mail i nazwę firmy. Zaznacz zgodę.</p>
+          </div>
+          <div class="form-row" style="margin-top:26px"><button class="linkbtn" type="button" id="back">← Wróć</button><button class="btn btn-red" type="submit" id="send">Wyślij zgłoszenie <span class="arr" aria-hidden="true">↗</span></button></div>
+        </div>
+        <div class="done" id="done" hidden tabindex="-1"></div>
+      </form>
+    </div>
+    <div class="frame">
+      <section class="inbox glass" id="inbox" hidden aria-labelledby="h-inbox">
+        <div class="inbox__head"><h3 id="h-inbox">Zgłoszenia</h3><span id="inboxMeta">Widoczne tylko dla właściciela i edytorów strony</span></div>
+        <div class="inbox__wrap"><table><thead><tr><th scope="col">Data</th><th scope="col">Osoba</th><th scope="col">Firma</th><th scope="col">Kontakt</th><th scope="col">Cel / obszar</th><th scope="col">Model</th><th scope="col">Pakiet</th></tr></thead><tbody id="inboxRows"></tbody></table></div>
+        <p class="empty" id="inboxEmpty">Jeszcze nie ma zgłoszeń. Pierwsze pojawi się tu od razu po wysłaniu formularza.</p>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="frame">
+    <div class="footrow"><span>© HAZEO 2026 · Pomagamy firmom rosnąć dzięki zaawansowanej AI</span><span>michalmalek@hazeo.pl</span><a href="/polityka-prywatnosci.html">Polityka prywatności</a><a href="#rodo">RODO</a><a href="#" data-cookie-settings>Ustawienia cookies</a></div>
+    <p class="footlinks"><a href="/producenci/">Hazeo dla producentów</a> · <a href="/real-estate/" hreflang="en">Hazeo Real Estate (EN)</a></p>
+    <details class="rodo" id="rodo"><summary>Klauzula informacyjna RODO</summary><ol>
+      <li>Administratorem danych osobowych podanych w formularzu jest HAZEO – Michał Małek. Kontakt w sprawie danych: <a href="mailto:michalmalek@hazeo.pl">michalmalek@hazeo.pl</a>.</li>
+      <li>Dane (imię, e-mail, telefon, firma i odpowiedzi z formularza) przetwarzamy, aby odpowiedzieć na zgłoszenie, umówić rozmowę i przygotować ofertę – w ramach działań przed zawarciem umowy na Twoje żądanie (art. 6 ust. 1 lit. b RODO) oraz naszego prawnie uzasadnionego interesu, czyli prowadzenia korespondencji biznesowej (art. 6 ust. 1 lit. f RODO).</li>
+      <li>Dane przechowujemy do zakończenia korespondencji, a jeśli dojdzie do współpracy – przez okres wymagany przepisami podatkowymi i rachunkowymi. Zgłoszenia, które nie zakończyły się współpracą, usuwamy po 12 miesiącach.</li>
+      <li>Odbiorcami danych mogą być wyłącznie dostawcy usług, z których korzystamy przy obsłudze zgłoszeń (hosting, poczta e-mail, narzędzia CRM, usługa FormSubmit, która przekazuje treść formularza e-mailem na naszą skrzynkę w Hostingerze), działający na nasze zlecenie.</li>
+      <li>Masz prawo dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przeniesienia oraz sprzeciwu wobec przetwarzania opartego na prawnie uzasadnionym interesie. Napisz na adres powyżej.</li>
+      <li>Przysługuje Ci prawo wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych.</li>
+      <li>Podanie danych jest dobrowolne, ale bez nich nie odpowiemy na zgłoszenie. Dane nie służą do zautomatyzowanego podejmowania decyzji ani profilowania.</li>
+    </ol><p>Więcej w <a href="https://hazeo.pl/polityka-prywatnosci.html" target="_blank" rel="noopener">polityce prywatności</a>.</p></details>
+  </div>
+</footer>
+
+<aside class="dock glass" id="dock" aria-label="Szybki kontakt"><b>Hazeo Engine</b><a class="btn btn-red" href="#zgloszenie" data-cta="dock">Umów rozmowę <span class="arr" aria-hidden="true">↗</span></a></aside>
+
+<script>
+(() => {
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const mobile = matchMedia('(max-width: 899px)').matches;
+  const $ = (s) => document.querySelector(s), $$ = (s) => [...document.querySelectorAll(s)];
+  const track = (event, p) => { (window.dataLayer = window.dataLayer || []).push(Object.assign({ event }, p || {})); if (typeof window.gtag === 'function') window.gtag('event', event, p || {}); };
+  const loadScript = (src) => new Promise((res, rej) => { const s = document.createElement('script'); s.src = src; s.async = true; s.onload = res; s.onerror = rej; document.head.append(s); });
+  const afterLoad = (fn) => { const go = () => (window.requestIdleCallback ? requestIdleCallback(fn, { timeout: 1500 }) : setTimeout(fn, 200)); document.readyState === 'complete' ? go() : addEventListener('load', go, { once: true }); };
+
+  /* smooth scroll on desktop */
+  let lenis = null;
+  if (!RM && fine) afterLoad(() => loadScript('/assets/js/lenis.min.js').then(() => {
+    lenis = new Lenis({ lerp: 0.11, smoothWheel: true });
+    const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); }; requestAnimationFrame(raf);
+  }).catch(() => {}));
+  $$('a[href^="#"]').forEach((a) => a.addEventListener('click', (e) => {
+    const id = a.getAttribute('href'); const el = id.length > 1 ? document.querySelector(id) : document.body; if (!el) return;
+    e.preventDefault();
+    if (lenis) lenis.scrollTo(el, { offset: -80 }); else el.scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block: 'start' });
+  }));
+
+  /* hero: camera push-in and tiles parallax, locked to scroll */
+  const hero = $('#hero'), heroImg = $('#heroImg'), heroCopy = $('#heroCopy'), tiles = $$('#heroTiles .glass');
+  const dock = $('#dock'), contact = $('#zgloszenie');
+  let ticking = false;
+  const onScroll = () => {
+    ticking = false;
+    const r = hero.getBoundingClientRect(), run = Math.max(1, r.height - innerHeight), p = Math.min(1, Math.max(0, -r.top / run));
+    if (!RM) {
+      heroImg.style.transform = `scale(${(1.04 + p * 0.22).toFixed(4)}) translateY(${(p * -3).toFixed(2)}%)`;
+      heroCopy.style.transform = `translateY(${(-p * 8).toFixed(2)}%)`; heroCopy.style.opacity = Math.max(0, 1 - p * 1.6).toFixed(3);
+      tiles.forEach((t) => { t.style.translate = `0 ${(-p * 120 * +t.dataset.depth).toFixed(1)}px`; t.style.opacity = Math.max(0, 1 - p * 1.4).toFixed(3); });
+    }
+    const cTop = contact.getBoundingClientRect().top;
+    dock.classList.toggle('is-on', scrollY > innerHeight * 0.8 && cTop > innerHeight * 0.5);
+    engineStep();
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+
+  /* engine: pinned steps */
+  const engine = $('#hazeo-engine'), steps = $$('#steps .step'), visual = $('#engineVisual'), cap = $('#engineCap');
+  let cur = 0;
+  function engineStep() {
+    if (mobile || RM) return;
+    const r = engine.getBoundingClientRect(), run = r.height - innerHeight, p = Math.min(0.999, Math.max(0, -r.top / run));
+    visual.style.setProperty('--ep', p.toFixed(3));
+    const i = Math.floor(p * steps.length);
+    if (i !== cur) {
+      cur = i; steps.forEach((s, k) => s.classList.toggle('is-on', k === i));
+      cap.innerHTML = ''; const b = document.createElement('b'); b.textContent = `Krok ${i + 1} z ${steps.length}`;
+      cap.append(b, ' · ' + steps[i].querySelector('b').textContent.replace(/\.$/, ''));
+    }
+  }
+  if (mobile || RM) steps.forEach((s) => s.classList.add('is-on'));
+  onScroll();
+
+  /* glass: pointer specular + gentle tilt */
+  if (fine && !RM) $$('.glass').forEach((g) => {
+    const tilt = g.classList.contains('tilt');
+    g.addEventListener('pointermove', (e) => {
+      const r = g.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      g.style.setProperty('--mx', (x * 100).toFixed(1) + '%'); g.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+      if (tilt) { g.classList.add('is-moving'); g.style.setProperty('--ry', ((x - 0.5) * 7).toFixed(2) + 'deg'); g.style.setProperty('--rx', ((0.5 - y) * 7).toFixed(2) + 'deg'); }
+    });
+    if (tilt) g.addEventListener('pointerleave', () => { g.classList.remove('is-moving'); g.style.setProperty('--rx', '0deg'); g.style.setProperty('--ry', '0deg'); });
+  });
+
+  /* reveals: only below the fold, once */
+  if (!RM && 'IntersectionObserver' in window) {
+    const els = $$('[data-reveal]').filter((el) => el.getBoundingClientRect().top > innerHeight * 0.95);
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); e.target.classList.remove('is-below'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    els.forEach((el) => { el.classList.add('is-below'); io.observe(el); });
+  }
+
+  /* models toggle */
+  const M = {
+    b2b: { who: 'Firmy, dystrybutorzy, producenci, usługi profesjonalne', name: 'B2B Acquisition Engine', desc: 'System wyszukuje potencjalnych klientów, ocenia ich dopasowanie do oferty i pomaga prowadzić spersonalizowany proces sprzedaży.', bill: 'Wdrożenie systemu i abonament za obsługę oraz optymalizację. Opcjonalnie premie za jasno zdefiniowane wyniki.' },
+    b2c: { who: 'Marki konsumenckie, e-commerce, usługi i lokalne biznesy', name: 'B2C Growth Engine', desc: 'System pozyskuje popyt, zwiększa konwersję i pomaga utrzymywać klientów, żeby wracali po kolejne zakupy.', bill: 'Miesięczna obsługa wzrostu, osobny budżet mediowy i wdrożenia automatyzacji.' },
+  };
+  const tabs = [$('#tab-b2b'), $('#tab-b2c')], card = $('#model-card');
+  const pick = (k, focus) => {
+    tabs.forEach((t) => { const on = t.id === 'tab-' + k; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; if (on && focus) t.focus(); });
+    card.setAttribute('aria-labelledby', 'tab-' + k);
+    $('#m-who').textContent = M[k].who; $('#m-name').textContent = M[k].name; $('#m-desc').textContent = M[k].desc; $('#m-bill').textContent = M[k].bill;
+    $('#img-b2b').hidden = k !== 'b2b'; $('#img-b2c').hidden = k !== 'b2c';
+    card.classList.remove('swap'); void card.offsetWidth; card.classList.add('swap');
+  };
+  tabs.forEach((t, i) => { t.addEventListener('click', () => pick(i ? 'b2c' : 'b2b')); t.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); pick(i ? 'b2b' : 'b2c', true); } }); });
+
+  /* ---------- lead form ---------- */
+  const f = $('#lead'), s1 = $('#step1'), s2 = $('#step2'), done = $('#done'), label = $('#stepLabel'), bar = $('#progress');
+  $$('[data-pack]').forEach((a) => a.addEventListener('click', () => { const r = f.querySelector(`input[name=pack][value="${a.dataset.pack}"]`); if (r) r.checked = true; track('cta_click', { location: 'pricing', pack: a.dataset.pack }); }));
+  $$('[data-cta]').forEach((a) => a.addEventListener('click', () => track('cta_click', { location: a.dataset.cta })));
+  const go2 = () => { s1.hidden = true; s2.hidden = false; label.textContent = 'Krok 2 z 2'; bar.style.width = '100%'; $('#f-name').focus(); track('form_step_1', { goal: f.goal.value, model: f.model.value, pack: f.pack.value }); };
+  $('#next').addEventListener('click', go2);
+  $('#back').addEventListener('click', () => { s2.hidden = true; s1.hidden = false; label.textContent = 'Krok 1 z 2'; bar.style.width = '50%'; });
+
+  let dbP = null, userP = null;
+  const getDb = () => (dbP ||= (window.claude?.use ? window.claude.use('db').catch(() => null) : Promise.resolve(null)));
+  const getUser = () => (userP ||= (window.claude?.use ? window.claude.use('user').catch(() => null) : Promise.resolve(null)));
+
+  const saveToDb = async (lead) => {
+    const [db, user] = await Promise.all([getDb(), getUser()]);
+    if (!db || !user) return false;
+    const id = await user.id(); if (!id) return false;
+    const ref = db.doc('leads/' + id);
+    const snap = await ref.get();
+    const entries = snap.exists && Array.isArray(snap.data().entries) ? snap.data().entries.slice(-49) : [];
+    entries.push(lead);
+    await ref.set({ entries, updatedAt: lead.at });
+    return true;
+  };
+  const saveToEndpoint = async (lead) => {
+    const url = f.dataset.endpoint; if (!url) return false;
+    const body = {
+      _subject: 'Zgłoszenie ze strony: ' + lead.goal + ' – ' + lead.company, _template: 'table', _captcha: 'false', _honey: lead.website || '', _replyto: lead.email,
+      'Imię i nazwisko': lead.name, 'E-mail': lead.email, 'Firma / www': lead.company, 'Telefon': lead.phone || '-',
+      'Cel': lead.goal, 'Obszar': lead.areas.join(', '), 'Model': lead.model, 'Pakiet': lead.pack, 'Zgoda RODO': 'tak', 'Strona': lead.page,
+    };
+    const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 12000);
+    const r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(body), signal: ctl.signal });
+    clearTimeout(t);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const j = await r.json().catch(() => ({}));
+    if (String(j.success) !== 'true') throw new Error(j.message || 'not sent');
+    return true;
+  };
+
+  f.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = $('#f-name'), mail = $('#f-mail'), co = $('#f-co'), ok = $('#f-ok');
+    const bad = [!name.value.trim() && name, !(mail.value && mail.checkValidity()) && mail, !co.value.trim() && co].filter(Boolean);
+    [name, mail, co].forEach((el) => el.setAttribute('aria-invalid', bad.includes(el) ? 'true' : 'false'));
+    const valid = !bad.length && ok.checked;
+    $('#err').hidden = valid; if (!valid) { (bad[0] || ok).focus(); return; }
+    if ($('#f-web').value) { s2.hidden = true; label.textContent = 'Wysłane'; done.hidden = false; done.innerHTML = '<b>Dziękujemy. Zgłoszenie dotarło.</b>'; return; }
+    const lead = {
+      at: new Date().toISOString(), name: name.value.trim(), email: mail.value.trim(), company: co.value.trim(), phone: $('#f-tel').value.trim(),
+      goal: f.goal.value, areas: [...f.querySelectorAll('input[name=area]:checked')].map((i) => i.value), model: f.model.value, pack: f.pack.value, consent: true, page: location.href.split('#')[0], website: $('#f-web').value,
+    };
+    const btn = $('#send'); btn.disabled = true; btn.firstChild.textContent = 'Wysyłam… ';
+    let stored = false, failed = false;
+    try { stored = (await saveToEndpoint(lead)) || stored; } catch (_) { failed = true; }
+    try { stored = (await saveToDb(lead)) || stored; } catch (_) { failed = true; }
+    btn.disabled = false; btn.firstChild.textContent = 'Wyślij zgłoszenie ';
+    s2.hidden = true; label.textContent = 'Wysłane'; done.hidden = false; done.innerHTML = '';
+    const b = document.createElement('b'), p = document.createElement('p');
+    if (stored) { b.textContent = 'Dziękujemy. Zgłoszenie dotarło.'; p.textContent = 'Odezwiemy się, żeby umówić rozmowę.'; track('generate_lead', { goal: lead.goal, model: lead.model, pack: lead.pack }); }
+    else {
+      b.textContent = failed ? 'Nie udało się wysłać zgłoszenia.' : 'Zgłoszenie gotowe do wysłania.';
+      p.textContent = 'Otwieramy wiadomość e-mail z Twoimi danymi. Jeśli się nie otworzyła, napisz na michalmalek@hazeo.pl.';
+      const body = `Imię i nazwisko: ${lead.name}\nE-mail: ${lead.email}\nFirma: ${lead.company}\nTelefon: ${lead.phone || '-'}\nCel: ${lead.goal}\nObszar: ${lead.areas.join(', ')}\nModel: ${lead.model}\nPakiet: ${lead.pack}`;
+      setTimeout(() => { location.href = 'mailto:michalmalek@hazeo.pl?subject=' + encodeURIComponent('Zgłoszenie: ' + lead.goal) + '&body=' + encodeURIComponent(body); }, 300);
+    }
+    done.append(b, p); done.focus();
+  });
+
+  /* owner inbox: live list of submissions, only for owner/editors */
+  (async () => {
+    const [db, user] = await Promise.all([getDb(), getUser()]);
+    if (!db || !user) return;
+    let canSee = false; try { canSee = user.isOwner() || user.canEdit(); } catch (_) {}
+    if (!canSee) return;
+    const box = $('#inbox'), rows = $('#inboxRows'), empty = $('#inboxEmpty'), meta = $('#inboxMeta');
+    box.hidden = false;
+    const timer = setTimeout(() => { meta.textContent = 'Nie udało się jeszcze połączyć z bazą zgłoszeń.'; }, 10000);
+    db.collection('leads').onSnapshot((snap) => {
+      if (!snap.metadata.fromCache) clearTimeout(timer);
+      const all = [];
+      snap.docs.forEach((d) => { const v = d.data(); (v && Array.isArray(v.entries) ? v.entries : []).forEach((x) => all.push(x)); });
+      all.sort((a, b) => String(b.at).localeCompare(String(a.at)));
+      rows.textContent = ''; empty.hidden = all.length > 0;
+      meta.textContent = `${all.length} ${all.length === 1 ? 'zgłoszenie' : 'zgłoszeń'} · widoczne tylko dla właściciela i edytorów`;
+      all.forEach((x) => {
+        const tr = document.createElement('tr');
+        const cells = [new Date(x.at).toLocaleString('pl-PL', { dateStyle: 'short', timeStyle: 'short' }), x.name, x.company, [x.email, x.phone].filter(Boolean).join(' · '), [x.goal, (x.areas || []).join(', ')].filter(Boolean).join(' / '), x.model, x.pack];
+        cells.forEach((c) => { const td = document.createElement('td'); td.textContent = c || ''; tr.append(td); });
+        rows.append(tr);
+      });
+    }, () => { clearTimeout(timer); meta.textContent = 'Lista zgłoszeń jest teraz niedostępna.'; });
+  })();
+
+  /* copy address */
+  const cp = $('#copy');
+  cp.addEventListener('click', () => {
+    const ok = () => { cp.textContent = 'Skopiowano'; setTimeout(() => (cp.textContent = 'Kopiuj adres'), 1800); };
+    const fb = () => { const s = getSelection(), r = document.createRange(); r.selectNodeContents($('#addr')); s.removeAllRanges(); s.addRange(r); cp.textContent = 'Zaznaczono, skopiuj'; };
+    try { navigator.clipboard.writeText('michalmalek@hazeo.pl').then(ok, fb); } catch (_) { fb(); }
+  });
+})();
+</script>
+
+<script>document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest('a[href="#rodo"]');if(!a)return;var d=document.getElementById("rodo");if(d){d.open=true;}},true);</script>
+<script src="/consent.js" defer></script>
+</body>
+</html>

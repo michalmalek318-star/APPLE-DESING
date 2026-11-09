@@ -1,5 +1,8 @@
-"""Builds the hosted site (dist/ and ../docs/) from the artifact source in v2-nieruchomosci/
-plus the shared files in site/ (consent banner, privacy policy, self-hosted fonts and scripts)."""
+"""Builds the hosted site (dist/ and ../docs/):
+- /              Hazeo Engine (PL), source: v4-hazeo-engine/ (ready HTML + assets, copied as is)
+- /real-estate/  Hazeo Engine Real Estate (EN/PL), source: v2-nieruchomosci/index.html
+- shared files from site/ (consent banner, privacy policy, self-hosted fonts and scripts)
+- sitemap.xml, robots.txt, llms.txt"""
 import os
 import re
 import shutil
@@ -44,27 +47,49 @@ head = '''<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#05101A">
 <meta name="robots" content="index,follow">
-<link rel="canonical" href="https://hazeo.pl/">
+<link rel="canonical" href="https://hazeo.pl/real-estate/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Hazeo">
 <meta property="og:title" content="Hazeo Engine: an AI deal agent for real estate">
 <meta property="og:description" content="Answers foreign investors in their language 24/7, qualifies them and books the call in your broker's calendar.">
-<meta property="og:url" content="https://hazeo.pl/">
+<meta property="og:url" content="https://hazeo.pl/real-estate/">
 <meta property="og:image" content="https://hazeo.pl/assets/villa-poster.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0}img{max-width:100%}</style>
 '''
 j = s.index('</style>', s.index('<style>')) + len('</style>')
 out = head + s[:j] + '\n</head>\n<body>\n' + s[j:] + '\n<script src="/consent.js" defer></script>\n</body>\n</html>\n'
+# the real-estate page lives under /real-estate/, so its relative asset paths become absolute
+out = re.sub(r'(?<![\w/.:-])assets/', '/assets/', out)
+
+V4 = os.path.join(HERE, 'v4-hazeo-engine')
+home = open(os.path.join(V4, 'index.html'), encoding='utf-8').read()
+assert 'jsdelivr' not in home and 'googleapis' not in home
+
+SITEMAP = '''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://hazeo.pl/</loc></url>
+  <url><loc>https://hazeo.pl/real-estate/</loc></url>
+  <url><loc>https://hazeo.pl/producenci/</loc></url>
+  <url><loc>https://hazeo.pl/polityka-prywatnosci.html</loc></url>
+</urlset>
+'''
+ROBOTS = 'User-agent: *\nAllow: /\nSitemap: https://hazeo.pl/sitemap.xml\n'
 
 for d in OUT_DIRS:
     root = os.path.join(HERE, d)
-    open(os.path.join(root, 'index.html'), 'w', encoding='utf-8').write(out)
+    os.makedirs(os.path.join(root, 'real-estate'), exist_ok=True)
+    open(os.path.join(root, 'real-estate', 'index.html'), 'w', encoding='utf-8').write(out)
+    open(os.path.join(root, 'index.html'), 'w', encoding='utf-8').write(home)
+    shutil.copytree(os.path.join(V4, 'assets'), os.path.join(root, 'assets'), dirs_exist_ok=True)
+    shutil.copy(os.path.join(V4, 'llms.txt'), root)
+    open(os.path.join(root, 'sitemap.xml'), 'w', encoding='utf-8').write(SITEMAP)
+    open(os.path.join(root, 'robots.txt'), 'w', encoding='utf-8').write(ROBOTS)
     # shared files: consent banner, privacy policy, fonts, scripts
     shutil.copy(os.path.join(HERE, 'site/consent.js'), root)
     shutil.copy(os.path.join(HERE, 'site/polityka-prywatnosci.html'), root)
     for sub in ('css', 'fonts', 'js'):
         shutil.copytree(os.path.join(HERE, 'site/assets', sub), os.path.join(root, 'assets', sub), dirs_exist_ok=True)
-print('built', len(out))
+print('built home', len(home), '| real-estate', len(out))
