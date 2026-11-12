@@ -19,8 +19,8 @@
 <meta name="theme-color" content="#111217">
 <link rel="icon" type="image/png" href="/assets/hazeo-logo.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preload" as="image" href="/assets/hazeo-hero.webp" media="(min-width:900px)">
-<link rel="preload" as="image" href="/assets/hazeo-hero-mobile.webp" media="(max-width:899px)">
+<link rel="preload" as="image" href="/assets/hazeo-city.webp" imagesrcset="/assets/hazeo-city-1280.webp 1280w, /assets/hazeo-city.webp 2400w" imagesizes="100vw" media="(min-width:900px), (orientation:landscape)">
+<link rel="preload" as="image" href="/assets/hazeo-city-mobile.webp" imagesrcset="/assets/hazeo-city-mobile-540.webp 540w, /assets/hazeo-city-mobile.webp 1080w" imagesizes="100vw" media="(max-width:899px) and (orientation:portrait)">
 <link rel="preload" href="/assets/fonts/geist-variable.woff2" as="font" type="font/woff2" crossorigin>
 <style>@font-face{font-family:"Geist";src:url("/assets/fonts/geist-variable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}</style>
 <script>document.documentElement.classList.add('js')</script>
@@ -120,12 +120,10 @@ main,footer,header{position:relative;z-index:2}
 /* ---------- hero ---------- */
 .hero{position:relative;height:150svh}
 .hero__stage{position:sticky;top:0;height:100svh;overflow:clip}
-.hero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 50%;transform-origin:68% 45%;will-change:transform}
-.hero__beam{position:absolute;inset:-20% -40%;pointer-events:none;mix-blend-mode:screen;opacity:.55;
-  background:linear-gradient(115deg,transparent 42%,rgba(239,35,60,.0) 46%,rgba(239,35,60,.35) 50%,rgba(255,120,135,.12) 52%,transparent 58%)}
-@media (prefers-reduced-motion:no-preference){.hero__beam{animation:beam 9s var(--ease-in-out) infinite}}
-@keyframes beam{0%{transform:translateX(-30%)}55%{transform:translateX(30%)}100%{transform:translateX(30%)}}
-.hero__shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(17,18,23,.92) 0%,rgba(17,18,23,.65) 34%,rgba(17,18,23,0) 62%),linear-gradient(0deg,rgba(17,18,23,.85),rgba(17,18,23,0) 30%)}
+.hero__media{position:absolute;inset:0;transform-origin:72% 45%;will-change:transform}
+.hero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:72% 50%}
+.hero__video{opacity:0;transition:opacity 1.2s var(--ease-out)}.hero__video.is-on{opacity:1}
+.hero__shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(17,18,23,.95) 0%,rgba(17,18,23,.8) 40%,rgba(17,18,23,.25) 58%,rgba(17,18,23,0) 72%),linear-gradient(0deg,rgba(17,18,23,.85),rgba(17,18,23,0) 30%)}
 .hero__copy{position:absolute;left:0;right:0;bottom:0;padding-bottom:clamp(2.25rem,8svh,6rem)}
 .hero h1{display:grid;gap:clamp(0.875rem,2svh,1.5rem)}
 .hero .kick{font-size:clamp(0.9375rem,1.2vw,1.125rem);font-weight:500;letter-spacing:0;line-height:1.4;color:var(--ice-2);display:flex;align-items:center;gap:0.75rem}
@@ -137,21 +135,19 @@ main,footer,header{position:relative;z-index:2}
 .hero .actions{margin-top:clamp(1.375rem,3.5svh,2.25rem);display:flex;flex-wrap:wrap;gap:0.75rem}
 .hero .fine{margin-top:1rem;font-size:0.875rem;color:var(--ice-3)}
 @media (max-width:599px){
-  .hero__img{top:-72px;height:calc(100% + 4.5rem)}
   .hero__shade{background:linear-gradient(0deg,rgba(17,18,23,.97) 0%,rgba(17,18,23,.88) 44%,rgba(17,18,23,.3) 60%,rgba(17,18,23,0) 72%)}
-  .hero__beam{opacity:.3}
   .hero .lede{font-size:1.0625rem;line-height:1.5}
   .hero .actions{flex-wrap:nowrap;gap:0.625rem}
   .hero .actions .btn{flex:1 1 0;min-width:0;padding:0 0.875rem;gap:0.5rem;font-size:0.9375rem;min-height:3.25rem;white-space:nowrap}
   .hero .fine{font-size:0.8125rem;color:var(--ice-2);opacity:.8}
 }
-@media (max-width:599px) and (max-height:740px){.hero__img{top:-124px;height:calc(100% + 7.75rem)}}
 .hero__tiles{position:absolute;right:var(--margin-r);top:22svh;display:grid;gap:0.75rem;width:min(18.75rem,26vw)}
 .hero__tiles .glass{padding:1rem 1.125rem;font-size:0.9375rem;line-height:1.35}
 .hero__tiles strong{display:block;font-size:1.375rem;font-weight:600;letter-spacing:-.03em;margin-bottom:2px}
+@media (max-width:899px) and (orientation:portrait){.hero__img{object-position:50% 0}}
 @media (max-width:899px){
   .hero{height:130svh}
-  .hero__img{object-position:50% 30%;transform-origin:50% 35%}
+  .hero__media{transform-origin:50% 30%}
   .hero__shade{background:linear-gradient(0deg,rgba(17,18,23,.96) 0%,rgba(17,18,23,.8) 40%,rgba(17,18,23,0) 70%)}
   .hero__tiles{display:none}
 }
@@ -194,7 +190,8 @@ main,footer,header{position:relative;z-index:2}
 .engine__tag{margin-top:1.125rem;font-size:0.9375rem;color:var(--ice-2)}
 .engine__tag b{color:var(--red);font-weight:600}
 .engine__visual{grid-column:7/span 6;position:relative;aspect-ratio:4/3;border-radius:1.75rem;overflow:hidden}
-.engine__visual img{width:100%;height:100%;object-fit:cover;transform:scale(calc(1.12 - var(--ep,0) * .12));transition:transform 200ms linear}
+.engine__visual img,.engine__video{width:100%;height:100%;object-fit:cover;transform:scale(calc(1.12 - var(--ep,0) * .12));transition:transform 200ms linear,opacity 1s var(--ease-out)}
+.engine__video{position:absolute;inset:0;opacity:0}.engine__video.is-on{opacity:1}
 .engine__visual .glass{position:absolute;left:1.125rem;bottom:1.125rem;padding:0.75rem 1rem;font-size:0.875rem}
 .engine__visual .glass b{color:var(--red)}
 .engine__rail{position:absolute;left:0;top:0;bottom:0;width:0.1875rem;background:rgba(223,229,235,.1)}
@@ -398,7 +395,7 @@ html{font-size:16px}
   .hero__tiles{display:none}
 }
 @media (min-width:900px){.faq h2{grid-column:1/span 5;padding-right:var(--gutter)}}
-@media (min-aspect-ratio:2/1) and (min-width:900px){.hero__img{left:auto;right:0;width:calc(100svh * 16 / 9)}}
+@media (min-aspect-ratio:2/1) and (min-width:900px){.hero__media{left:auto;right:0;width:calc(100svh * 16 / 9)}}
 @media (min-width:900px) and (max-height:820px){.engine__text h2{font-size:min(clamp(1.875rem,3.3vw,3.375rem),6.2svh)}.engine__text .lede{font-size:1rem;margin-top:.75rem}.steps{margin-top:1rem}.step{padding:.625rem .875rem}}
 @media (min-width:900px) and (max-height:680px){.engine{height:auto}.engine__stage{position:static;height:auto;padding-block:6rem}.step{opacity:1}.step span{max-height:none;margin-top:.375rem}.step::before{background:var(--red);color:var(--obsidian)}}
 @media (min-width:900px){.hero .lede{max-width:40ch}}
@@ -448,8 +445,9 @@ img{max-width:100%;height:auto}
 <main id="top">
   <section class="hero" id="hero" aria-labelledby="h1">
     <div class="hero__stage">
-      <picture><source media="(max-width:899px)" width="1080" height="1920" srcset="/assets/hazeo-hero-mobile-540.webp 540w, /assets/hazeo-hero-mobile.webp 1080w" sizes="100vw"><img class="hero__img" id="heroImg" width="2400" height="1350" src="/assets/hazeo-hero.webp" srcset="/assets/hazeo-hero-1280.webp 1280w, /assets/hazeo-hero.webp 2400w" sizes="100vw" alt="Szklany monogram HAZEO z czerwonymi elementami na tle smugi czerwonego światła" fetchpriority="high"></picture>
-      <div class="hero__beam" aria-hidden="true"></div>
+      <div class="hero__media" id="heroMedia">
+        <picture><source media="(max-width:899px) and (orientation:portrait)" width="1080" height="1910" srcset="/assets/hazeo-city-mobile-540.webp 540w, /assets/hazeo-city-mobile.webp 1080w" sizes="100vw"><img class="hero__img" id="heroImg" width="2400" height="1357" src="/assets/hazeo-city.webp" srcset="/assets/hazeo-city-1280.webp 1280w, /assets/hazeo-city.webp 2400w" sizes="100vw" alt="Nocne miasto z góry: czerwone smugi światła płyną ulicami do jednego szklanego wieżowca" fetchpriority="high"></picture>
+      </div>
       <div class="hero__shade" aria-hidden="true"></div>
       <div class="hero__tiles" aria-hidden="true" id="heroTiles">
         <div class="glass tilt" data-depth="0.6"><strong>B2B i B2C</strong>Dwa silniki, jeden zespół</div>
@@ -512,7 +510,7 @@ img{max-width:100%;height:auto}
           <p class="engine__tag"><b>Człowiek zatwierdza.</b> AI przyspiesza.</p>
         </div>
         <figure class="engine__visual glass" id="engineVisual">
-          <img width="1600" height="1200" src="/assets/hazeo-engine.webp" srcset="/assets/hazeo-engine-800.webp 800w, /assets/hazeo-engine.webp 1600w" sizes="(max-width:899px) 100vw, 45vw" alt="Szklane kafle płynące do jednego czerwonego bloku: wiele leadów, jeden kwalifikowany wynik" loading="lazy">
+          <img width="1600" height="1200" src="/assets/hazeo-engine.webp" srcset="/assets/hazeo-engine-800.webp 800w, /assets/hazeo-engine.webp 1600w" sizes="(max-width:899px) 100vw, 45vw" alt="Szklany silnik z czerwonym rdzeniem: wiele czerwonych smug wpada do środka, wychodzi jeden promień – wiele leadów, jeden kwalifikowany wynik" loading="lazy">
           <div class="engine__rail" aria-hidden="true"><i></i></div>
           <figcaption class="glass" id="engineCap"><b>Krok 1 z 5</b> · Ustalamy cel</figcaption>
         </figure>
@@ -769,8 +767,51 @@ img{max-width:100%;height:auto}
     if (lenis) lenis.scrollTo(el, { offset: -80 }); else el.scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block: 'start' });
   }));
 
+
+  /* hero video: loads after the page, only where it makes sense */
+  (() => {
+    const v = $('#heroVideo'); if (!v) return;
+    const conn = navigator.connection || {};
+    if (RM || conn.saveData || /(^|-)2g$/.test(conn.effectiveType || '')) return;
+    const mq = matchMedia('(max-width:899px)');
+    let started = false, visible = true;
+    const pick = () => (mq.matches ? v.dataset.mobile : v.dataset.desktop);
+    const load = () => {
+      if (started) return; started = true;
+      const base = pick();
+      v.innerHTML = '<source src="' + base + '.webm" type="video/webm"><source src="' + base + '.mp4" type="video/mp4">';
+      v.load();
+      v.addEventListener('playing', () => v.classList.add('is-on'), { once: true });
+      v.addEventListener('error', () => v.remove(), true);
+      if (visible && !document.hidden) v.play().catch(() => {});
+    };
+    const go = () => ('requestIdleCallback' in window ? requestIdleCallback(load, { timeout: 2500 }) : setTimeout(load, 1200));
+    if (document.readyState === 'complete') go(); else addEventListener('load', go, { once: true });
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (!started) return; visible && !document.hidden ? v.play().catch(() => {}) : v.pause(); }).observe($('#hero'));
+    document.addEventListener('visibilitychange', () => { if (!started) return; document.hidden || !visible ? v.pause() : v.play().catch(() => {}); });
+  })();
+
+
+  /* engine video: starts when the section comes near, pauses when it leaves */
+  (() => {
+    const v = $('#engineVideo'); if (!v) return;
+    const conn = navigator.connection || {};
+    if (RM || conn.saveData || /(^|-)2g$/.test(conn.effectiveType || '')) return;
+    let started = false;
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !started) {
+        started = true; const b = v.dataset.src;
+        v.innerHTML = '<source src="' + b + '.webm" type="video/webm"><source src="' + b + '.mp4" type="video/mp4">';
+        v.addEventListener('playing', () => v.classList.add('is-on'), { once: true });
+        v.addEventListener('error', () => v.remove(), true);
+        v.load();
+      }
+      if (started) e.isIntersecting && !document.hidden ? v.play().catch(() => {}) : v.pause();
+    }, { rootMargin: '200px 0px' }).observe(v.parentElement);
+  })();
+
   /* hero: camera push-in and tiles parallax, locked to scroll */
-  const hero = $('#hero'), heroImg = $('#heroImg'), heroCopy = $('#heroCopy'), tiles = $$('#heroTiles .glass');
+  const hero = $('#hero'), heroImg = $('#heroMedia'), heroCopy = $('#heroCopy'), tiles = $$('#heroTiles .glass');
   const dock = $('#dock'), contact = $('#zgloszenie');
   let ticking = false;
   const onScroll = () => {
