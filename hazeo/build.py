@@ -90,6 +90,7 @@ for d in OUT_DIRS:
     # shared files: consent banner, privacy policy, fonts, scripts
     shutil.copy(os.path.join(HERE, 'site/consent.js'), root)
     shutil.copy(os.path.join(HERE, 'site/polityka-prywatnosci.html'), root)
+    shutil.copy(os.path.join(HERE, 'site/google7923b6e834cda6d3.html'), root)  # Google Search Console verification
     for sub in ('css', 'fonts', 'js'):
         shutil.copytree(os.path.join(HERE, 'site/assets', sub), os.path.join(root, 'assets', sub), dirs_exist_ok=True)
 print('built home', len(home), '| real-estate', len(out))
